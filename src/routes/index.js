@@ -12,7 +12,7 @@ const Register = React.lazy(() => import('../pages/auth/Register'));
 const ForgetPassword = React.lazy(() => import('../pages/auth/ForgetPassword'));
 const Confirm = React.lazy(() => import('../pages/auth/Confirm'));
 // dashboard
-// const Dashboard = React.lazy(() => import('../pages/dashboard'));
+const Dashboard = React.lazy(() => import('../pages/dashboard'));
 // apps
 const CalendarApp = React.lazy(() => import('../pages/apps/Calendar'));
 const EmailInbox = React.lazy(() => import('../pages/apps/Email/Inbox'));
@@ -92,7 +92,7 @@ const dashboardRoute = {
     name: 'Dashboard',
     header: 'Navigation',
     icon: FeatherIcon.Home,
-    component: Starter,
+    component: Dashboard,
     route: PrivateRoute
 };
 
