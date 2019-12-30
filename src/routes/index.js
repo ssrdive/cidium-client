@@ -54,6 +54,7 @@ const BasicTables = React.lazy(() => import('../pages/tables/Basic'));
 const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 
 const Contracts = React.lazy(() => import('../pages/contracts'));
+const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -93,7 +94,7 @@ const dashboardRoute = {
     header: 'Navigation',
     icon: FeatherIcon.Home,
     component: Dashboard,
-    route: PrivateRoute
+    route: PrivateRoute,
 };
 
 // contracts
@@ -102,8 +103,17 @@ const contractsRoute = {
     name: 'Contracts',
     icon: FeatherIcon.FileMinus,
     component: Contracts,
+    exact: true,
+    route: PrivateRoute,
+};
+
+const contractsSubRoutes = [{
+    path: '/contracts/search',
+    name: 'Search',
+    exact: true,
+    component: ContractSearch,
     route: PrivateRoute
-}
+}];
 
 // requests
 const requestsRoute = {
@@ -111,8 +121,8 @@ const requestsRoute = {
     name: 'Requests',
     icon: FeatherIcon.GitPullRequest,
     component: Starter,
-    route: PrivateRoute
-}
+    route: PrivateRoute,
+};
 
 // payments
 const paymentsRoute = {
@@ -120,8 +130,8 @@ const paymentsRoute = {
     name: 'Payments',
     icon: FeatherIcon.DollarSign,
     component: Starter,
-    route: PrivateRoute
-}
+    route: PrivateRoute,
+};
 
 // loan-calculator
 const loanCalculatorRoute = {
@@ -129,8 +139,8 @@ const loanCalculatorRoute = {
     name: 'Loan Calculator',
     icon: FeatherIcon.Percent,
     component: Starter,
-    route: PrivateRoute
-}
+    route: PrivateRoute,
+};
 
 // dashboards
 // const dashboardRoutes = {
@@ -185,7 +195,7 @@ const emailAppRoutes = {
             route: PrivateRoute,
             roles: ['Admin'],
         },
-    ]
+    ],
 };
 
 const projectAppRoutes = {
@@ -207,7 +217,7 @@ const projectAppRoutes = {
             route: PrivateRoute,
             roles: ['Admin'],
         },
-    ]
+    ],
 };
 
 const taskAppRoutes = {
@@ -233,8 +243,6 @@ const taskAppRoutes = {
 };
 
 const appRoutes = [calendarAppRoutes, emailAppRoutes, projectAppRoutes, taskAppRoutes];
-
-
 
 // pages
 const pagesRoutes = {
@@ -282,17 +290,16 @@ const pagesRoutes = {
             path: '/pages/error-404',
             name: 'Error 404',
             component: Error404,
-            route: Route
+            route: Route,
         },
         {
             path: '/pages/error-500',
             name: 'Error 500',
             component: Error500,
-            route: Route
+            route: Route,
         },
-    ]
+    ],
 };
-
 
 // components
 const componentsRoutes = {
@@ -326,7 +333,7 @@ const componentsRoutes = {
                     route: PrivateRoute,
                     roles: ['Admin'],
                 },
-            ]
+            ],
         },
         {
             path: '/ui/widgets',
@@ -335,8 +342,7 @@ const componentsRoutes = {
             route: PrivateRoute,
             roles: ['Admin'],
         },
-
-    ]
+    ],
 };
 
 // charts
@@ -346,9 +352,8 @@ const chartRoutes = {
     component: Charts,
     icon: FeatherIcon.PieChart,
     roles: ['Admin'],
-    route: PrivateRoute
-}
-
+    route: PrivateRoute,
+};
 
 // forms
 const formsRoutes = {
@@ -391,10 +396,9 @@ const formsRoutes = {
             name: 'File Upload',
             component: FileUpload,
             route: PrivateRoute,
-        }
-    ]
+        },
+    ],
 };
-
 
 const tableRoutes = {
     path: '/tables',
@@ -412,9 +416,9 @@ const tableRoutes = {
             name: 'Advanced',
             component: AdvancedTables,
             route: PrivateRoute,
-        }]
+        },
+    ],
 };
-
 
 // auth
 const authRoutes = {
@@ -474,6 +478,7 @@ const allRoutes = [
     rootRoute,
     dashboardRoute,
     contractsRoute,
+    ...contractsSubRoutes,
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,
@@ -487,6 +492,18 @@ const allRoutes = [
     authRoutes,
 ];
 
-const authProtectedRoutes = [dashboardRoute, contractsRoute, requestsRoute, paymentsRoute, loanCalculatorRoute, ...appRoutes, pagesRoutes, componentsRoutes, chartRoutes, formsRoutes, tableRoutes];
+const authProtectedRoutes = [
+    dashboardRoute,
+    contractsRoute,
+    requestsRoute,
+    paymentsRoute,
+    loanCalculatorRoute,
+    ...appRoutes,
+    pagesRoutes,
+    componentsRoutes,
+    chartRoutes,
+    formsRoutes,
+    tableRoutes,
+];
 const allFlattenRoutes = flattenRoutes(allRoutes);
 export { allRoutes, authProtectedRoutes, allFlattenRoutes };

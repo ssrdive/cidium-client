@@ -127,9 +127,8 @@ class Login extends Component {
                                                 <div className="auth-page-sidebar">
                                                     <div className="overlay"></div>
                                                     <div className="auth-user-testimonial">
-                                                        <p className="font-size-24 font-weight-bold text-white mb-1">I simply love it!</p>
+                                                        <p className="font-size-24 font-weight-bold text-white mb-1">Financing the future</p>
                                                         <p className="lead">"It's a elegent templete. I love it very much!"</p>
-                                                        <p>- Admin User</p>
                                                     </div>
                                                 </div>
                                             </Col>
