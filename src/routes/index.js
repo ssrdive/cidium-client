@@ -55,6 +55,7 @@ const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 
 const Contracts = React.lazy(() => import('../pages/contracts'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
+const ContractWork = React.lazy(() => import('../pages/contracts/work'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -112,6 +113,12 @@ const contractsSubRoutes = [{
     name: 'Search',
     exact: true,
     component: ContractSearch,
+    route: PrivateRoute
+}, {
+    path: '/contracts/work/:id',
+    name: 'Work on Contract',
+    exact: true,
+    component: ContractWork,
     route: PrivateRoute
 }];
 
