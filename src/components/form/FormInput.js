@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'reactstrap';
 
-export default (props) => {
+export default props => {
     return (
         <>
             {props.type === 'select' ? (
@@ -25,5 +25,16 @@ export default (props) => {
                 />
             )}
         </>
+    );
+};
+
+export const FileInput = props => {
+    return (
+        <Input
+            type={props.type}
+            onChange={props.handleOnChange}
+            name={props.name}
+            required={props.required}
+        />
     );
 };

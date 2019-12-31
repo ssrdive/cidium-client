@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
 
-const Starter = ({location}) => {
+export default ({location}) => {
     const params = new URLSearchParams(location.search)
     const search = params.get("search")
     const state_id = params.get("state_id")
@@ -27,5 +27,3 @@ const Starter = ({location}) => {
         </React.Fragment>
     );
 };
-
-export default Starter;

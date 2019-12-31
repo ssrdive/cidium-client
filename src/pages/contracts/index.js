@@ -6,7 +6,7 @@ import Commitments from '../../components/contracts/Commitments';
 import ContractSearch from '../../components/contracts/ContractSearch';
 import NewContract from '../../components/contracts/NewContract';
 
-const Contracts = (props) => {
+export default (props) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -35,5 +35,3 @@ const Contracts = (props) => {
         </React.Fragment>
     );
 };
-
-export default Contracts;
