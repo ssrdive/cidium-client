@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
-
+import qs from 'qs';
+import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 
 export default ({location}) => {
     const params = new URLSearchParams(location.search)
     const search = params.get("search")
-    const state_id = params.get("state_id")
-    const recovery_officer = params.get("recovery_officer")
-    const batch_id = params.get("batch_id")
+    const state = params.get("state")
+    const officer = params.get("officer")
+    const batch = params.get("batch")
 
-    console.log(search, state_id, recovery_officer, batch_id)
+    useEffect(() => {
+        apiAuth.get(`/contract/search/hello/${state}/${officer}/${batch}`).then(res => {}).catch(err => {});
+    }, [])
+
     return (
         <React.Fragment>
             <Row className="page-title">

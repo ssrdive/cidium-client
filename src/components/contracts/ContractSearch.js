@@ -33,7 +33,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist()
         e.preventDefault()
-        history.push(`/contracts/search?search=${form.search.value}&state_id=${form.state_id.value}&recovery_officer=${form.recovery_officer.value}&batch_id=${form.batch_id.value}`)
+        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}`)
     }
 
     return (
