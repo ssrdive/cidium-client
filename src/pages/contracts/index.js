@@ -29,7 +29,7 @@ export default (props) => {
 
             <Row>
                 <Col>
-                    <NewContract />
+                    <NewContract history={props.history} />
                 </Col>
             </Row>
         </React.Fragment>

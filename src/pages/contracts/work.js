@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Badge, Col, Card, CardBody, Form, FormGroup, Label, Spinner, Button } from 'reactstrap';
+import { Alert, Row, Badge, Col, Card, CardBody, Form, FormGroup, Label, Spinner, Button } from 'reactstrap';
 import qs from 'qs';
 
 import { apiAuth } from '../../cidium-api';
@@ -7,6 +7,94 @@ import PageTitle from '../../components/PageTitle';
 import { TEXT_INPUT_REQUIRED, FILE_INPUT_REQUIRED } from '../../constants/formValues';
 import FormInput, { FileInput } from '../../components/form/FormInput';
 import { getLoggedInUser } from '../../helpers/authUtils';
+
+const ContractRequests = ({ requestability }) => {
+    return (
+        <Card>
+            <CardBody>
+                <h4 className="header-title mt-0">Requests</h4>
+                {requestability !== null ? (
+                    <RequestForm />
+                ) : null}
+            </CardBody>
+        </Card>
+    );
+};
+
+const ContractDetails = ({ id }) => {
+    const [details, setDetails] = useState(null);
+
+    const fetchDetails = async () => {
+        await apiAuth
+            .get(`/contract/details/${id}`)
+            .then(res => {
+                setDetails(prevDetails => res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        fetchDetails();
+    }, []);
+
+    return (
+        <Card>
+            <CardBody>
+                <h4 className="header-title mt-0">Contract Details</h4>
+
+                {details !== null ? (
+                    <>
+                        <Row>
+                            <Col md={12}>
+                                <Row>
+                                    <Col md={6}>
+                                        <h4>{details.customer_name}</h4>
+                                    </Col>
+                                    <Col md={3}>
+                                        <h4>{details.model_name}</h4>
+                                    </Col>
+                                    <Col md={3}>
+                                        <h4>{details.contract_batch}</h4>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Badge color="primary">Chassis Number</Badge> {details.chassis_number}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Customer NIC</Badge> {details.customer_nic}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Customer Address</Badge> {details.customer_address}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Customer Contact</Badge> {details.customer_contact}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Badge color="primary">Liaison Name</Badge> {details.liaison_name.String}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Liaison Contact</Badge> {details.liaison_contact.Int32}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Price</Badge> {details.price}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Downpayment</Badge> {details.downpayment.Int32}
+                            </Col>
+                        </Row>
+                    </>
+                ) : null}
+            </CardBody>
+        </Card>
+    );
+};
 
 const ContractStateQuestion = props => {
     const [loading, setLoading] = useState(false);
@@ -52,7 +140,7 @@ const ContractStateQuestion = props => {
                 {loading ? (
                     <Spinner className="m-2" type="grow" color="success" />
                 ) : (
-                    <Button color="success" type="submit">
+                    <Button size="sm" color="success" type="submit">
                         Add
                     </Button>
                 )}
@@ -116,7 +204,6 @@ const ContractStateDocument = props => {
 
     const handleOnChange = e => {
         e.persist();
-        console.log(e);
         setForm(prevForm => {
             const updatedForm = { ...prevForm, [e.target.name]: { ...prevForm[e.target.name] } };
             updatedForm[e.target.name].value = e.target.files[0];
@@ -136,7 +223,6 @@ const ContractStateDocument = props => {
         apiAuth
             .post('/contract/document', data)
             .then(res => {
-                console.log(res);
                 setLoading(prevLoading => false);
                 props.reloadDocuments();
             })
@@ -146,14 +232,14 @@ const ContractStateDocument = props => {
             });
     };
 
-    const SubmitComponent = () => {
+    const SubmitComponent = ({ color, name, onClick }) => {
         return (
             <>
                 {loading ? (
-                    <Spinner className="m-2" type="grow" color="success" />
+                    <Spinner className="m-2" type="grow" color={color} />
                 ) : (
-                    <Button color="success" type="submit">
-                        Add
+                    <Button size="sm" onClick={onClick} color={color} type="submit">
+                        {name}
                     </Button>
                 )}
             </>
@@ -161,9 +247,11 @@ const ContractStateDocument = props => {
     };
 
     const handleDownload = () => {
+        setLoading(prevLoading => true);
         apiAuth
             .get(
-                `contract/document/download?source=${props.source.String}&region=${props.s3region.String}&bucket=${props.s3bucket.String}`, {responseType: 'arraybuffer'}
+                `contract/document/download?source=${props.source.String}&region=${props.s3region.String}&bucket=${props.s3bucket.String}`,
+                { responseType: 'arraybuffer' }
             )
             .then(res => {
                 const fileURL = window.URL.createObjectURL(new Blob([res.data]));
@@ -173,9 +261,10 @@ const ContractStateDocument = props => {
                 document.body.appendChild(fileLink);
 
                 fileLink.click();
-                console.log(res);
+                setLoading(prevLoading => false);
             })
             .catch(err => {
+                setLoading(prevLoading => false);
                 console.log(err);
             });
     };
@@ -186,7 +275,7 @@ const ContractStateDocument = props => {
                 <Row>
                     <Col md={12}>
                         <Row>
-                            <Col md={4}>
+                            <Col md={6}>
                                 <Label for="question">{props.document_name}</Label>
                             </Col>
                             <Col md={2}>
@@ -194,10 +283,8 @@ const ContractStateDocument = props => {
                                     {props.source.String.substr(props.source.String.lastIndexOf('.') + 1).toUpperCase()}
                                 </Badge>
                             </Col>
-                            <Col md={6}>
-                                <Button onClick={handleDownload} color="primary" size="sm">
-                                    Download
-                                </Button>
+                            <Col md={4}>
+                                <SubmitComponent onClick={handleDownload} name="Download" color="primary" />
                             </Col>
                         </Row>
                     </Col>
@@ -223,7 +310,7 @@ const ContractStateDocument = props => {
                                         </FormGroup>
                                     </Col>
                                     <Col md={2}>
-                                        <SubmitComponent />
+                                        <SubmitComponent onClick={() => {}} color="success" name="Add" />
                                     </Col>
                                 </Row>
                             </Form>
@@ -281,7 +368,6 @@ const ContractStateDocuments = ({ id }) => {
         apiAuth
             .get(`/contract/work/documents/${id}`)
             .then(res => {
-                console.log(res);
                 setDocuments(oldDocuments => res.data);
             })
             .catch(err => {
@@ -312,6 +398,26 @@ const ContractStateDocuments = ({ id }) => {
 
 export default ({ match }) => {
     const id = match.params.id;
+    const [requestability, setRequestability] = useState();
+
+    const loadRequestability = async () => {
+        apiAuth
+            .get(`/contract/requestability/${id}`)
+            .then(res => {
+                setRequestability(prevRequestability => res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    useEffect(() => {
+        async function loadR() {
+            await loadRequestability();
+        }
+        loadR();
+    }, []);
+
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -323,6 +429,15 @@ export default ({ match }) => {
                         ]}
                         title={'Work in Contract'}
                     />
+                </Col>
+            </Row>
+
+            <Row>
+                <Col md={8}>
+                    <ContractDetails id={id} />
+                </Col>
+                <Col md={4}>
+                    <ContractRequests requestability={requestability} />
                 </Col>
             </Row>
 

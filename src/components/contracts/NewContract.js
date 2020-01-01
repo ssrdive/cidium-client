@@ -27,7 +27,7 @@ import {
     DROPDOWN_DEFAULT,
 } from '../../constants/formValues';
 
-const NewContract = () => {
+const NewContract = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
 
@@ -103,6 +103,9 @@ const NewContract = () => {
             .then(response => {
                 setLoading(prevLoading => false);
                 setSubmitStatus({ status: 'success', message: `Contract added with number ${response.data}` });
+                setTimeout(() => {
+                    history.push(`/contracts/work/${response.data}`);
+                }, 1000)
             })
             .catch(err => {
                 setLoading(prevLoading => false);
