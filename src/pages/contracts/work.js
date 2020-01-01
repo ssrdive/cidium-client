@@ -73,7 +73,7 @@ export default ({ match }) => {
                     <ContractDetails id={id} />
                 </Col>
                 <Col md={4}>
-                    <ContractRequestability requestability={requestability} />
+                    <ContractRequestability requestability={requestability} id={id} loadRequestability={loadRequestability} />
                 </Col>
             </Row>
 
