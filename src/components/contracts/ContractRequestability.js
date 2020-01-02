@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import qs from 'qs';
-import { Alert, Col, Card, CardBody, Form, FormGroup, Row } from 'reactstrap';
+import { Alert, Col, Card, CardBody, Form, FormGroup, Row, Table } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import FormInput from '../form/FormInput';
-import { TEXT_INPUT_REQUIRED, DROPDOWN_DEFAULT } from '../../constants/formValues';
+import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT } from '../../constants/formValues';
 import { getLoggedInUser } from '../../helpers/authUtils';
 
 import SubmitComponent from '../form/SubmitComponent';
@@ -13,11 +13,12 @@ export default ({ id, requestability, loadRequestability }) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         state_id: DROPDOWN_DEFAULT,
-        remarks: TEXT_INPUT_REQUIRED,
+        remarks: TEXT_INPUT_OPTIONAL,
     });
 
     useEffect(() => {
-        if (requestability.transitionalble) {
+        console.log(requestability);
+        if (requestability.transitionalble && requestability.states !== null) {
             setForm(prevForm => {
                 const updatedForm = { ...prevForm, state_id: { ...prevForm.state_id } };
                 updatedForm.state_id.value = requestability.states[0].id;
@@ -59,38 +60,54 @@ export default ({ id, requestability, loadRequestability }) => {
             });
     };
 
-    const RequestForm =
-        requestability.hasOwnProperty("transitionalble") ? (
-            requestability.transitionalble === true ? (
-                <>
-                    <Row>
-                        <Col md={12}>
-                            <Alert color="success">All required answers and documents are complete</Alert>
-                            <Form onSubmit={handleFormSubmit}>
-                                <FormGroup>
-                                    <FormInput
-                                        {...form.state_id}
-                                        name="state_id"
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </FormGroup>
-                                <FormGroup>
-                                    <FormInput
-                                        {...form['remarks']}
-                                        name="remarks"
-                                        placeholder="Remarks"
-                                        handleOnChange={handleOnChange}
-                                    />
-                                </FormGroup>
-                                <SubmitComponent loading={loading} name="Request" color="success" />
-                            </Form>
-                        </Col>
-                    </Row>
-                </>
-            ) : (
-                <Alert color="warning">{requestability.non_requestable_message}</Alert>
-            )
-        ) : null;
+    const RequestForm = requestability.hasOwnProperty('transitionalble') ? (
+        requestability.transitionalble === true ? (
+            <>
+                <Row>
+                    <Col md={12}>
+                        {requestability.rejected_requests !== null ? (
+                            <Table>
+                                <tbody>
+                                    {requestability.rejected_requests.map((request, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{request.id}</td>
+                                                <td>{request.user}</td>
+                                                <td>{request.note.String}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </Table>
+                        ) : null}
+                        {requestability.states !== null ? (
+                            <>
+                                <Alert color="success">All required answers and documents are complete</Alert>
+                                <Form onSubmit={handleFormSubmit}>
+                                    <FormGroup>
+                                        <FormInput {...form.state_id} name="state_id" handleOnChange={handleOnChange} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['remarks']}
+                                            name="remarks"
+                                            placeholder="Remarks"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <SubmitComponent loading={loading} name="Request" color="success" />
+                                </Form>
+                            </>
+                        ) : (
+                            <Alert color="primary">Current state cannot be requested for change</Alert>
+                        )}
+                    </Col>
+                </Row>
+            </>
+        ) : (
+            <Alert color="warning">{requestability.non_requestable_message}</Alert>
+        )
+    ) : null;
     return (
         <Card>
             <CardBody>

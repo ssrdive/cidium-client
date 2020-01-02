@@ -25,7 +25,7 @@ export default ({ match }) => {
         apiAuth
             .get(`/contract/work/documents/${id}`)
             .then(res => {
-                setDocuments(oldDocuments => res.data);
+                setDocuments(oldDocuments => res.data === null ? [] : res.data);
                 loadRequestability();
             })
             .catch(err => {
@@ -36,7 +36,7 @@ export default ({ match }) => {
         apiAuth
             .get(`/contract/work/questions/${id}`)
             .then(res => {
-                setQuestions(oldQuestions => res.data);
+                setQuestions(oldQuestions => res.data === null ? [] : res.data);
                 loadRequestability();
             })
             .catch(err => { 

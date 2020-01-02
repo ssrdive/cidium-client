@@ -56,6 +56,7 @@ const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 const Contracts = React.lazy(() => import('../pages/contracts'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 const ContractWork = React.lazy(() => import('../pages/contracts/work'));
+const Requests = React.lazy(() => import('../pages/contracts/requests'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -130,7 +131,7 @@ const requestsRoute = {
     path: '/requests',
     name: 'Requests',
     icon: FeatherIcon.GitPullRequest,
-    component: Starter,
+    component: Requests,
     route: PrivateRoute,
 };
 
