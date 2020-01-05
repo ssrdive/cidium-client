@@ -26,7 +26,7 @@ const ApprovalAction = ({ request, loadRequests, changeRequest }) => {
         });
     };
     const sendAction = (e, action) => {
-        action === "1" ? setApproveLoading(prev => true) : setRejectLoading(prev => true);
+        action === 1 ? setApproveLoading(prev => true) : setRejectLoading(prev => true);
         e.persist();
         e.preventDefault();
         apiAuth
@@ -35,12 +35,12 @@ const ApprovalAction = ({ request, loadRequests, changeRequest }) => {
                 qs.stringify({ user: getLoggedInUser().id, request: request.request_id, action, note: form.note.value })
             )
             .then(res => {
-                action === "1" ? setApproveLoading(prev => false) : setRejectLoading(prev => false);
+                action === 1 ? setApproveLoading(prev => false) : setRejectLoading(prev => false);
                 loadRequests();
                 changeRequest(null);
             })
             .catch(err => {
-                action === "1" ? setApproveLoading(prev => false) : setRejectLoading(prev => false);
+                action === 1 ? setApproveLoading(prev => false) : setRejectLoading(prev => false);
                 console.log(err);
             });
     };

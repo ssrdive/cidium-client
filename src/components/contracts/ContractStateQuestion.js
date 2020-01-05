@@ -5,9 +5,13 @@ import { Row, Col, Form, FormGroup, Label, Spinner, Button } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import { TEXT_INPUT_REQUIRED } from '../../constants/formValues';
 import FormInput from '../form/FormInput';
+import { getLoggedInUser } from '../../helpers/authUtils';
 
-export default ({ question_id, contract_state_id, answer, question, compulsory, reloadQuestions }) => {
-    const [loading, setLoading] = useState(false);
+import SubmitComponent from '../form/SubmitComponent';
+
+export default ({ id, question_id, contract_state_id, answer, question, compulsory, reloadQuestions }) => {
+    const [addLoading, setAddLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState(false);
     const [form, setForm] = useState({
         [question_id]: TEXT_INPUT_REQUIRED,
     });
@@ -20,9 +24,8 @@ export default ({ question_id, contract_state_id, answer, question, compulsory, 
             return updatedForm;
         });
     };
-
     const handleFormSubmit = e => {
-        setLoading(prevLoading => true);
+        setAddLoading(prevLoading => true);
         e.persist();
         e.preventDefault();
         apiAuth
@@ -31,30 +34,30 @@ export default ({ question_id, contract_state_id, answer, question, compulsory, 
                 qs.stringify({
                     contract_state_id: contract_state_id,
                     question_id: question_id,
+                    user_id: getLoggedInUser().id,
                     answer: form[question_id].value,
                 })
             )
             .then(res => {
-                setLoading(prevLoading => false);
+                setAddLoading(prevLoading => false);
                 reloadQuestions();
             })
             .catch(err => {
-                setLoading(prevLoading => false);
+                setAddLoading(prevLoading => false);
             });
     };
-
-    const SubmitComponent = () => {
-        return (
-            <>
-                {loading ? (
-                    <Spinner className="m-2" type="grow" color="success" />
-                ) : (
-                        <Button size="sm" color="success" type="submit">
-                            Add
-                    </Button>
-                    )}
-            </>
-        );
+    const handleDelete = () => {
+        setDeleteLoading(prevLoading => true);
+        apiAuth
+            .post(`/contract/state/delete`, qs.stringify({ id: id.Int32, table: 'contract_state_question_answer' }))
+            .then(res => {
+                setDeleteLoading(prevLoading => false);
+                reloadQuestions();
+            })
+            .catch(err => {
+                setDeleteLoading(prevLoading => false);
+                console.log(err);
+            });
     };
 
     return (
@@ -66,41 +69,56 @@ export default ({ question_id, contract_state_id, answer, question, compulsory, 
                             <Col md={4}>
                                 <Label for="question">{question}</Label>
                             </Col>
-                            <Col md={8}>
+                            <Col md={6}>
                                 <b>{answer.String}</b>
+                            </Col>
+                            <Col md={2}>
+                                <SubmitComponent
+                                    color="danger"
+                                    name="Delete"
+                                    loading={deleteLoading}
+                                    onClick={handleDelete}
+                                />
                             </Col>
                         </Row>
                     </Col>
                 </Row>
             ) : (
-                    <>
-                        <Row>
-                            <Col md={12}>
-                                <Form onSubmit={handleFormSubmit}>
-                                    <Row>
-                                        <Col md={3}>
-                                            <FormGroup>
-                                                <Label for="question">{compulsory === 1 ? "*" : null} {question}</Label>
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={6}>
-                                            <FormGroup>
-                                                <FormInput
-                                                    {...form[question_id]}
-                                                    name={question_id}
-                                                    handleOnChange={handleOnChange}
-                                                />
-                                            </FormGroup>
-                                        </Col>
-                                        <Col md={2}>
-                                            <SubmitComponent />
-                                        </Col>
-                                    </Row>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </>
-                )}
+                <>
+                    <Row>
+                        <Col md={12}>
+                            <Form onSubmit={handleFormSubmit}>
+                                <Row>
+                                    <Col md={4}>
+                                        <FormGroup>
+                                            <Label for="question">
+                                                {compulsory === 1 ? '*' : null} {question}
+                                            </Label>
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormGroup>
+                                            <FormInput
+                                                {...form[question_id]}
+                                                name={question_id}
+                                                handleOnChange={handleOnChange}
+                                            />
+                                        </FormGroup>
+                                    </Col>
+                                    <Col md={2}>
+                                        <SubmitComponent
+                                            color="success"
+                                            name="Add"
+                                            loading={addLoading}
+                                            onClick={handleFormSubmit}
+                                        />
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </Col>
+                    </Row>
+                </>
+            )}
         </>
     );
 };
