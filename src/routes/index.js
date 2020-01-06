@@ -57,6 +57,7 @@ const Contracts = React.lazy(() => import('../pages/contracts'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 const ContractWork = React.lazy(() => import('../pages/contracts/work'));
 const Requests = React.lazy(() => import('../pages/contracts/requests'));
+const LoanCalculator = React.lazy(() => import('../pages/contracts/loan-calculator'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -149,7 +150,7 @@ const loanCalculatorRoute = {
     path: '/loan-calculator',
     name: 'Loan Calculator',
     icon: FeatherIcon.Percent,
-    component: Starter,
+    component: LoanCalculator,
     route: PrivateRoute,
 };
 
