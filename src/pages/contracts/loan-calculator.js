@@ -7,10 +7,7 @@ import FormInput from '../../components/form/FormInput';
 import SubmitComponent from '../../components/form/SubmitComponent';
 import {
     TEXT_INPUT_REQUIRED,
-    TEXT_INPUT_OPTIONAL,
     NUMBER_INPUT_REQUIRED,
-    NUMBER_INPUT_OPTIONAL,
-    DROPDOWN_DEFAULT,
 } from '../../constants/formValues';
 import { getDate } from '../../helpers/date';
 import { apiAuth } from '../../cidium-api';
