@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Row, Badge, Col, Card, CardBody, Table } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
@@ -11,7 +12,8 @@ const SearchResults = ({ results }) => {
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>Work</th>
+                            <th>Details</th>
                             <th>Amount Pending</th>
                             <th>Total Payable</th>
                             <th>Recovery Officer</th>
@@ -25,7 +27,8 @@ const SearchResults = ({ results }) => {
                         {results.map((result, index) => {
                             return (
                                 <tr key={index}>
-                                    <td>{result.id}</td>
+                                    <td><Link to={`/contracts/work/${result.id}`}>{result.id}</Link></td>
+                                    <td><Link to={`/contracts/details/${result.id}`}>{result.id}</Link></td>
                                     <td>
                                         {result.amount_pending > 0 ? (
                                             <Badge color="danger">{result.amount_pending.toLocaleString()}</Badge>
@@ -68,7 +71,8 @@ export default ({ location }) => {
         apiAuth
             .get(`/contract/search?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
             .then(res => {
-                setResults(prevResults => res.data);
+                if (res.data === null) setResults(prevResults => []);
+                else setResults(prevResults => res.data);
             })
             .catch(err => {
                 console.log(err);

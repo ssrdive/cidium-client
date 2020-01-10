@@ -1,18 +1,17 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component } from 'react';
 import { Row, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 
 // import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
-
 import ContractDetails from '../../components/contracts/ContractDetails';
+import ContractInstallments from '../../components/contracts/ContractInstallments';
+import ContractQuestions from '../../components/contracts/ContractQuestions';
+import ContractDocuments from '../../components/contracts/ContractDocuments';
+import ContractHistory from '../../components/contracts/ContractHistory';
 
 export default ({ match }) => {
     const id = match.params.id;
-
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <>
@@ -21,7 +20,7 @@ export default ({ match }) => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Contracts', path: '/contracts' },
-                            { label: 'Work', path: '#', active: true },
+                            { label: 'Details', path: '#', active: true },
                         ]}
                         title={'Contract Details'}
                     />
@@ -57,7 +56,7 @@ class Tabs extends Component {
             {
                 id: '1',
                 title: 'Summary',
-                icon: 'uil-angle-double-left',
+                icon: ' uil-database-alt',
                 component: () => {
                     return <ContractDetails id={this.props.id} />;
                 },
@@ -65,9 +64,33 @@ class Tabs extends Component {
             {
                 id: '2',
                 title: 'Installments',
-                icon: 'uil-angle-double-right',
+                icon: 'uil-money-stack',
                 component: () => {
-                    return null;
+                    return <ContractInstallments id={this.props.id} />;
+                },
+            },
+            {
+                id: '3',
+                title: 'Questions',
+                icon: 'uil-comment-question',
+                component: () => {
+                    return <ContractQuestions id={this.props.id} />;
+                },
+            },
+            {
+                id: '4',
+                title: 'Documents',
+                icon: ' uil-document-layout-left',
+                component: () => {
+                    return <ContractDocuments id={this.props.id} />;
+                },
+            },
+            {
+                id: '5',
+                title: 'History',
+                icon: 'uil-history',
+                component: () => {
+                    return <ContractHistory id={this.props.id} />;
                 },
             },
         ];

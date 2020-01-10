@@ -59,7 +59,7 @@ export default ({ id }) => {
                                             {details.total_payable > 0 ? (
                                                 <Badge color="warning">{details.total_payable.toLocaleString()}</Badge>
                                             ) : (
-                                                <Badge color="success">{details.total_payable.toLocateString()}</Badge>
+                                                <Badge color="success">{details.total_payable.toLocaleString()}</Badge>
                                             )}
                                         </h4>
                                     </Col>
