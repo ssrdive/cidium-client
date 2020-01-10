@@ -19,6 +19,7 @@ export default ({ match }) => {
         loadDocuments();
         loadQuestions();
         loadRequestability();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadDocuments = () => {

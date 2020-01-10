@@ -21,7 +21,7 @@ export const loadOptionalDropdownGeneric = async (type, name, label, setForm) =>
         setForm(prevForm => {
             const updatedForm = {
                 ...prevForm,
-                [name]: { ...prevForm[name], options: [{ id: 0, name: `Select ${label}`},...response.data], value: 0 },
+                [name]: { ...prevForm[name], options: [{ id: "", name: `Select ${label}`},...response.data], value: "" },
             };
             return updatedForm;
         });

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Button } from 'reactstrap';
 import FormInput from '../form/FormInput';
-// import qs from 'qs';
-// import { apiAuth } from '../../cidium-api';
+
 import { loadOptionalDropdownGeneric } from '../../helpers/form';
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT } from '../../constants/formValues';
@@ -31,8 +30,8 @@ export default ({ history }) => {
     }, []);
 
     const handleFormSubmit = e => {
-        e.persist()
-        e.preventDefault()
+        e.persist();
+        e.preventDefault();
         history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}`)
     }
 

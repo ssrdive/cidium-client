@@ -56,8 +56,10 @@ const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 const Contracts = React.lazy(() => import('../pages/contracts'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 const ContractWork = React.lazy(() => import('../pages/contracts/work'));
+const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const Requests = React.lazy(() => import('../pages/contracts/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/contracts/loan-calculator'));
+const Payments = React.lazy(() => import('../pages/contracts/payments'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -125,6 +127,13 @@ const contractsSubRoutes = [
         component: ContractWork,
         route: PrivateRoute,
     },
+    {
+        path: '/contracts/details/:id',
+        name: 'Contract Details',
+        exact: true,
+        component: ContractDetails,
+        route: PrivateRoute,
+    },
 ];
 
 // requests
@@ -141,7 +150,7 @@ const paymentsRoute = {
     path: '/payments',
     name: 'Payments',
     icon: FeatherIcon.DollarSign,
-    component: Starter,
+    component: Payments,
     route: PrivateRoute,
 };
 

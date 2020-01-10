@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import qs from 'qs';
-import { Alert, Col, Card, CardBody, Form, FormGroup, Row, Table } from 'reactstrap';
+import { Alert, Col, Card, CardBody, Form, FormGroup, Row, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import FormInput from '../form/FormInput';
@@ -107,7 +107,7 @@ export default ({ id, requestability, loadRequestability }) => {
         ) : (
             <Alert color="warning">{requestability.non_requestable_message}</Alert>
         )
-    ) : null;
+    ) : <Spinner type="grow" color="primary" />;
     return (
         <Card>
             <CardBody>

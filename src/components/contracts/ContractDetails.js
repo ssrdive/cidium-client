@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Badge, Col, Card, CardBody } from 'reactstrap';
+import { Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
@@ -41,6 +41,30 @@ export default ({ id }) => {
                                     </Col>
                                 </Row>
                             </Col>
+                            <Col md={12}>
+                                <Row>
+                                    <Col md={6}>
+                                        Amount Pending{' '}
+                                        <h4>
+                                            {details.amount_pending > 0 ? (
+                                                <Badge color="danger">{details.amount_pending.toLocaleString()}</Badge>
+                                            ) : (
+                                                <Badge color="success">{details.amount_pending.toLocaleString()}</Badge>
+                                            )}
+                                        </h4>
+                                    </Col>
+                                    <Col md={6}>
+                                        Total Payable{' '}
+                                        <h4>
+                                            {details.total_payable > 0 ? (
+                                                <Badge color="warning">{details.total_payable.toLocaleString()}</Badge>
+                                            ) : (
+                                                <Badge color="success">{details.total_payable.toLocateString()}</Badge>
+                                            )}
+                                        </h4>
+                                    </Col>
+                                </Row>
+                            </Col>
                         </Row>
                         <Row>
                             <Col>
@@ -58,20 +82,16 @@ export default ({ id }) => {
                         </Row>
                         <Row>
                             <Col>
-                                <Badge color="primary">Liaison Name</Badge> {details.liaison_name.String}
-                            </Col>
-                            <Col>
-                                <Badge color="primary">Liaison Contact</Badge> {details.liaison_contact.Int32}
+                                <Badge color="primary">Recovery Officer</Badge> {details.recovery_officer}
                             </Col>
                             <Col>
                                 <Badge color="primary">Price</Badge> {details.price}
                             </Col>
-                            <Col>
-                                <Badge color="primary">Downpayment</Badge> {details.downpayment.Int32}
-                            </Col>
                         </Row>
                     </>
-                ) : null}
+                ) : (
+                    <Spinner type="grow" color="primary" />
+                )}
             </CardBody>
         </Card>
     );
