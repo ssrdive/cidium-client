@@ -12,12 +12,14 @@ import {
     Spinner,
     UncontrolledAlert,
 } from 'reactstrap';
+import Flatpickr from 'react-flatpickr';
 import FormInput from '../form/FormInput';
 import qs from 'qs';
 import { apiAuth } from '../../cidium-api';
 import { loadDropdownGeneric } from '../../helpers/form';
 
 import { getLoggedInUser } from '../../helpers/authUtils';
+import { getDate } from '../../helpers/date';
 
 import {
     TEXT_INPUT_REQUIRED,
@@ -27,7 +29,7 @@ import {
     DROPDOWN_DEFAULT,
 } from '../../constants/formValues';
 
-const NewContract = ({ history }) => {
+const NewContractLegacy = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
 
@@ -69,6 +71,12 @@ const NewContract = ({ history }) => {
         liaison_name: TEXT_INPUT_OPTIONAL,
         liaison_comment: TEXT_INPUT_OPTIONAL,
         liaison_contact: NUMBER_INPUT_OPTIONAL,
+        capital: NUMBER_INPUT_REQUIRED,
+        rate: NUMBER_INPUT_REQUIRED,
+        installments: NUMBER_INPUT_REQUIRED,
+        installment_interval: NUMBER_INPUT_REQUIRED,
+        method: TEXT_INPUT_REQUIRED,
+        initiation_date: { value: getDate('-') },
     });
 
     const handleOnChange = e => {
@@ -79,6 +87,13 @@ const NewContract = ({ history }) => {
             return updatedForm;
         });
     };
+    const setInitDate = value => {
+        setForm(prevForm => {
+            const updatedForm = { ...prevForm, initiation_date: { ...prevForm.initiation_date } };
+            updatedForm.initiation_date.value = value;
+            return updatedForm;
+        });
+    };
 
     useEffect(() => {
         loadDropdownGeneric('model', 'model_id', setForm);
@@ -86,12 +101,12 @@ const NewContract = ({ history }) => {
         loadDropdownGeneric('contract_batch', 'contract_batch_id', setForm);
         loadDropdownGeneric('institute', 'institute_id', setForm);
         loadDropdownGeneric('institute_dealer', 'institute_dealer_id', setForm);
-        loadDropdownGeneric('user', 'recovery_officer_id', setForm)
+        loadDropdownGeneric('user', 'recovery_officer_id', setForm);
     }, []);
 
     const handleFormSubmit = e => {
         setLoading(prevLoading => true);
-        setSubmitStatus({status: null, message: ''});
+        setSubmitStatus({ status: null, message: '' });
         e.persist();
         e.preventDefault();
         const formValues = {};
@@ -101,13 +116,13 @@ const NewContract = ({ history }) => {
             }
         }
         apiAuth
-            .post('/contract/new', qs.stringify({ ...formValues, user_id: getLoggedInUser().id }))
+            .post('/contract/legacy/new', qs.stringify({ ...formValues, user_id: getLoggedInUser().id }))
             .then(response => {
                 setLoading(prevLoading => false);
                 setSubmitStatus({ status: 'success', message: `Contract added with number ${response.data}` });
                 setTimeout(() => {
                     history.push(`/contracts/work/${response.data}`);
-                }, 1000)
+                }, 1000);
             })
             .catch(err => {
                 setLoading(prevLoading => false);
@@ -118,7 +133,7 @@ const NewContract = ({ history }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">New Contract <Button color="primary" size="sm" onClick={() => history.push(`/contracts/legacy`)}>Legacy</Button></h4>
+                <h4 className="header-title mt-0">New Legacy Contract</h4>
 
                 <Row>
                     <Col lg={12}>
@@ -192,6 +207,58 @@ const NewContract = ({ history }) => {
                                             {...form['customer_contact']}
                                             name="customer_contact"
                                             placeholder="Customer Contact"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <Badge color="danger" className="mr-1">
+                                        Loan Details
+                                    </Badge>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['capital']}
+                                            name="capital"
+                                            placeholder="Capital"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['installments']}
+                                            name="installments"
+                                            placeholder="Installments"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['installment_interval']}
+                                            name="installment_interval"
+                                            placeholder="Installment Interval"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['rate']}
+                                            name="rate"
+                                            placeholder="Rate"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Flatpickr
+                                            value={form.initiation_date.value}
+                                            onChange={(e, date) => {
+                                                setInitDate(date);
+                                            }}
+                                            className="form-control"
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['method']}
+                                            name="method"
+                                            placeholder="Interest Method"
                                             handleOnChange={handleOnChange}
                                         />
                                     </FormGroup>
@@ -278,4 +345,4 @@ const NewContract = ({ history }) => {
     );
 };
 
-export default NewContract;
+export default NewContractLegacy;

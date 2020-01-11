@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Row, Form, Label, FormGroup, Col, Card, CardBody } from 'reactstrap';
 import Flatpickr from 'react-flatpickr';
 
-
 import FormInput from '../../components/form/FormInput';
 import SubmitComponent from '../../components/form/SubmitComponent';
 import {

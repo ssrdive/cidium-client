@@ -54,6 +54,7 @@ const BasicTables = React.lazy(() => import('../pages/tables/Basic'));
 const AdvancedTables = React.lazy(() => import('../pages/tables/Advanced'));
 
 const Contracts = React.lazy(() => import('../pages/contracts'));
+const ContractsLegacy = React.lazy(() => import('../pages/contracts/legacy'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 const ContractWork = React.lazy(() => import('../pages/contracts/work'));
 const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
@@ -113,6 +114,13 @@ const contractsRoute = {
 };
 
 const contractsSubRoutes = [
+    {
+        path: '/contracts/legacy',
+        name: 'Legacy Contracts',
+        exact: true,
+        component: ContractsLegacy,
+        route: PrivateRoute,
+    },
     {
         path: '/contracts/search',
         name: 'Search',

@@ -39,6 +39,7 @@ function* login({ payload: { username, password } }) {
         const response = yield call(fetchJSON, '/users/authenticate', options);
         setSession(response);
         yield put(loginUserSuccess(response));
+        window.location.reload();
     } catch (error) {
         let message;
         switch (error.status) {
