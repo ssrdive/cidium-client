@@ -27,8 +27,12 @@ const SearchResults = ({ results }) => {
                         {results.map((result, index) => {
                             return (
                                 <tr key={index}>
-                                    <td><Link to={`/contracts/work/${result.id}`}>{result.id}</Link></td>
-                                    <td><Link to={`/contracts/details/${result.id}`}>{result.id}</Link></td>
+                                    <td>
+                                        <Link to={`/contracts/work/${result.id}`}>{result.id}</Link>
+                                    </td>
+                                    <td>
+                                        <Link to={`/contracts/details/${result.id}`}>{result.id}</Link>
+                                    </td>
                                     <td>
                                         {result.amount_pending > 0 ? (
                                             <Badge color="danger">{result.amount_pending.toLocaleString()}</Badge>
@@ -37,11 +41,13 @@ const SearchResults = ({ results }) => {
                                         )}
                                     </td>
                                     <td>
-                                        {result.total_payable > 0 ? (
-                                            <Badge color="warning">{result.total_payable.toLocaleString()}</Badge>
-                                        ) : (
-                                            <Badge color="success">{result.total_payable.toLocaleString()}</Badge>
-                                        )}
+                                        <Link to={`/payments?id=${result.id}`}>
+                                            {result.total_payable > 0 ? (
+                                                <Badge color="warning">{result.total_payable.toLocaleString()}</Badge>
+                                            ) : (
+                                                <Badge color="success">{result.total_payable.toLocaleString()}</Badge>
+                                            )}
+                                        </Link>
                                     </td>
                                     <td>{result.recovery_officer}</td>
                                     <td>{result.state}</td>

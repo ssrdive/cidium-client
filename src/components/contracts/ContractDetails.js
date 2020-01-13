@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Button, Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
@@ -8,6 +9,7 @@ export default ({ id }) => {
 
     useEffect(() => {
         const fetchDetails = () => {
+            if (id === 0) return;
             apiAuth
                 .get(`/contract/details/${id}`)
                 .then(res => {
@@ -30,7 +32,14 @@ export default ({ id }) => {
                         <Row>
                             <Col md={12}>
                                 <Row>
-                                    <Col md={6}>
+                                    <Col md={1}>
+                                        <h4>
+                                            <Link to={`/contracts/details/${details.id}`}>
+                                                <b>{details.id}</b>
+                                            </Link>
+                                        </h4>
+                                    </Col>
+                                    <Col md={5}>
                                         <h4>{details.customer_name}</h4>
                                     </Col>
                                     <Col md={3}>
@@ -56,14 +65,30 @@ export default ({ id }) => {
                                     <Col md={6}>
                                         Total Payable{' '}
                                         <h4>
-                                            {details.total_payable > 0 ? (
-                                                <Badge color="warning">{details.total_payable.toLocaleString()}</Badge>
-                                            ) : (
-                                                <Badge color="success">{details.total_payable.toLocaleString()}</Badge>
-                                            )}
+                                            <Link to={`/payments?id=${details.id}`}>
+                                                {details.total_payable > 0 ? (
+                                                    <Badge color="warning">
+                                                        {details.total_payable.toLocaleString()}
+                                                    </Badge>
+                                                ) : (
+                                                    <Badge color="success">
+                                                        {details.total_payable.toLocaleString()}
+                                                    </Badge>
+                                                )}
+                                            </Link>
                                         </h4>
                                     </Col>
                                 </Row>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={6}>
+                                State{' '}
+                                <h4>
+                                    <Link to={`/contracts/work/${details.id}`}>
+                                        <Badge color="info">{details.contract_state}</Badge>
+                                    </Link>
+                                </h4>
                             </Col>
                         </Row>
                         <Row>

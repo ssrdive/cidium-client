@@ -176,8 +176,10 @@ const SelectContractForm = ({ setID }) => {
     );
 };
 
-export default () => {
-    const [id, setID] = useState(0);
+export default ({ location }) => {
+    const params = new URLSearchParams(location.search);
+    const urlID = params.get('id');
+    const [id, setID] = useState(urlID);
     const [valid, setValid] = useState(false);
     const [details, setDetails] = useState(null);
 
