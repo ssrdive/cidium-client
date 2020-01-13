@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
+import { Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
