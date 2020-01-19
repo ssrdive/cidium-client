@@ -14,7 +14,6 @@ import profilePic from '../assets/images/users/avatar-7.jpg';
 
 import { getLoggedInUser } from '../helpers/authUtils'
 
-
 const Notifications = [{
   id: 1,
   text: 'New user registered',

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Row, Form, Label, FormGroup, Col, Card, CardBody } from 'reactstrap';
 import Flatpickr from 'react-flatpickr';
 
-import FormInput from '../../components/form/FormInput';
-import SubmitComponent from '../../components/form/SubmitComponent';
+import FormInput from '../form/FormInput';
+import SubmitComponent from '../form/SubmitComponent';
 import {
     TEXT_INPUT_REQUIRED,
     NUMBER_INPUT_REQUIRED,
