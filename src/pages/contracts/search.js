@@ -4,6 +4,7 @@ import { Row, Col } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import SearchResults from '../../components/contracts/SearchResults';
+import SearchSummary from '../../components/contracts/SearchSummary';
 
 export default ({ location }) => {
     const [results, setResults] = useState([]);
@@ -41,6 +42,11 @@ export default ({ location }) => {
                         ]}
                         title={'Contract Search'}
                     />
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <SearchSummary results={results} loading={loading} />
                 </Col>
             </Row>
             <Row>

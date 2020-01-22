@@ -22,7 +22,6 @@ export default ({ results, loading }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {loading ? <Spinner color="primary" type="grow" /> : null}
                         {results.map((result, index) => {
                             return (
                                 <tr key={index}>
@@ -58,6 +57,7 @@ export default ({ results, loading }) => {
                         })}
                     </tbody>
                 </Table>
+                {loading ? <Spinner color="primary" type="grow" /> : null}
             </CardBody>
         </Card>
     );
