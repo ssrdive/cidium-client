@@ -43,7 +43,7 @@ export default ({ id }) => {
                                         <td>{receipt.id}</td>
                                         <td>{receipt.date}</td>
                                         <td>{receipt.amount}</td>
-                                        <td>{receipt.notes}</td>
+                                        <td>{receipt.notes.String}</td>
                                     </tr>
                                 );
                             })}

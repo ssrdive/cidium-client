@@ -64,7 +64,7 @@ export default ({ location }) => {
 
             <Row>
                 <Col md={4}>
-                    <DebitNote />
+                    <DebitNote id={id} valid={valid} />
                 </Col>
                 <Col md={4}>
                     <LegacyReceiptForm id={id} valid={valid} />
