@@ -8,9 +8,17 @@ export default props => {
                 <Input type="select" name={props.name} onChange={props.handleOnChange}>
                     {props.options.map(option => {
                         return (
-                            <option key={option.id} value={option.id}>
-                                {option.name}
-                            </option>
+                            <>
+                                {option.account_id !== undefined ? (
+                                    <option key={option.id} value={option.id}>
+                                        {option.account_id} - {option.name}
+                                    </option>
+                                ) : (
+                                    <option key={option.id} value={option.id}>
+                                        {option.name}
+                                    </option>
+                                )}
+                            </>
                         );
                     })}
                 </Input>
@@ -29,12 +37,5 @@ export default props => {
 };
 
 export const FileInput = props => {
-    return (
-        <Input
-            type={props.type}
-            onChange={props.handleOnChange}
-            name={props.name}
-            required={props.required}
-        />
-    );
+    return <Input type={props.type} onChange={props.handleOnChange} name={props.name} required={props.required} />;
 };

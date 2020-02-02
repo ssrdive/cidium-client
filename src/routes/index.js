@@ -23,6 +23,7 @@ const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const Requests = React.lazy(() => import('../pages/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/loan-calculator'));
 const Payments = React.lazy(() => import('../pages/payments'));
+const Financials = React.lazy(() => import('../pages/financials'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -133,6 +134,14 @@ const loanCalculatorRoute = {
     route: PrivateRoute,
 };
 
+const financialsRoute = {
+    path: '/financials',
+    name: 'Financials',
+    icon: FeatherIcon.BarChart2,
+    component: Financials,
+    route: PrivateRoute,
+};
+
 // auth
 const authRoutes = {
     path: '/account',
@@ -195,6 +204,7 @@ const allRoutes = [
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,
+    financialsRoute,
     authRoutes,
 ];
 
@@ -204,6 +214,7 @@ const authProtectedRoutes = [
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,
+    financialsRoute,
 ];
 
 const allFlattenRoutes = flattenRoutes(allRoutes);

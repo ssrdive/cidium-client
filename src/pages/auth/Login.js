@@ -128,7 +128,7 @@ class Login extends Component {
                                                     <div className="overlay"></div>
                                                     <div className="auth-user-testimonial">
                                                         <p className="font-size-24 font-weight-bold text-white mb-1">Financing the future</p>
-                                                        <p className="lead">"It's a elegent templete. I love it very much!"</p>
+                                                        <p className="lead">"A man always has two reasons for what he does -- a good one, and the real one" ~ J. P. Morgan</p>
                                                     </div>
                                                 </div>
                                             </Col>
