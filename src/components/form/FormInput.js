@@ -5,13 +5,13 @@ export default props => {
     return (
         <>
             {props.type === 'select' ? (
-                <Input type="select" name={props.name} onChange={props.handleOnChange}>
+                <Input type="select" name={props.name} data-idx={props.idx} onChange={props.handleOnChange}>
                     {props.options.map(option => {
                         return (
                             <>
                                 {option.account_id !== undefined ? (
                                     <option key={option.id} value={option.id}>
-                                        {option.account_id} - {option.name}
+                                        {option.account_id} &emsp; {option.name}
                                     </option>
                                 ) : (
                                     <option key={option.id} value={option.id}>

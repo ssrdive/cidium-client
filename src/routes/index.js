@@ -23,7 +23,10 @@ const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const Requests = React.lazy(() => import('../pages/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/loan-calculator'));
 const Payments = React.lazy(() => import('../pages/payments'));
+
 const Financials = React.lazy(() => import('../pages/financials'));
+const FinancialsJournalEntry = React.lazy(() => import('../pages/financials/JournalEntry'));
+const FinancialsAccountLedger = React.lazy(() => import('../pages/financials/AccountLedger'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -139,8 +142,26 @@ const financialsRoute = {
     name: 'Financials',
     icon: FeatherIcon.BarChart2,
     component: Financials,
+    exact: true,
     route: PrivateRoute,
 };
+
+const financialsSubRoutes = [
+    {
+        path: '/financials/journal-entry',
+        name: 'Journal Entry',
+        exact: true,
+        component: FinancialsJournalEntry,
+        route: PrivateRoute,
+    },
+    {
+        path: '/financials/account/:id',
+        name: 'Account Ledger',
+        exact: true,
+        component: FinancialsAccountLedger,
+        route: PrivateRoute,
+    },
+];
 
 // auth
 const authRoutes = {
@@ -205,6 +226,7 @@ const allRoutes = [
     paymentsRoute,
     loanCalculatorRoute,
     financialsRoute,
+    ...financialsSubRoutes,
     authRoutes,
 ];
 
