@@ -4,11 +4,11 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import NewCategory from '../../components/financials/NewCategory';
 import NewAccount from '../../components/financials/NewAccount';
-import ChartOfAccounts from '../../components/financials/ChartOfAccounts';
-import JournalEntry from '../../components/financials/JournalEntry';
+import AccountTransaction from '../../components/financials/AccountTransaction';
 import Account from '../../components/financials/Account';
+import AccountReports from '../../components/financials/AccountReports';
 
-export default ({history}) => {
+export default ({ history }) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -24,7 +24,10 @@ export default ({history}) => {
                 <Col md={4}>
                     <Row md={12}>
                         <Col md={12}>
-                            <JournalEntry history={history} />
+                            <AccountTransaction history={history} />
+                        </Col>
+                        <Col md={12}>
+                            <AccountReports history={history} />
                         </Col>
                         <Col md={12}>
                             <Account history={history} />
@@ -38,12 +41,6 @@ export default ({history}) => {
                     <NewAccount />
                 </Col>
                 <Col></Col>
-            </Row>
-
-            <Row>
-                <Col>
-                    <ChartOfAccounts />
-                </Col>
             </Row>
         </React.Fragment>
     );

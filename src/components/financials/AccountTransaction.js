@@ -5,13 +5,22 @@ export default ({ history }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">Journal Entry</h4>
+                <h4 className="header-title mt-0">Account Transaction</h4>
                 <Button
                     color="info"
                     onClick={() => {
                         history.push('/financials/journal-entry');
                     }}>
-                    Enter Journal Entry
+                    Journal Entry
+                </Button>
+                <br />
+                <br />
+                <Button
+                    color="info"
+                    onClick={() => {
+                        history.push('/financials/payment-voucher');
+                    }}>
+                    Payment Voucher
                 </Button>
             </CardBody>
         </Card>

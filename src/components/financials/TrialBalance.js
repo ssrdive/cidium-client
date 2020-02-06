@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+export default () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/account/ledger/${id}`)
+            .get(`/account/trialbalance`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -20,44 +21,48 @@ export default ({ id }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [id]);
+    }, []);
 
+    let debits = 0;
+    let credits = 0;
     let balance = 0;
+
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Account Ledger</h4>
+                <h4 className="header-title mt-0 mb-1">Trial Balance</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
-                            <th>Account Name</th>
-                            <th>Transaction ID</th>
-                            <th>Posting Date</th>
-                            <th>DR</th>
-                            <th>CR</th>
+                            <th>Account ID</th>
+                            <th>Name</th>
+                            <th>Debit</th>
+                            <th>Credit</th>
                             <th>Balance</th>
-                            <th>Remark</th>
                         </tr>
                     </thead>
                     <tbody>
                         {results.map((result, index) => {
-                            if(result.type === 'DR') {
-                                balance = balance + parseFloat(result.amount);
-                            } else {
-                                balance = balance - parseFloat(result.amount);
-                            }
+                            balance = balance + result.balance;
+                            debits = debits + result.debit;
+                            credits = credits + result.credit;
                             return (
                                 <tr key={index}>
-                                    <td>{result.account_name}</td>
-                                    <td>{result.transaction_id}</td>
-                                    <td>{result.posting_date}</td>
-                                    <td>{result.type === 'DR' ? <>{'LKR'} {result.amount.toLocaleString()}</> : null}</td>
-                                    <td>{result.type === 'CR' ? <>{'LKR'} {result.amount.toLocaleString()}</> : null}</td>
-                                    <td><b>LKR {balance.toLocaleString()}</b></td>
-                                    <td>{result.remark}</td>
+                                    <td>{result.account_id}</td>
+                                    <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
+                                    <td>LKR {result.debit.toLocaleString()}</td>
+                                    <td>LKR {result.credit.toLocaleString()}</td>
+                                    <td><b>LKR {result.balance.toLocaleString()}</b></td>
                                 </tr>
                             );
                         })}
+                        <tr>
+                            <td><b>Balance</b></td>
+                            <td></td>
+                            <td><b>LKR {debits.toLocaleString()}</b></td>
+                            <td><b>LKR {credits.toLocaleString()}</b></td>
+                            <td><b>LKR {balance.toLocaleString()}</b></td>
+                        </tr>
                     </tbody>
                 </Table>
                 {loading ? <Spinner color="primary" type="grow" /> : null}

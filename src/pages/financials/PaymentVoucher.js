@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import qs from 'qs';
 import { Row, Col, Card, CardBody, Button, Label, FormGroup, Spinner, UncontrolledAlert } from 'reactstrap';
 import Flatpickr from 'react-flatpickr';
@@ -6,21 +6,28 @@ import Flatpickr from 'react-flatpickr';
 import FormInput from '../../components/form/FormInput';
 
 import PageTitle from '../../components/PageTitle';
-import Entry from '../../components/financials/JournalEntryItem';
+import Entry from '../../components/financials/PaymentVoucherItem';
 import { getLoggedInUser } from '../../helpers/authUtils';
 import { getDate } from '../../helpers/date';
-import { TEXTAREA_INPUT_REQUIRED } from '../../constants/formValues';
+import { TEXTAREA_INPUT_REQUIRED, DROPDOWN_DEFAULT, NUMBER_INPUT_REQUIRED } from '../../constants/formValues';
 import { apiAuth } from '../../cidium-api';
+import { loadDropdownAccountGeneric } from '../../helpers/form';
 
 export default props => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
+        from_account: DROPDOWN_DEFAULT,
+        amount: NUMBER_INPUT_REQUIRED,
         remarks: TEXTAREA_INPUT_REQUIRED,
         posting_date: { value: getDate('-') },
     });
-    const blankEntry = { account: 0, debit: '', credit: '' };
+    const blankEntry = { account: 0, amount: '' };
     const [entriesState, setEntriesState] = useState([blankEntry]);
+
+    useEffect(() => {
+        loadDropdownAccountGeneric('account', 'from_account', 1, 1, setForm);
+    }, []);
 
     const handleOnChange = e => {
         e.persist();
@@ -59,46 +66,53 @@ export default props => {
     const submitFormHandler = e => {
         e.persist();
         e.preventDefault();
-        setSubmitStatus({ status: null, message: '' });
+        console.log(entriesState);
+        console.log(form);
         setLoading(prevLoading => true);
-        let debits = 0.0;
-        let credits = 0.0;
-        let formIsValid = true;
-        entriesState.forEach(entry => {
-            if (entry.debit) debits = debits + parseFloat(entry.debit);
-            if (entry.credit) credits = credits + parseFloat(entry.credit);
-            if (!entry.debit && !entry.credit) {
-                formIsValid = false;
-            }
-        });
-        if (credits !== debits || !formIsValid || (credits === 0 && debits === 0)) {
+        setSubmitStatus({ status: null, message: '' });
+        if (!form.amount.value || !form.remarks.value) {
             setLoading(prevLoading => false);
             setSubmitStatus({ status: 'failure', message: 'Form validation errors' });
             return;
         }
-        if (!form.remarks.value) {
-            setLoading(prevLoading => false);
-            setSubmitStatus({ status: 'failure', message: 'Please enter remarks' });
-            return;
-        }
-        apiAuth
-            .post(
-                '/account/journalentry',
-                qs.stringify({
-                    remark: form.remarks.value,
-                    entries: JSON.stringify(entriesState),
-                    posting_date: form.posting_date.value,
-                    user_id: getLoggedInUser().id,
-                })
-            )
-            .then(response => {
-                setLoading(prevLoading => false);
-                setSubmitStatus({ status: 'success', message: `Entries issued` });
-            })
-            .catch(err => {
-                setLoading(prevLoading => false);
-                setSubmitStatus({ status: 'failure', message: 'Something went wrong' });
-            });
+        // let debits = 0.0;
+        // let credits = 0.0;
+        // let formIsValid = true;
+        // // entriesState.forEach(entry => {
+        //     if (entry.debit) debits = debits + parseFloat(entry.debit);
+        //     if (entry.credit) credits = credits + parseFloat(entry.credit);
+        //     if (!entry.debit && !entry.credit) {
+        //         formIsValid = false;
+        //     }
+        // });
+        // if (credits !== debits || !formIsValid || (credits === 0 && debits === 0)) {
+        //     setLoading(prevLoading => false);
+        //     setSubmitStatus({ status: 'failure', message: 'Form validation errors' });
+        //     return;
+        // }
+        // if (!form.remarks.value) {
+        //     setLoading(prevLoading => false);
+        //     setSubmitStatus({ status: 'failure', message: 'Please enter remarks' });
+        //     return;
+        // }
+        // apiAuth
+        //     .post(
+        //         '/account/journalentry',
+        //         qs.stringify({
+        //             remark: form.remarks.value,
+        //             entries: JSON.stringify(entriesState),
+        //             posting_date: form.posting_date.value,
+        //             user_id: getLoggedInUser().id,
+        //         })
+        //     )
+        //     .then(response => {
+        //         setLoading(prevLoading => false);
+        //         setSubmitStatus({ status: 'success', message: `Entries issued` });
+        //     })
+        //     .catch(err => {
+        //         setLoading(prevLoading => false);
+        //         setSubmitStatus({ status: 'failure', message: 'Something went wrong' });
+        //     });
     };
     const SubmitComponent = () => {
         return (
@@ -128,9 +142,9 @@ export default props => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Financials', path: '/financials' },
-                            { label: 'Journal Entry', path: '#', active: true },
+                            { label: 'Payment Voucher', path: '#', active: true },
                         ]}
-                        title={'Journal Entry'}
+                        title={'Payment Voucher'}
                     />
                 </Col>
             </Row>
@@ -139,7 +153,15 @@ export default props => {
                 <Col md={12}>
                     <Card>
                         <CardBody>
-                            <h4 className="header-title mt-0">Journal Entry</h4>
+                            <h4 className="header-title mt-0">Payment Voucher</h4>
+                            <FormGroup>
+                                <Label for="text">From Account</Label>
+                                <FormInput
+                                    {...form['from_account']}
+                                    name="from_account"
+                                    handleOnChange={handleOnChange}
+                                />
+                            </FormGroup>
                             <FormGroup>
                                 <Label for="text">Posting Date</Label>
                                 <Flatpickr
@@ -148,6 +170,14 @@ export default props => {
                                         setPostingDate(date);
                                     }}
                                     className="form-control"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormInput
+                                    {...form['amount']}
+                                    name="amount"
+                                    placeholder="Amount"
+                                    handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
 
