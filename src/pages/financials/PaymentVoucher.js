@@ -66,8 +66,6 @@ export default props => {
     const submitFormHandler = e => {
         e.persist();
         e.preventDefault();
-        console.log(entriesState);
-        console.log(form);
         setLoading(prevLoading => true);
         setSubmitStatus({ status: null, message: '' });
         if (!form.amount.value || !form.remarks.value) {
@@ -75,44 +73,37 @@ export default props => {
             setSubmitStatus({ status: 'failure', message: 'Form validation errors' });
             return;
         }
-        // let debits = 0.0;
-        // let credits = 0.0;
-        // let formIsValid = true;
-        // // entriesState.forEach(entry => {
-        //     if (entry.debit) debits = debits + parseFloat(entry.debit);
-        //     if (entry.credit) credits = credits + parseFloat(entry.credit);
-        //     if (!entry.debit && !entry.credit) {
-        //         formIsValid = false;
-        //     }
-        // });
-        // if (credits !== debits || !formIsValid || (credits === 0 && debits === 0)) {
-        //     setLoading(prevLoading => false);
-        //     setSubmitStatus({ status: 'failure', message: 'Form validation errors' });
-        //     return;
-        // }
-        // if (!form.remarks.value) {
-        //     setLoading(prevLoading => false);
-        //     setSubmitStatus({ status: 'failure', message: 'Please enter remarks' });
-        //     return;
-        // }
-        // apiAuth
-        //     .post(
-        //         '/account/journalentry',
-        //         qs.stringify({
-        //             remark: form.remarks.value,
-        //             entries: JSON.stringify(entriesState),
-        //             posting_date: form.posting_date.value,
-        //             user_id: getLoggedInUser().id,
-        //         })
-        //     )
-        //     .then(response => {
-        //         setLoading(prevLoading => false);
-        //         setSubmitStatus({ status: 'success', message: `Entries issued` });
-        //     })
-        //     .catch(err => {
-        //         setLoading(prevLoading => false);
-        //         setSubmitStatus({ status: 'failure', message: 'Something went wrong' });
-        //     });
+        let amounts = 0;
+        let formIsValid = true;
+        entriesState.forEach(entry => {
+            if (entry.amount) amounts = amounts + parseFloat(entry.amount);
+            else formIsValid = false;
+        });
+        if (amounts !== parseFloat(form.amount.value) || !formIsValid || amounts === 0) {
+            setLoading(prevLoading => false);
+            setSubmitStatus({ status: 'failure', message: 'Form validation errors' });
+            return;
+        }
+        apiAuth
+            .post(
+                '/account/paymentvoucher',
+                qs.stringify({
+                    remark: form.remarks.value,
+                    entries: JSON.stringify(entriesState),
+                    from_account_id: form.from_account.value,
+                    amount: form.amount.value,
+                    posting_date: form.posting_date.value,
+                    user_id: getLoggedInUser().id,
+                })
+            )
+            .then(response => {
+                setLoading(prevLoading => false);
+                setSubmitStatus({ status: 'success', message: `Entries issued` });
+            })
+            .catch(err => {
+                setLoading(prevLoading => false);
+                setSubmitStatus({ status: 'failure', message: 'Something went wrong' });
+            });
     };
     const SubmitComponent = () => {
         return (
