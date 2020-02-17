@@ -118,7 +118,7 @@ const NewContract = ({ history }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">New Contract <Button color="primary" size="sm" onClick={() => history.push(`/contracts/legacy`)}>Legacy</Button></h4>
+                <h4 className="header-title mt-0">New Contract</h4>
 
                 <Row>
                     <Col lg={12}>

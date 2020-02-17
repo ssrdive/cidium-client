@@ -22,6 +22,15 @@ export default ({ history }) => {
                     }}>
                     Payment Voucher
                 </Button>
+                <br />
+                <br />
+                <Button
+                    color="info"
+                    onClick={() => {
+                        history.push('/financials/deposit');
+                    }}>
+                    Deposit
+                </Button>
             </CardBody>
         </Card>
     );

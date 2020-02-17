@@ -1,8 +1,8 @@
-import api from '../cidium-api';
+import { apiAuth } from '../cidium-api';
 
 export const loadDropdownGeneric = async (type, name, setForm) => {
     try {
-        const response = await api.get(`/dropdown/${type}`);
+        const response = await apiAuth.get(`/dropdown/${type}`);
         setForm(prevForm => {
             const updatedForm = {
                 ...prevForm,
@@ -17,7 +17,7 @@ export const loadDropdownGeneric = async (type, name, setForm) => {
 
 export const loadDropdownAccountGeneric = async (type, name, where, value, setForm) => {
     try {
-        const response = await api.get(`/dropdown/condition/accounts/${type}/${where}/${value}`);
+        const response = await apiAuth.get(`/dropdown/condition/accounts/${type}/${where}/${value}`);
         setForm(prevForm => {
             const updatedForm = {
                 ...prevForm,
@@ -32,7 +32,7 @@ export const loadDropdownAccountGeneric = async (type, name, where, value, setFo
 
 export const loadDropdownAccountWithChildGeneric = async (type, name, child_type, child_name, child_where, where, value, setForm) => {
     try {
-        const response = await api.get(`/dropdown/condition/accounts/${type}/${where}/${value}`);
+        const response = await apiAuth.get(`/dropdown/condition/accounts/${type}/${where}/${value}`);
         setForm(prevForm => {
             const updatedForm = {
                 ...prevForm,
@@ -48,7 +48,7 @@ export const loadDropdownAccountWithChildGeneric = async (type, name, child_type
 
 export const loadOptionalDropdownGeneric = async (type, name, label, setForm) => {
     try {
-        const response = await api.get(`/dropdown/${type}`);
+        const response = await apiAuth.get(`/dropdown/${type}`);
         setForm(prevForm => {
             const updatedForm = {
                 ...prevForm,

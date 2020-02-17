@@ -14,6 +14,8 @@ const Confirm = React.lazy(() => import('../pages/auth/Confirm'));
 // dashboard
 const Dashboard = React.lazy(() => import('../pages/dashboard'));
 
+const Apply = React.lazy(() => import('../pages/apply'));
+
 const Contracts = React.lazy(() => import('../pages/contracts'));
 const ContractsLegacy = React.lazy(() => import('../pages/contracts/legacy'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
@@ -30,6 +32,7 @@ const FinancialsAccountLedger = React.lazy(() => import('../pages/financials/Acc
 const FinancialsChartOfAccounts = React.lazy(() => import('../pages/financials/ChartOfAccounts'));
 const FinancialsTrialBalance = React.lazy(() => import('../pages/financials/TrialBalance'));
 const FinancialsPaymentVoucher = React.lazy(() => import('../pages/financials/PaymentVoucher'));
+const FinancialsDeposit = React.lazy(() => import('../pages/financials/Deposit'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -70,7 +73,17 @@ const dashboardRoute = {
     icon: FeatherIcon.Home,
     component: Dashboard,
     route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer', 'Supplier']
 };
+
+const loanApply = {
+    path: '/apply',
+    name: 'Apply',
+    icon: FeatherIcon.Plus,
+    component: Apply,
+    route: PrivateRoute,
+    roles: ['Admin', 'Supplier']
+}
 
 // contracts
 const contractsRoute = {
@@ -80,6 +93,7 @@ const contractsRoute = {
     component: Contracts,
     exact: true,
     route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager']
 };
 
 const contractsSubRoutes = [
@@ -89,6 +103,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractsLegacy,
         route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
     },
     {
         path: '/contracts/search',
@@ -96,6 +111,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractSearch,
         route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
     },
     {
         path: '/contracts/work/:id',
@@ -103,6 +119,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractWork,
         route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
     },
     {
         path: '/contracts/details/:id',
@@ -110,6 +127,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractDetails,
         route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
     },
 ];
 
@@ -120,6 +138,7 @@ const requestsRoute = {
     icon: FeatherIcon.GitPullRequest,
     component: Requests,
     route: PrivateRoute,
+    roles: ['Admin', 'Manager']
 };
 
 // payments
@@ -129,6 +148,7 @@ const paymentsRoute = {
     icon: FeatherIcon.DollarSign,
     component: Payments,
     route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager']
 };
 
 // loan-calculator
@@ -138,6 +158,7 @@ const loanCalculatorRoute = {
     icon: FeatherIcon.Percent,
     component: LoanCalculator,
     route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer']
 };
 
 const financialsRoute = {
@@ -147,6 +168,7 @@ const financialsRoute = {
     component: Financials,
     exact: true,
     route: PrivateRoute,
+    roles: ['Admin', 'Manager']
 };
 
 const financialsSubRoutes = [
@@ -156,6 +178,7 @@ const financialsSubRoutes = [
         exact: true,
         component: FinancialsJournalEntry,
         route: PrivateRoute,
+        roles: ['Admin', 'Manager']
     },
     {
         path: '/financials/account/:id',
@@ -163,6 +186,7 @@ const financialsSubRoutes = [
         exact: true,
         component: FinancialsAccountLedger,
         route: PrivateRoute,
+        roles: ['Admin', 'Manager']
     },
     {
         path: '/financials/chart-of-accounts',
@@ -170,6 +194,7 @@ const financialsSubRoutes = [
         exact: true,
         component: FinancialsChartOfAccounts,
         route: PrivateRoute,
+        roles: ['Admin', 'Manager']
     },
     {
         path: '/financials/trial-balance',
@@ -177,6 +202,7 @@ const financialsSubRoutes = [
         exact: true,
         component: FinancialsTrialBalance,
         route: PrivateRoute,
+        roles: ['Admin', 'Manager']
     },
     {
         path: '/financials/payment-voucher',
@@ -184,6 +210,15 @@ const financialsSubRoutes = [
         exact: true,
         component: FinancialsPaymentVoucher,
         route: PrivateRoute,
+        roles: ['Admin', 'Manager']
+    },
+    {
+        path: '/financials/deposit',
+        name: 'Deposit',
+        exact: true,
+        component: FinancialsDeposit,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager']
     },
 ];
 
@@ -244,6 +279,7 @@ const flattenRoutes = routes => {
 const allRoutes = [
     rootRoute,
     dashboardRoute,
+    loanApply,
     contractsRoute,
     ...contractsSubRoutes,
     requestsRoute,
@@ -256,6 +292,7 @@ const allRoutes = [
 
 const authProtectedRoutes = [
     dashboardRoute,
+    loanApply,
     contractsRoute,
     requestsRoute,
     paymentsRoute,

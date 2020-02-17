@@ -6,10 +6,10 @@ import Flatpickr from 'react-flatpickr';
 import FormInput from '../../components/form/FormInput';
 
 import PageTitle from '../../components/PageTitle';
-import Entry from '../../components/financials/PaymentVoucherItem';
+import Entry from '../../components/financials/DepositItem';
 import { getLoggedInUser } from '../../helpers/authUtils';
 import { getDate } from '../../helpers/date';
-import { TEXTAREA_INPUT_REQUIRED, DROPDOWN_DEFAULT, NUMBER_INPUT_REQUIRED, TEXT_INPUT_OPTIONAL } from '../../constants/formValues';
+import { TEXTAREA_INPUT_REQUIRED, DROPDOWN_DEFAULT, NUMBER_INPUT_REQUIRED } from '../../constants/formValues';
 import { apiAuth } from '../../cidium-api';
 import { loadDropdownAccountGeneric } from '../../helpers/form';
 
@@ -17,17 +17,16 @@ export default props => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
-        from_account: DROPDOWN_DEFAULT,
+        to_account: DROPDOWN_DEFAULT,
         amount: NUMBER_INPUT_REQUIRED,
         remarks: TEXTAREA_INPUT_REQUIRED,
         posting_date: { value: getDate('-') },
-        due_date: TEXT_INPUT_OPTIONAL,
     });
     const blankEntry = { account: 0, amount: '' };
     const [entriesState, setEntriesState] = useState([blankEntry]);
 
     useEffect(() => {
-        loadDropdownAccountGeneric('account', 'from_account', 1, 1, setForm);
+        loadDropdownAccountGeneric('account', 'to_account', 1, 1, setForm);
     }, []);
 
     const handleOnChange = e => {
@@ -56,13 +55,6 @@ export default props => {
     };
     const addEntry = () => {
         setEntriesState([...entriesState, { ...blankEntry }]);
-    };
-    const setDueDate = value => {
-        setForm(prevForm => {
-            const updatedForm = { ...prevForm, due_date: { ...prevForm.posting_date } };
-            updatedForm.due_date.value = value;
-            return updatedForm;
-        });
     };
     const setPostingDate = value => {
         setForm(prevForm => {
@@ -94,14 +86,13 @@ export default props => {
         }
         apiAuth
             .post(
-                '/account/paymentvoucher',
+                '/account/deposit',
                 qs.stringify({
                     remark: form.remarks.value,
                     entries: JSON.stringify(entriesState),
-                    from_account_id: form.from_account.value,
+                    to_account_id: form.to_account.value,
                     amount: form.amount.value,
                     posting_date: form.posting_date.value,
-                    due_date: form.due_date.value,
                     user_id: getLoggedInUser().id,
                 })
             )
@@ -142,9 +133,9 @@ export default props => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Financials', path: '/financials' },
-                            { label: 'Payment Voucher', path: '#', active: true },
+                            { label: 'Deposit', path: '#', active: true },
                         ]}
-                        title={'Payment Voucher'}
+                        title={'Deposit'}
                     />
                 </Col>
             </Row>
@@ -153,12 +144,12 @@ export default props => {
                 <Col md={12}>
                     <Card>
                         <CardBody>
-                            <h4 className="header-title mt-0">Payment Voucher</h4>
+                            <h4 className="header-title mt-0">Deposit</h4>
                             <FormGroup>
-                                <Label for="text">From Account</Label>
+                                <Label for="text">To Account</Label>
                                 <FormInput
-                                    {...form['from_account']}
-                                    name="from_account"
+                                    {...form['to_account']}
+                                    name="to_account"
                                     handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
@@ -168,16 +159,6 @@ export default props => {
                                     value={form.posting_date.value}
                                     onChange={(e, date) => {
                                         setPostingDate(date);
-                                    }}
-                                    className="form-control"
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="text">Due Date</Label>
-                                <Flatpickr
-                                    placeholder="Due Date"
-                                    onChange={(e, date) => {
-                                        setDueDate(date);
                                     }}
                                     className="form-control"
                                 />
