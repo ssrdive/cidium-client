@@ -58,16 +58,7 @@ export default ({ location }) => {
                     <ReceiptForm id={id} valid={valid} />
                 </Col>
                 <Col md={4}>
-                    <OneTimePayment />
-                </Col>
-            </Row>
-
-            <Row>
-                <Col md={4}>
-                    <DebitNote id={id} valid={valid} />
-                </Col>
-                <Col md={4}>
-                    <LegacyReceiptForm id={id} valid={valid} />
+                <DebitNote id={id} valid={valid} />
                 </Col>
             </Row>
         </React.Fragment>
