@@ -32,6 +32,7 @@ export default ({ id }) => {
                             <tr>
                                 <th>#</th>
                                 <th>ID</th>
+                                <th>Type</th>
                                 <th>Installment</th>
                                 <th>Installment Paid</th>
                                 <th>Due Date</th>
@@ -44,6 +45,7 @@ export default ({ id }) => {
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{installment.id}</td>
+                                        <td>{installment.installment_type}</td>
                                         <td>
                                             {installment.installment > installment.installment_paid &&
                                             installment.due_in < 0 ? (

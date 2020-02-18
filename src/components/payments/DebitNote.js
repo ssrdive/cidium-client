@@ -6,7 +6,7 @@ import { apiAuth } from '../../cidium-api';
 import { getLoggedInUser } from '../../helpers/authUtils';
 import FormInput from '../form/FormInput';
 import { NUMBER_INPUT_REQUIRED, TEXTAREA_INPUT_OPTIONAL, DROPDOWN_DEFAULT } from '../../constants/formValues';
-import { loadDropdownGeneric } from '../../helpers/form';
+import { loadDropdownConditionalGeneric } from '../../helpers/form';
 
 export default ({ valid, id }) => {
     const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default ({ valid, id }) => {
     });
 
     useEffect(() => {
-        loadDropdownGeneric('contract_installment_type', 'debit_type', setForm);
+        loadDropdownConditionalGeneric('contract_installment_type', 'debit_type', 'di_chargable', 0, setForm);
     }, [])
 
     const handleOnChange = e => {
