@@ -4,10 +4,8 @@ import { Row, Col } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import ContractDetails from '../../components/payments/ContractDetails';
-import OneTimePayment from '../../components/payments/OneTimePayment';
 import DebitNote from '../../components/payments/DebitNote';
 import ReceiptForm from '../../components/payments/ReceiptForm';
-import LegacyReceiptForm from '../../components/payments/LegacyReceiptForm';
 import SelectContractForm from '../../components/payments/SelectContractForm';
 
 export default ({ location }) => {

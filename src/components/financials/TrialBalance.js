@@ -36,8 +36,8 @@ export default () => {
                         <tr>
                             <th>Account ID</th>
                             <th>Name</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
+                            {/* <th>Debit</th>
+                            <th>Credit</th> */}
                             <th>Balance</th>
                         </tr>
                     </thead>
@@ -46,22 +46,34 @@ export default () => {
                             balance = balance + result.balance;
                             debits = debits + result.debit;
                             credits = credits + result.credit;
-                            return (
-                                <tr key={index}>
-                                    <td>{result.account_id}</td>
-                                    <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                    <td>LKR {result.debit.toLocaleString()}</td>
-                                    <td>LKR {result.credit.toLocaleString()}</td>
-                                    <td><b>LKR {result.balance.toLocaleString()}</b></td>
-                                </tr>
-                            );
+                            if (result.balance !== 0) {
+                                return (
+                                    <tr key={index}>
+                                        <td>{result.account_id}</td>
+                                        <td>
+                                            <Link to={`/financials/account/${result.id}`}>{result.account_name}</Link>
+                                        </td>
+                                        {/* <td>LKR {result.debit.toLocaleString()}</td> */}
+                                        {/* <td>LKR {result.credit.toLocaleString()}</td> */}
+                                        <td>
+                                            <b>LKR {result.balance.toLocaleString()}</b>
+                                        </td>
+                                    </tr>
+                                );
+                            } else {
+                                return null;
+                            }
                         })}
                         <tr>
-                            <td><b>Balance</b></td>
+                            <td>
+                                <b>Balance</b>
+                            </td>
                             <td></td>
-                            <td><b>LKR {debits.toLocaleString()}</b></td>
-                            <td><b>LKR {credits.toLocaleString()}</b></td>
-                            <td><b>LKR {balance.toLocaleString()}</b></td>
+                            {/* <td><b>LKR {debits.toLocaleString()}</b></td> */}
+                            {/* <td><b>LKR {credits.toLocaleString()}</b></td> */}
+                            <td>
+                                <b>LKR {balance.toLocaleString()}</b>
+                            </td>
                         </tr>
                     </tbody>
                 </Table>

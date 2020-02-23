@@ -32,6 +32,8 @@ const FinancialsAccountLedger = React.lazy(() => import('../pages/financials/Acc
 const FinancialsChartOfAccounts = React.lazy(() => import('../pages/financials/ChartOfAccounts'));
 const FinancialsTrialBalance = React.lazy(() => import('../pages/financials/TrialBalance'));
 const FinancialsPaymentVoucher = React.lazy(() => import('../pages/financials/PaymentVoucher'));
+const FinancialsPaymentVouchers = React.lazy(() => import('../pages/financials/PaymentVouchers'));
+const FinancialsPaymentVoucherDetails = React.lazy(() => import('../pages/financials/PaymentVoucherDetails'));
 const FinancialsDeposit = React.lazy(() => import('../pages/financials/Deposit'));
 
 // handle auth and authorization
@@ -209,6 +211,22 @@ const financialsSubRoutes = [
         name: 'Payment Voucher',
         exact: true,
         component: FinancialsPaymentVoucher,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager']
+    },
+    {
+        path: '/financials/payment-vouchers',
+        name: 'Payment Vouchers',
+        exact: true,
+        component: FinancialsPaymentVouchers,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager']
+    },
+    {
+        path: '/financials/payment-voucher/:id',
+        name: 'Payment Voucher Details',
+        exact: true,
+        component: FinancialsPaymentVoucherDetails,
         route: PrivateRoute,
         roles: ['Admin', 'Manager']
     },
