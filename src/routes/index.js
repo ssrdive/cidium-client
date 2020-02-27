@@ -35,6 +35,7 @@ const FinancialsPaymentVoucher = React.lazy(() => import('../pages/financials/Pa
 const FinancialsPaymentVouchers = React.lazy(() => import('../pages/financials/PaymentVouchers'));
 const FinancialsPaymentVoucherDetails = React.lazy(() => import('../pages/financials/PaymentVoucherDetails'));
 const FinancialsDeposit = React.lazy(() => import('../pages/financials/Deposit'));
+const FinancialsTransaction = React.lazy(() => import('../pages/financials/Transaction'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -235,6 +236,14 @@ const financialsSubRoutes = [
         name: 'Deposit',
         exact: true,
         component: FinancialsDeposit,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager']
+    },
+    {
+        path: '/financials/transaction/:id',
+        name: 'Transaction Details',
+        exact: true,
+        component: FinancialsTransaction,
         route: PrivateRoute,
         roles: ['Admin', 'Manager']
     },

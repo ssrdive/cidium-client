@@ -22,6 +22,7 @@ export default props => {
         remarks: TEXTAREA_INPUT_REQUIRED,
         posting_date: { value: getDate('-') },
         due_date: TEXT_INPUT_OPTIONAL,
+        check_number: TEXT_INPUT_OPTIONAL,
     });
     const blankEntry = { account: 0, amount: '' };
     const [entriesState, setEntriesState] = useState([blankEntry]);
@@ -102,6 +103,7 @@ export default props => {
                     amount: form.amount.value,
                     posting_date: form.posting_date.value,
                     due_date: form.due_date.value,
+                    check_number: form.check_number.value,
                     user_id: getLoggedInUser().id,
                 })
             )
@@ -180,6 +182,15 @@ export default props => {
                                         setDueDate(date);
                                     }}
                                     className="form-control"
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="text">Check Number</Label>
+                                <FormInput
+                                    {...form['check_number']}
+                                    name="check_number"
+                                    placeholder="Check Number"
+                                    handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
                             <FormGroup>

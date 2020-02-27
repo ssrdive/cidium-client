@@ -23,13 +23,13 @@ export default ({ match }) => {
                 });
         };
         fetchDetails();
-    });
+    }, []);
 
     return (
         <React.Fragment>
             <Row>
                 <Col md={6}>
-                    <img src={logo} style={{ width: '80px' }} />
+                    <img alt="Agrivest Logo" src={logo} style={{ width: '80px' }} />
                 </Col>
                 <Col md={6}>
                     <h3 style={{ paddingBottom: '0', marginBottom: '0' }}>Agrivest Private Limited</h3>
@@ -46,6 +46,24 @@ export default ({ match }) => {
 
             <Row>
                 <Col md={12}>
+                    {receipts !== null ? (
+                        <>
+                            <table>
+                                <tr>
+                                    <td>Payment Mode :</td>
+                                    <td><b>{receipts.due_date.Valid ? 'Check' : 'Cash'}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Check Number :</td>
+                                    <td><b>{receipts.due_date.Valid ? receipts.check_number.String : 'N/A'}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Due Date :</td>
+                                    <td><b>{receipts.due_date.Valid ? receipts.due_date.String : 'N/A'}</b></td>
+                                </tr>
+                            </table>
+                        </>
+                    ) : null}
                     <Table>
                         <thead>
                             <tr>
@@ -57,7 +75,7 @@ export default ({ match }) => {
                         <tbody>
                             {receipts !== null ? (
                                 <>
-                                    {receipts.map((voucher, index) => {
+                                    {receipts.payment_voucher_details.map((voucher, index) => {
                                         return (
                                             <tr key={index}>
                                                 <td>{voucher.account_id}</td>

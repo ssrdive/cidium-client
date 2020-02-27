@@ -11,7 +11,7 @@ export default ({ id }) => {
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/account/ledger/${id}`)
+            .get(`/transaction/${id}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -23,39 +23,29 @@ export default ({ id }) => {
             });
     }, [id]);
 
-    let balance = 0;
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Account Ledger</h4>
+                <h4 className="header-title mt-0 mb-1">Transaction</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
-                            <th>Account Name</th>
                             <th>Transaction ID</th>
-                            <th>Posting Date</th>
+                            <th>Account ID</th>
+                            <th>Account Name</th>
                             <th>DR</th>
                             <th>CR</th>
-                            <th>Balance</th>
-                            <th>Remark</th>
                         </tr>
                     </thead>
                     <tbody>
                         {results.map((result, index) => {
-                            if(result.type === 'DR') {
-                                balance = balance + parseFloat(result.amount);
-                            } else {
-                                balance = balance - parseFloat(result.amount);
-                            }
                             return (
                                 <tr key={index}>
-                                    <td>{result.account_name}</td>
-                                    <Link to={'/financials/transaction/' + result.transaction_id}><td>{result.transaction_id}</td></Link>
-                                    <td>{result.posting_date}</td>
+                                    <td>{result.transaction_id}</td>
+                                    <td>{result.account_id}</td>
+                                    <Link to={'/financials/account/' + result.account_id2}><td>{result.account_name}</td></Link>
                                     <td>{result.type === 'DR' ? <>{'LKR'} {result.amount.toLocaleString()}</> : null}</td>
                                     <td>{result.type === 'CR' ? <>{'LKR'} {result.amount.toLocaleString()}</> : null}</td>
-                                    <td><b>LKR {balance.toLocaleString()}</b></td>
-                                    <td>{result.remark}</td>
                                 </tr>
                             );
                         })}

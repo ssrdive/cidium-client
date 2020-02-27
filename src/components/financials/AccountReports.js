@@ -27,6 +27,12 @@ export default ({ history }) => {
                             }}>
                             Trial Balance
                         </DropdownItem>
+                        <DropdownItem
+                            onClick={() => {
+                                history.push(`/financials/payment-vouchers`);
+                            }}>
+                            Payment Vouchers
+                        </DropdownItem>
                     </DropdownMenu>
                 </UncontrolledDropdown>
             </CardBody>
