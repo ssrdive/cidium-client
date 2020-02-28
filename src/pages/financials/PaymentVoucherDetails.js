@@ -23,7 +23,7 @@ export default ({ match }) => {
                 });
         };
         fetchDetails();
-    }, []);
+    }, [id]);
 
     return (
         <React.Fragment>
@@ -50,16 +50,28 @@ export default ({ match }) => {
                         <>
                             <table>
                                 <tr>
+                                    <td>Payee :</td>
+                                    <td>
+                                        <b>M/S {receipts.payee.String}</b>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Payment Mode :</td>
-                                    <td><b>{receipts.due_date.Valid ? 'Check' : 'Cash'}</b></td>
+                                    <td>
+                                        <b>{receipts.due_date.Valid ? 'Check' : 'Cash'}</b>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Check Number :</td>
-                                    <td><b>{receipts.due_date.Valid ? receipts.check_number.String : 'N/A'}</b></td>
+                                    <td>
+                                        <b>{receipts.due_date.Valid ? receipts.check_number.String : 'N/A'}</b>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Due Date :</td>
-                                    <td><b>{receipts.due_date.Valid ? receipts.due_date.String : 'N/A'}</b></td>
+                                    <td>
+                                        <b>{receipts.due_date.Valid ? receipts.due_date.String : 'N/A'}</b>
+                                    </td>
                                 </tr>
                             </table>
                         </>
@@ -88,6 +100,34 @@ export default ({ match }) => {
                             ) : null}
                         </tbody>
                     </Table>
+                    {receipts !== null ? (
+                        <>
+                            <table>
+                                <tr>
+                                    <td>Remarks :</td>
+                                    <td>
+                                        <b>{receipts.remark.String}</b>
+                                    </td>
+                                </tr>
+                            </table>
+                        </>
+                    ) : null}
+                    <Row>
+                        <Col md={6}>
+                            <br />
+                            <br />
+                            <br />
+                            <p style={{ padding: 0, margin: 0 }}>...................................................</p>
+                            <p>Authorized Signature</p>
+                        </Col>
+                        <Col md={6}>
+                            <br />
+                            <br />
+                            <br />
+                            <p style={{ padding: 0, margin: 0 }}>...................................................</p>
+                            <p>Received Signature</p>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
         </React.Fragment>

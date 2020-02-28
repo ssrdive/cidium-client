@@ -9,7 +9,13 @@ import PageTitle from '../../components/PageTitle';
 import Entry from '../../components/financials/PaymentVoucherItem';
 import { getLoggedInUser } from '../../helpers/authUtils';
 import { getDate } from '../../helpers/date';
-import { TEXTAREA_INPUT_REQUIRED, DROPDOWN_DEFAULT, NUMBER_INPUT_REQUIRED, TEXT_INPUT_OPTIONAL } from '../../constants/formValues';
+import {
+    TEXTAREA_INPUT_REQUIRED,
+    DROPDOWN_DEFAULT,
+    NUMBER_INPUT_REQUIRED,
+    TEXT_INPUT_OPTIONAL,
+    TEXT_INPUT_REQUIRED,
+} from '../../constants/formValues';
 import { apiAuth } from '../../cidium-api';
 import { loadDropdownAccountGeneric } from '../../helpers/form';
 
@@ -23,6 +29,7 @@ export default props => {
         posting_date: { value: getDate('-') },
         due_date: TEXT_INPUT_OPTIONAL,
         check_number: TEXT_INPUT_OPTIONAL,
+        payee: TEXT_INPUT_REQUIRED,
     });
     const blankEntry = { account: 0, amount: '' };
     const [entriesState, setEntriesState] = useState([blankEntry]);
@@ -104,6 +111,7 @@ export default props => {
                     posting_date: form.posting_date.value,
                     due_date: form.due_date.value,
                     check_number: form.check_number.value,
+                    payee: form.payee.value,
                     user_id: getLoggedInUser().id,
                 })
             )
@@ -156,52 +164,67 @@ export default props => {
                     <Card>
                         <CardBody>
                             <h4 className="header-title mt-0">Payment Voucher</h4>
-                            <FormGroup>
-                                <Label for="text">From Account</Label>
-                                <FormInput
-                                    {...form['from_account']}
-                                    name="from_account"
-                                    handleOnChange={handleOnChange}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="text">Posting Date</Label>
-                                <Flatpickr
-                                    value={form.posting_date.value}
-                                    onChange={(e, date) => {
-                                        setPostingDate(date);
-                                    }}
-                                    className="form-control"
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="text">Due Date</Label>
-                                <Flatpickr
-                                    placeholder="Due Date"
-                                    onChange={(e, date) => {
-                                        setDueDate(date);
-                                    }}
-                                    className="form-control"
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="text">Check Number</Label>
-                                <FormInput
-                                    {...form['check_number']}
-                                    name="check_number"
-                                    placeholder="Check Number"
-                                    handleOnChange={handleOnChange}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="text">Amount</Label>
-                                <FormInput
-                                    {...form['amount']}
-                                    name="amount"
-                                    placeholder="Amount"
-                                    handleOnChange={handleOnChange}
-                                />
-                            </FormGroup>
+                            <Row>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Label for="text">From Account</Label>
+                                        <FormInput
+                                            {...form['from_account']}
+                                            name="from_account"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Posting Date</Label>
+                                        <Flatpickr
+                                            value={form.posting_date.value}
+                                            onChange={(e, date) => {
+                                                setPostingDate(date);
+                                            }}
+                                            className="form-control"
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Due Date</Label>
+                                        <Flatpickr
+                                            placeholder="Due Date"
+                                            onChange={(e, date) => {
+                                                setDueDate(date);
+                                            }}
+                                            className="form-control"
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Label for="text">Check Number</Label>
+                                        <FormInput
+                                            {...form['check_number']}
+                                            name="check_number"
+                                            placeholder="Check Number"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Payee</Label>
+                                        <FormInput
+                                            {...form['payee']}
+                                            name="payee"
+                                            placeholder="Payee"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Amount</Label>
+                                        <FormInput
+                                            {...form['amount']}
+                                            name="amount"
+                                            placeholder="Amount"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                            </Row>
 
                             <Button color="info" onClick={addEntry}>
                                 Add
