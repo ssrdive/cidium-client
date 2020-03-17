@@ -14,9 +14,12 @@ export default ({ results, loading }) => {
                             <th>Details</th>
                             <th>Amount Pending</th>
                             <th>Total Payable</th>
+                            <th>Total Paid</th>
+                            <th>Last Payment Date</th>
                             <th>Recovery Officer</th>
                             <th>State</th>
                             <th>Model</th>
+                            <th>Batch</th>
                             <th>Chassis Number</th>
                             <th>Customer Name</th>
                         </tr>
@@ -47,9 +50,18 @@ export default ({ results, loading }) => {
                                             )}
                                         </Link>
                                     </td>
+                                    <td>
+                                        {result.total_paid > 0 ? (
+                                            <Badge color="info">{result.total_paid.toLocaleString()}</Badge>
+                                        ) : (
+                                            <Badge color="danger">{result.total_paid.toLocaleString()}</Badge>
+                                        )}
+                                    </td>
+                                    <td>{result.last_payment_date}</td>
                                     <td>{result.recovery_officer}</td>
                                     <td>{result.state}</td>
                                     <td>{result.model}</td>
+                                    <td>{result.batch}</td>
                                     <td>{result.chassis_number}</td>
                                     <td>{result.customer_name}</td>
                                 </tr>
