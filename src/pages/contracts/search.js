@@ -19,7 +19,7 @@ export default ({ location }) => {
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/search?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
+            .get(`/contract/searchnew?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
