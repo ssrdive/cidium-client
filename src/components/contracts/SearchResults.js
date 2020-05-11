@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
 export default ({ results, loading }) => {
+    const daysElapsed = (date) => {
+        if(date !== "N/A") {
+            var msDiff = new Date().getTime() - new Date(date).getTime();
+            return Math.floor(msDiff / (1000 * 60 * 60 * 24));
+        } else {
+            return "N/A";
+        }
+    }
+
     return (
         <Card>
             <CardBody>
@@ -13,6 +22,7 @@ export default ({ results, loading }) => {
                             <th>Work</th>
                             <th>Details</th>
                             <th>Amount Pending</th>
+                            <th>Od Index</th>
                             <th>Total Payable</th>
                             <th>Total Paid</th>
                             <th>Last Payment Date</th>
@@ -41,6 +51,9 @@ export default ({ results, loading }) => {
                                             <Badge color="success">{result.amount_pending.toLocaleString()}</Badge>
                                         )}
                                     </td>
+                                    <td>{result.overdue_index === 0 ? <><Badge color="success">{result.overdue_index}</Badge></> : <>
+                                        {result.overdue_index <= 1 ? <><Badge color="info">{result.overdue_index}</Badge></> : <>{result.overdue_index <= 3.0 ? <><Badge color="warning">{result.overdue_index}</Badge></> : <>{result.overdue_index === "N/A" ? <><Badge color="success">{result.overdue_index}</Badge></> : <><Badge color="danger">{result.overdue_index}</Badge></>}</>}</>}
+                                    </>}</td>
                                     <td>
                                         <Link to={`/payments?id=${result.id}`}>
                                             {result.total_payable > 0 ? (
@@ -57,7 +70,7 @@ export default ({ results, loading }) => {
                                             <Badge color="danger">{result.total_paid.toLocaleString()}</Badge>
                                         )}
                                     </td>
-                                    <td>{result.last_payment_date}</td>
+                                    <td>{result.last_payment_date} &bull; {daysElapsed(result.last_payment_date) <= 30 ? <><Badge color="info">{daysElapsed(result.last_payment_date)}</Badge></> : <>{daysElapsed(result.last_payment_date) <= 60 ? <><Badge color="warning">{daysElapsed(result.last_payment_date)}</Badge></> : <>{daysElapsed(result.last_payment_date) === "N/A" ? <Badge color="danger">{daysElapsed(result.last_payment_date)}</Badge> : <Badge color="danger">{daysElapsed(result.last_payment_date)}</Badge>}</>}</>}</td>
                                     <td>{result.recovery_officer}</td>
                                     <td>{result.state}</td>
                                     <td>{result.model}</td>
