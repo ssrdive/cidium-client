@@ -17,7 +17,9 @@ export default ({ results, loading }) => {
         let totalDIPaid = 0;
         for (let i = 0; i < results.length; i++) {
             totalOverdue += parseFloat(results[i].amount_pending);
-            totalOdIndex += parseFloat(results[i].overdue_index);
+            if(results[i].overdue_index !== "N/A") {
+                totalOdIndex += parseFloat(results[i].overdue_index);
+            }
             totalAgreement += parseFloat(results[i].total_agreement);
             totalPaid += parseFloat(results[i].total_paid);
             totalPayable += parseFloat(results[i].total_payable);
