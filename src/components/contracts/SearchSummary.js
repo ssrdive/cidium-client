@@ -10,12 +10,14 @@ export default ({ results, loading }) => {
 
         const noOfContracts = results.length;
         let totalOverdue = 0;
+        let totalOdIndex = 0;
         let totalAgreement = 0;
         let totalPaid = 0;
         let totalPayable = 0;
         let totalDIPaid = 0;
         for (let i = 0; i < results.length; i++) {
             totalOverdue += parseFloat(results[i].amount_pending);
+            totalOdIndex += parseFloat(results[i].overdue_index);
             totalAgreement += parseFloat(results[i].total_agreement);
             totalPaid += parseFloat(results[i].total_paid);
             totalPayable += parseFloat(results[i].total_payable);
@@ -25,6 +27,7 @@ export default ({ results, loading }) => {
         let collectionPercent = (totalPaid / (totalOverdue + totalPaid)) * 100;
 
         totalOverdue = +totalOverdue.toFixed(2);
+        totalOdIndex = +totalOdIndex.toFixed(2);
         totalAgreement = +totalAgreement.toFixed(2);
         totalPaid = +totalPaid.toFixed(2);
         totalPayable = +totalPayable.toFixed(2);
@@ -35,6 +38,7 @@ export default ({ results, loading }) => {
             return {
                 noOfContracts,
                 totalOverdue,
+                totalOdIndex,
                 totalAgreement,
                 totalPaid,
                 totalPayable,
@@ -64,6 +68,10 @@ export default ({ results, loading }) => {
                             <tr>
                                 <td>Total Overdue</td>
                                 <td>{summary.totalOverdue > 0 ? (<Badge color="danger">{summary.totalOverdue.toLocaleString()}</Badge>) : (<Badge color="success">0</Badge>)}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Od Index</td>
+                                <td>{summary.totalOdIndex > 0 ? (<Badge color="danger">{summary.totalOdIndex}</Badge>) : (<Badge color="success">0</Badge>)}</td>
                             </tr>
                             <tr>
                                 <td>Total Agreement</td>
