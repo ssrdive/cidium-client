@@ -6,6 +6,7 @@ import Commitments from '../../components/contracts/Commitments';
 import ContractSearch from '../../components/contracts/ContractSearch';
 import NewContract from '../../components/contracts/NewContract';
 import ContractAnswerSearch from '../../components/contracts/ContractAnswerSearch';
+import ContractPerformanceReview from '../../components/contracts/ContractPerformanceReview';
 
 export default (props) => {
     return (
@@ -22,6 +23,7 @@ export default (props) => {
             <Row>
                 <Col md={4}>
                     <ContractSearch {...props} />
+                    <ContractPerformanceReview {...props} />
                     <ContractAnswerSearch {...props} />
                 </Col>
                 <Col md={8}>
