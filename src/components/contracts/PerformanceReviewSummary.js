@@ -62,7 +62,7 @@ export default ({ results, loading }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Search Summary</h4>
+                <h4 className="header-title mt-0 mb-1">Performance Summary</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
