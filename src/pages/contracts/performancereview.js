@@ -39,9 +39,9 @@ export default ({ location }) => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Contracts', path: '/contracts' },
-                            { label: 'Search', path: '/contracts/search', active: true },
+                            { label: 'Performance Review', path: '/contracts/performancereview', active: true },
                         ]}
-                        title={'Contract Search'}
+                        title={'Contract Performance Review'}
                     />
                 </Col>
             </Row>
