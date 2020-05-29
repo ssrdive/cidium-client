@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
+import { Badge, Card, CardBody, Table, Spinner, Row, Col } from 'reactstrap';
 
-export default ({ results, loading, startdate, enddate }) => {
+export default ({ results, loading }) => {
     const [summary, setSummary] = useState(null);
 
     useEffect(() => {
@@ -73,7 +73,7 @@ export default ({ results, loading, startdate, enddate }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Performance Summary</h4>
+                <h4 className="header-title mt-0 mb-1">Portfolio Summary</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
@@ -84,36 +84,33 @@ export default ({ results, loading, startdate, enddate }) => {
                     <tbody>
                         {summary !== null ? (<>
                             <tr>
-                                <td>Start Date</td>
-                                <td><b>{startdate}</b></td>
+                                <td>No of Contracts</td>
+                                <td><Badge color="primary">{summary.noOfContracts}</Badge></td>
+                            </tr>
+
+                            <tr>
+                                <td>Total Overdue</td>
+                                <td>{summary.totalOverdue > 0 ? (<Badge color="danger">{summary.totalOverdue.toLocaleString()}</Badge>) : (<Badge color="success">0</Badge>)}</td>
                             </tr>
                             <tr>
-                                <td>End Date</td>
-                                <td><b>{enddate}</b></td>
+                                <td>Total Agreement</td>
+                                <td><Badge color="primary">{summary.totalAgreement.toLocaleString()}</Badge></td>
                             </tr>
                             <tr>
-                                <td>Start Overdue</td>
-                                <td>{summary.totalStartOverdue > 0 ? (<Badge color="danger">{summary.totalStartOverdue.toLocaleString()}</Badge>) : (<Badge color="success">0</Badge>)}</td>
+                                <td>Total Paid</td>
+                                <td><Badge color="success">{summary.totalPaid.toLocaleString()}</Badge></td>
                             </tr>
                             <tr>
-                                <td>End Overdue</td>
-                                <td>{summary.totalEndOverdue > 0 ? (<Badge color="danger">{summary.totalEndOverdue.toLocaleString()}</Badge>) : (<Badge color="success">0</Badge>)}</td>
+                                <td>Total Payable</td>
+                                <td><Badge color="warning">{summary.totalPayable.toLocaleString()}</Badge></td>
                             </tr>
                             <tr>
-                                <td>Overdue Variation</td>
-                                <td>{summary.overdueVariation == 0 ? <><font color="blue">{summary.overdueVariation.toLocaleString()}</font></> : <>{summary.overdueVariation > 0 ? <><font color="red">{'+'}{summary.overdueVariation.toLocaleString()}</font></> : <>{summary.overdueVariation === "N/A" ? <><font color="green">{summary.overdueVariation.toLocaleString()}</font></> : <><font color="green">{summary.overdueVariation.toLocaleString()}</font></>}</>}</>}</td>
+                                <td>Total DI Paid</td>
+                                <td><Badge color="primary">{summary.totalDIPaid.toLocaleString()}</Badge></td>
                             </tr>
                             <tr>
-                                <td>Start Od Index</td>
-                                <td>{summary.startOdIndex > 0 ? (<Badge color="danger">{summary.startOdIndex}</Badge>) : (<Badge color="success">0</Badge>)}</td>
-                            </tr>
-                            <tr>
-                                <td>End Od Index</td>
-                                <td>{summary.endOdIndex > 0 ? (<Badge color="danger">{summary.endOdIndex}</Badge>) : (<Badge color="success">0</Badge>)}</td>
-                            </tr>
-                            <tr>
-                                <td>Od Index Variation</td>
-                                <td>{summary.odIndexVariation == 0 ? <><font color="blue">{summary.odIndexVariation}</font></> : <>{summary.odIndexVariation > 0 ? <><font color="red">{'+'}{summary.odIndexVariation}</font></> : <>{summary.odIndexVariation === "N/A" ? <><font color="green">{summary.odIndexVariation}</font></> : <><font color="green">{summary.odIndexVariation}</font></>}</>}</>}</td>
+                                <td>Collection Ratio</td>
+                                <td><Badge color="primary">{summary.collectionPercent}%</Badge></td>
                             </tr>
                         </>) : null}
                     </tbody>

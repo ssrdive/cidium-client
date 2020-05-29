@@ -5,6 +5,7 @@ import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import PerformanceReviewResults from '../../components/contracts/PerformanceReviewResults';
 import PerformanceReviewSummary from '../../components/contracts/PerformanceReviewSummary';
+import PortfolioSummary from '../../components/contracts/PortfolioSummary';
 
 export default ({ location }) => {
     const [results, setResults] = useState([]);
@@ -46,8 +47,11 @@ export default ({ location }) => {
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <PerformanceReviewSummary results={results} loading={loading} />
+                <Col md={6}>
+                    <PerformanceReviewSummary results={results} loading={loading} startdate={startdate} enddate={enddate} />
+                </Col>
+                <Col md={6}>
+                    <PortfolioSummary results={results} loading={loading} />
                 </Col>
             </Row>
             <Row>
