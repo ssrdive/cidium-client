@@ -52,17 +52,25 @@ export default ({ id }) => {
                             </Col>
                             <Col md={12}>
                                 <Row>
-                                    <Col md={6}>
+                                    <Col>
                                         Amount Pending{' '}
                                         <h4>
                                             {details.amount_pending > 0 ? (
                                                 <Badge color="danger">{details.amount_pending.toLocaleString()}</Badge>
                                             ) : (
-                                                <Badge color="success">{details.amount_pending.toLocaleString()}</Badge>
-                                            )}
+                                                    <Badge color="success">{details.amount_pending.toLocaleString()}</Badge>
+                                                )}
                                         </h4>
                                     </Col>
-                                    <Col md={6}>
+                                    <Col>
+                                        Od Index{' '}
+                                        <h4>
+                                            {details.overdue_index === 0 ? <><Badge color="success">{details.overdue_index}</Badge></> : <>
+                                                {details.overdue_index <= 1 ? <><Badge color="info">{details.overdue_index}</Badge></> : <>{details.overdue_index <= 3.0 ? <><Badge color="warning">{details.overdue_index}</Badge></> : <>{details.overdue_index === "N/A" ? <><Badge color="success">{details.overdue_index}</Badge></> : <><Badge color="danger">{details.overdue_index}</Badge></>}</>}</>}
+                                            </>}
+                                        </h4>
+                                    </Col>
+                                    <Col>
                                         Total Payable{' '}
                                         <h4>
                                             <Link to={`/payments?id=${details.id}`}>
@@ -71,11 +79,21 @@ export default ({ id }) => {
                                                         {details.total_payable.toLocaleString()}
                                                     </Badge>
                                                 ) : (
-                                                    <Badge color="success">
-                                                        {details.total_payable.toLocaleString()}
-                                                    </Badge>
-                                                )}
+                                                        <Badge color="success">
+                                                            {details.total_payable.toLocaleString()}
+                                                        </Badge>
+                                                    )}
                                             </Link>
+                                        </h4>
+                                    </Col>
+                                    <Col>
+                                        Total Paid{' '}
+                                        <h4>
+                                            {details.total_paid > 0 ? (
+                                                <Badge color="info">{details.total_paid.toLocaleString()}</Badge>
+                                            ) : (
+                                                    <Badge color="danger">{details.total_paid.toLocaleString()}</Badge>
+                                                )}
                                         </h4>
                                     </Col>
                                 </Row>
@@ -115,8 +133,8 @@ export default ({ id }) => {
                         </Row>
                     </>
                 ) : (
-                    <Spinner type="grow" color="primary" />
-                )}
+                        <Spinner type="grow" color="primary" />
+                    )}
             </CardBody>
         </Card>
     );
