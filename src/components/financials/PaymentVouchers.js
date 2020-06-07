@@ -20,7 +20,7 @@ export default () => {
                 });
         };
         fetchDetails();
-    });
+    }, []);
 
     return (
         <Card>
