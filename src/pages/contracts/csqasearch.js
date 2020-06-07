@@ -3,23 +3,21 @@ import { Row, Col } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
-import SearchResults from '../../components/contracts/SearchResults';
-import SearchSummary from '../../components/contracts/SearchSummary';
+import CSQASearchResults from '../../components/contracts/CSQASearchResults';
 
 export default ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const params = new URLSearchParams(location.search);
+    const question = params.get('question');
+    const empty = params.get('empty');
     const search = params.get('search');
-    const state = params.get('state');
-    const officer = params.get('officer');
-    const batch = params.get('batch');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
+            .get(`/contract/csqasearch?question=${question}&empty=${empty}&search=${search}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -29,7 +27,7 @@ export default ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [search, state, officer, batch]);
+    }, [question, empty, search]);
 
     return (
         <React.Fragment>
@@ -38,20 +36,15 @@ export default ({ location }) => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Contracts', path: '/contracts' },
-                            { label: 'Search', path: '/contracts/search', active: true },
+                            { label: 'CSQA Search', path: '/contracts/search', active: true },
                         ]}
-                        title={'Contract Search'}
+                        title={'Contract CSQA Search'}
                     />
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <SearchSummary results={results} loading={loading} />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <SearchResults results={results} loading={loading} />
+                    <CSQASearchResults results={results} loading={loading} />
                 </Col>
             </Row>
         </React.Fragment>

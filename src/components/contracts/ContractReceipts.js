@@ -9,7 +9,7 @@ export default ({ id }) => {
     useEffect(() => {
         const fetchDetails = () => {
             apiAuth
-                .get(`/contract/receipts/${id}`)
+                .get(`/contract/receiptsv2/${id}`)
                 .then(res => {
                     if (res.data === null) setReceipts(prevReceipts => []);
                     else setReceipts(prevReceipts => res.data);
@@ -32,6 +32,7 @@ export default ({ id }) => {
                             <tr>
                                 <th>ID</th>
                                 <th>Date</th>
+                                <th>Type</th>
                                 <th>Amount</th>
                                 <th>Notes</th>
                             </tr>
@@ -42,6 +43,7 @@ export default ({ id }) => {
                                     <tr key={index}>
                                         <td>{receipt.id}</td>
                                         <td>{receipt.date}</td>
+                                        <td>{receipt.type}</td>
                                         <td>{receipt.amount}</td>
                                         <td>{receipt.notes.String}</td>
                                     </tr>

@@ -21,6 +21,8 @@ const ContractsLegacy = React.lazy(() => import('../pages/contracts/legacy'));
 const ContractSearch = React.lazy(() => import('../pages/contracts/search'));
 const ContractWork = React.lazy(() => import('../pages/contracts/work'));
 const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
+const ContractCSQASearch = React.lazy(() => import('../pages/contracts/csqasearch'));
+const ContractPerformanceReview = React.lazy(() => import('../pages/contracts/performancereview'));
 
 const Requests = React.lazy(() => import('../pages/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/loan-calculator'));
@@ -113,6 +115,22 @@ const contractsSubRoutes = [
         name: 'Search',
         exact: true,
         component: ContractSearch,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
+    },
+    {
+        path: '/contracts/csqasearch',
+        name: 'CSQA Search',
+        exact: true,
+        component: ContractCSQASearch,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager']
+    },
+    {
+        path: '/contracts/performancereview',
+        name: 'Performance Review',
+        exact: true,
+        component: ContractPerformanceReview,
         route: PrivateRoute,
         roles: ['Admin', 'Office Executive', 'Manager']
     },

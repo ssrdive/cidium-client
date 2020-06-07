@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
+import { Badge, Card, CardBody, Table, Spinner, Row, Col } from 'reactstrap';
 
 export default ({ results, loading }) => {
     const [summary, setSummary] = useState(null);
@@ -10,15 +10,23 @@ export default ({ results, loading }) => {
 
         const noOfContracts = results.length;
         let totalOverdue = 0;
-        let totalOdIndex = 0;
+        let totalStartOverdue = 0;
+        let totalEndOverdue = 0;
+        let startOdIndex = 0;
+        let endOdIndex = 0;
         let totalAgreement = 0;
         let totalPaid = 0;
         let totalPayable = 0;
         let totalDIPaid = 0;
         for (let i = 0; i < results.length; i++) {
             totalOverdue += parseFloat(results[i].amount_pending);
-            if(results[i].overdue_index !== "N/A") {
-                totalOdIndex += parseFloat(results[i].overdue_index);
+            totalStartOverdue += parseFloat(results[i].start_amount_pending);
+            totalEndOverdue += parseFloat(results[i].end_amount_pending);
+            if (results[i].start_overdue_index !== "N/A") {
+                startOdIndex += parseFloat(results[i].start_overdue_index);
+            }
+            if (results[i].end_overdue_index !== "N/A") {
+                endOdIndex += parseFloat(results[i].end_overdue_index);
             }
             totalAgreement += parseFloat(results[i].total_agreement);
             totalPaid += parseFloat(results[i].total_paid);
@@ -27,9 +35,16 @@ export default ({ results, loading }) => {
         }
 
         let collectionPercent = (totalPaid / (totalOverdue + totalPaid)) * 100;
+        let odIndexVariation = endOdIndex - startOdIndex;
+        let overdueVariation = totalEndOverdue - totalStartOverdue;
 
         totalOverdue = +totalOverdue.toFixed(2);
-        totalOdIndex = +totalOdIndex.toFixed(2);
+        totalStartOverdue = +totalStartOverdue.toFixed(2);
+        totalEndOverdue = +totalEndOverdue.toFixed(2);
+        overdueVariation = +overdueVariation.toFixed(2);
+        startOdIndex = +startOdIndex.toFixed(2);
+        odIndexVariation = odIndexVariation.toFixed(2);
+        endOdIndex = +endOdIndex.toFixed(2);
         totalAgreement = +totalAgreement.toFixed(2);
         totalPaid = +totalPaid.toFixed(2);
         totalPayable = +totalPayable.toFixed(2);
@@ -40,7 +55,12 @@ export default ({ results, loading }) => {
             return {
                 noOfContracts,
                 totalOverdue,
-                totalOdIndex,
+                totalStartOverdue,
+                totalEndOverdue,
+                overdueVariation,
+                startOdIndex,
+                endOdIndex,
+                odIndexVariation,
                 totalAgreement,
                 totalPaid,
                 totalPayable,
@@ -53,7 +73,7 @@ export default ({ results, loading }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Search Summary</h4>
+                <h4 className="header-title mt-0 mb-1">Portfolio Summary</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
@@ -67,13 +87,10 @@ export default ({ results, loading }) => {
                                 <td>No of Contracts</td>
                                 <td><Badge color="primary">{summary.noOfContracts}</Badge></td>
                             </tr>
+
                             <tr>
                                 <td>Total Overdue</td>
                                 <td>{summary.totalOverdue > 0 ? (<Badge color="danger">{summary.totalOverdue.toLocaleString()}</Badge>) : (<Badge color="success">0</Badge>)}</td>
-                            </tr>
-                            <tr>
-                                <td>Total Od Index</td>
-                                <td>{summary.totalOdIndex > 0 ? (<Badge color="danger">{summary.totalOdIndex}</Badge>) : (<Badge color="success">0</Badge>)}</td>
                             </tr>
                             <tr>
                                 <td>Total Agreement</td>

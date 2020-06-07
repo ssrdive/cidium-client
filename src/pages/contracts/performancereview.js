@@ -3,15 +3,17 @@ import { Row, Col } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
-import SearchResults from '../../components/contracts/SearchResults';
-import SearchSummary from '../../components/contracts/SearchSummary';
+import PerformanceReviewResults from '../../components/contracts/PerformanceReviewResults';
+import PerformanceReviewSummary from '../../components/contracts/PerformanceReviewSummary';
+import PortfolioSummary from '../../components/contracts/PortfolioSummary';
 
 export default ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const params = new URLSearchParams(location.search);
-    const search = params.get('search');
+    const startdate = params.get('startdate');
+    const enddate = params.get('enddate');
     const state = params.get('state');
     const officer = params.get('officer');
     const batch = params.get('batch');
@@ -19,7 +21,7 @@ export default ({ location }) => {
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
+            .get(`/contract/performancereview?startdate=${startdate}&enddate=${enddate}&state=${state}&officer=${officer}&batch=${batch}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -29,7 +31,7 @@ export default ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [search, state, officer, batch]);
+    }, [startdate, enddate, state, officer, batch]);
 
     return (
         <React.Fragment>
@@ -38,20 +40,23 @@ export default ({ location }) => {
                     <PageTitle
                         breadCrumbItems={[
                             { label: 'Contracts', path: '/contracts' },
-                            { label: 'Search', path: '/contracts/search', active: true },
+                            { label: 'Performance Review', path: '/contracts/performancereview', active: true },
                         ]}
-                        title={'Contract Search'}
+                        title={'Contract Performance Review'}
                     />
                 </Col>
             </Row>
             <Row>
-                <Col>
-                    <SearchSummary results={results} loading={loading} />
+                <Col md={6}>
+                    <PerformanceReviewSummary results={results} loading={loading} startdate={startdate} enddate={enddate} />
+                </Col>
+                <Col md={6}>
+                    <PortfolioSummary results={results} loading={loading} />
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <SearchResults results={results} loading={loading} />
+                    <PerformanceReviewResults results={results} loading={loading} />
                 </Col>
             </Row>
         </React.Fragment>

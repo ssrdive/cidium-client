@@ -25,6 +25,8 @@ export default ({ match }) => {
         fetchDetails();
     }, [id]);
 
+    let total = 0;
+
     return (
         <React.Fragment>
             <Row>
@@ -53,6 +55,12 @@ export default ({ match }) => {
                                     <td>Payee :</td>
                                     <td>
                                         <b>M/S {receipts.payee.String}</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Payer :</td>
+                                    <td>
+                                        <b>{receipts.account.String}</b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -88,6 +96,7 @@ export default ({ match }) => {
                             {receipts !== null ? (
                                 <>
                                     {receipts.payment_voucher_details.map((voucher, index) => {
+                                        total = total + voucher.amount;
                                         return (
                                             <tr key={index}>
                                                 <td>{voucher.account_id}</td>
@@ -98,6 +107,11 @@ export default ({ match }) => {
                                     })}
                                 </>
                             ) : null}
+                            <tr>
+                                <td><b>Total</b></td>
+                                <td></td>
+                                <td><b>LKR {total.toLocaleString()}</b></td>
+                            </tr>
                         </tbody>
                     </Table>
                     {receipts !== null ? (
