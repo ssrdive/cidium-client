@@ -5,9 +5,10 @@ import { apiAuth } from '../../cidium-api';
 
 export default ({ id }) => {
     const [receipts, setReceipts] = useState(null);
+    const [floatReceipts, setFloatReceipts] = useState(null);
 
     useEffect(() => {
-        const fetchDetails = () => {
+        const fetchReceiptDetails = () => {
             apiAuth
                 .get(`/contract/receiptsv2/${id}`)
                 .then(res => {
@@ -18,7 +19,19 @@ export default ({ id }) => {
                     console.log(err);
                 });
         };
-        fetchDetails();
+        const fetchFloatReceiptDetails = () => {
+            apiAuth
+                .get(`/contract/receipts/float/${id}`)
+                .then(res => {
+                    if (res.data === null) setFloatReceipts(prevReceipts => []);
+                    else setFloatReceipts(prevReceipts => res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        };
+        fetchReceiptDetails();
+        fetchFloatReceiptDetails();
     }, [id]);
 
     return (
@@ -52,8 +65,36 @@ export default ({ id }) => {
                         </tbody>
                     </Table>
                 ) : (
-                    <Spinner type="grow" color="primary" />
-                )}
+                        <Spinner type="grow" color="primary" />
+                    )}
+
+                <br></br>
+                <h4 className="header-title mt-0">Float</h4>
+
+                {floatReceipts !== null ? (
+                    <Table className="mb-0" responsive={true} striped>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {floatReceipts.map((floatReceipt, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{floatReceipt.id}</td>
+                                        <td>{floatReceipt.datetime}</td>
+                                        <td>{floatReceipt.amount}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </Table>
+                ) : (
+                        <Spinner type="grow" color="primary" />
+                    )}
             </CardBody>
         </Card>
     );
