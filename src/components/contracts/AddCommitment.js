@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import qs from 'qs';
-import { Form, Input, FormGroup } from 'reactstrap';
+import { Form, Input, FormGroup, Label } from 'reactstrap';
 import Flatpickr from 'react-flatpickr';
+import FormInput from '../form/FormInput';
 
 import { apiAuth } from '../../cidium-api';
 import { TEXTAREA_INPUT_REQUIRED, TEXT_INPUT_OPTIONAL } from '../../constants/formValues';
@@ -14,6 +15,7 @@ export default ({ id, fetchCommitments }) => {
     const [form, setForm] = useState({
         text: TEXTAREA_INPUT_REQUIRED,
         due_date: TEXT_INPUT_OPTIONAL,
+        special_message: { value: 0, type: 'select', options: [{ id: 0, name: 'No' }, { id: 1, name: 'Yes' }] },
     });
 
     const setInitDate = value => {
@@ -43,6 +45,7 @@ export default ({ id, fetchCommitments }) => {
                     contract_id: id,
                     text: form.text.value,
                     due_date: form.due_date.value,
+                    special_message: form.special_message.value,
                 })
             )
             .then(res => {
@@ -72,6 +75,14 @@ export default ({ id, fetchCommitments }) => {
                         }}
                         placeholder="Due Date"
                         className="form-control"
+                    />
+                </FormGroup>
+                <Label>Special Message</Label>
+                <FormGroup>
+                    <FormInput
+                        {...form['special_message']}
+                        name="special_message"
+                        handleOnChange={handleOnChange}
                     />
                 </FormGroup>
                 <SubmitComponent loading={loading} onClick={() => {}} name="Add" color="success" />
