@@ -30,10 +30,11 @@ export default ({ match }) => {
     return (
         <React.Fragment>
             <Row>
-                <Col md={6}>
+                <Col md={4}>
                     <img alt="Agrivest Logo" src={logo} style={{ width: '80px' }} />
                 </Col>
-                <Col md={6}>
+                <Col md={4}></Col>
+                <Col md={4}>
                     <h3 style={{ paddingBottom: '0', marginBottom: '0' }}>Agrivest Private Limited</h3>
                     <p style={{ padding: '0', margin: '0' }}>Hospital Junction Polonnaruwa</p>
                     <p style={{ padding: '0', margin: '0' }}>info@agrivest.lk &nbsp;&nbsp; 9427 222 22 79</p>
@@ -81,6 +82,12 @@ export default ({ match }) => {
                                         <b>{receipts.due_date.Valid ? receipts.due_date.String : 'N/A'}</b>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Issued on :</td>
+                                    <td>
+                                        <b>{receipts.datetime.Valid ? receipts.datetime.String : 'N/A'}</b>
+                                    </td>
+                                </tr>
                             </table>
                         </>
                     ) : null}
@@ -89,6 +96,7 @@ export default ({ match }) => {
                             <tr>
                                 <th>Account ID</th>
                                 <th>Account Name</th>
+                                <th>Posting Date</th>
                                 <th>Amount</th>
                             </tr>
                         </thead>
@@ -101,6 +109,7 @@ export default ({ match }) => {
                                             <tr key={index}>
                                                 <td>{voucher.account_id}</td>
                                                 <td>{voucher.account_name}</td>
+                                                <td>{voucher.posting_date}</td>
                                                 <td>LKR {voucher.amount.toLocaleString()}</td>
                                             </tr>
                                         );
@@ -109,6 +118,7 @@ export default ({ match }) => {
                             ) : null}
                             <tr>
                                 <td><b>Total</b></td>
+                                <td></td>
                                 <td></td>
                                 <td><b>LKR {total.toLocaleString()}</b></td>
                             </tr>
