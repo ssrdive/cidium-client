@@ -28,6 +28,7 @@ export default ({ results, loading }) => {
                             <th>Last Payment Date</th>
                             <th>Recovery Officer</th>
                             <th>State</th>
+                            <th>In State For</th>
                             <th>Model</th>
                             <th>Batch</th>
                             <th>Chassis Number</th>
@@ -73,6 +74,7 @@ export default ({ results, loading }) => {
                                     <td>{result.last_payment_date} &bull; {daysElapsed(result.last_payment_date) <= 30 ? <><Badge color="info">{daysElapsed(result.last_payment_date)}</Badge></> : <>{daysElapsed(result.last_payment_date) <= 60 ? <><Badge color="warning">{daysElapsed(result.last_payment_date)}</Badge></> : <>{daysElapsed(result.last_payment_date) === "N/A" ? <Badge color="danger">{daysElapsed(result.last_payment_date)}</Badge> : <Badge color="danger">{daysElapsed(result.last_payment_date)}</Badge>}</>}</>}</td>
                                     <td>{result.recovery_officer}</td>
                                     <td>{result.state}</td>
+                                    <td><Badge color="info">{result.in_state_for.String}</Badge></td>
                                     <td>{result.model}</td>
                                     <td>{result.batch}</td>
                                     <td>{result.chassis_number}</td>
