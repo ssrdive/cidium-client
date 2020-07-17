@@ -17,11 +17,12 @@ export default ({ location }) => {
     const state = params.get('state');
     const officer = params.get('officer');
     const batch = params.get('batch');
+    const npl = params.get('npl');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/performancereview?startdate=${startdate}&enddate=${enddate}&state=${state}&officer=${officer}&batch=${batch}`)
+            .get(`/contract/performancereview?startdate=${startdate}&enddate=${enddate}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -31,7 +32,7 @@ export default ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [startdate, enddate, state, officer, batch]);
+    }, [startdate, enddate, state, officer, batch, npl]);
 
     return (
         <React.Fragment>

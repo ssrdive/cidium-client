@@ -15,11 +15,12 @@ export default ({ location }) => {
     const state = params.get('state');
     const officer = params.get('officer');
     const batch = params.get('batch');
+    const npl = params.get('npl');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}`)
+            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -29,7 +30,7 @@ export default ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [search, state, officer, batch]);
+    }, [search, state, officer, batch, npl]);
 
     return (
         <React.Fragment>

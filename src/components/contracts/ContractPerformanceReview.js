@@ -15,6 +15,7 @@ export default ({ history }) => {
         state_id: DROPDOWN_DEFAULT,
         recovery_officer: DROPDOWN_DEFAULT,
         batch_id: DROPDOWN_DEFAULT,
+        npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
     });
 
     const handleOnChange = e => {
@@ -35,7 +36,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/performancereview?startdate=${form.start_date.value}&enddate=${form.end_date.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}`)
+        history.push(`/contracts/performancereview?startdate=${form.start_date.value}&enddate=${form.end_date.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}`)
     }
 
     const setDate = (value, field) => {
@@ -82,6 +83,9 @@ export default ({ history }) => {
                             </FormGroup>
                             <FormGroup>
                                 <FormInput {...form['batch_id']} name="batch_id" handleOnChange={handleOnChange} />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormInput {...form['npl']} name="npl" handleOnChange={handleOnChange} />
                             </FormGroup>
                             <Button color="primary" type="submit">
                                 Search

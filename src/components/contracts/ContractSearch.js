@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, CardBody, Form, FormGroup, Button } from 'reactstrap';
+import { Row, Col, Card, CardBody, Form, FormGroup, Button, CustomInput } from 'reactstrap';
 import FormInput from '../form/FormInput';
 
 import { loadOptionalDropdownGeneric } from '../../helpers/form';
@@ -12,6 +12,7 @@ export default ({ history }) => {
         state_id: DROPDOWN_DEFAULT,
         recovery_officer: DROPDOWN_DEFAULT,
         batch_id: DROPDOWN_DEFAULT,
+        npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
     });
 
     const handleOnChange = e => {
@@ -32,7 +33,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}`)
+        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}`)
     }
 
     return (
@@ -60,6 +61,18 @@ export default ({ history }) => {
                             <FormGroup>
                                 <FormInput {...form['batch_id']} name="batch_id" handleOnChange={handleOnChange} />
                             </FormGroup>
+                            <FormGroup>
+                                <FormInput {...form['npl']} name="npl" handleOnChange={handleOnChange} />
+                            </FormGroup>
+                            {/* <FormGroup>
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide non-performing loans" onChange={e => {
+                                    setForm(prevForm => {
+                                        const updatedForm = { ...prevForm };
+                                        updatedForm.hidenpl = prevForm.hidenpl === 0 ? 1 : 0;
+                                        return updatedForm;
+                                    })
+                                }} />
+                            </FormGroup> */}
                             <Button color="primary" type="submit">
                                 Search
                             </Button>
