@@ -78,7 +78,7 @@ const dashboardRoute = {
     icon: FeatherIcon.Home,
     component: Dashboard,
     route: PrivateRoute,
-    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer', 'Supplier']
+    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer', 'Supplier', 'Level 3']
 };
 
 const loanApply = {
@@ -87,7 +87,7 @@ const loanApply = {
     icon: FeatherIcon.Plus,
     component: Apply,
     route: PrivateRoute,
-    roles: ['Admin', 'Supplier']
+    roles: ['Admin', 'Supplier', 'Level 3']
 }
 
 // contracts
@@ -98,7 +98,7 @@ const contractsRoute = {
     component: Contracts,
     exact: true,
     route: PrivateRoute,
-    roles: ['Admin', 'Office Executive', 'Manager']
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
 };
 
 const contractsSubRoutes = [
@@ -108,7 +108,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractsLegacy,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
     {
         path: '/contracts/search',
@@ -116,7 +116,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractSearch,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
     {
         path: '/contracts/csqasearch',
@@ -124,7 +124,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractCSQASearch,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
     {
         path: '/contracts/performancereview',
@@ -132,7 +132,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractPerformanceReview,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
     {
         path: '/contracts/work/:id',
@@ -140,7 +140,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractWork,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
     {
         path: '/contracts/details/:id',
@@ -148,7 +148,7 @@ const contractsSubRoutes = [
         exact: true,
         component: ContractDetails,
         route: PrivateRoute,
-        roles: ['Admin', 'Office Executive', 'Manager']
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
 ];
 
@@ -159,7 +159,7 @@ const requestsRoute = {
     icon: FeatherIcon.GitPullRequest,
     component: Requests,
     route: PrivateRoute,
-    roles: ['Admin', 'Manager']
+    roles: ['Admin', 'Manager', 'Level 3']
 };
 
 // payments
@@ -169,7 +169,7 @@ const paymentsRoute = {
     icon: FeatherIcon.DollarSign,
     component: Payments,
     route: PrivateRoute,
-    roles: ['Admin', 'Office Executive', 'Manager']
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
 };
 
 // loan-calculator
@@ -179,7 +179,7 @@ const loanCalculatorRoute = {
     icon: FeatherIcon.Percent,
     component: LoanCalculator,
     route: PrivateRoute,
-    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer']
+    roles: ['Admin', 'Office Executive', 'Manager', 'Field Officer', 'Level 3']
 };
 
 const financialsRoute = {
