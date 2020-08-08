@@ -94,6 +94,7 @@ export default ({ results, loading }) => {
                                     </tr>
                                 );
                             }
+                            return null;
                         })}
                     </tbody>
                 </Table>

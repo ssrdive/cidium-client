@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Card, CardBody, Table, Spinner, Row, Col } from 'reactstrap';
+import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
 export default ({ results, loading }) => {
     const [summary, setSummary] = useState(null);

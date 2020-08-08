@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, CardBody, Form, FormGroup, Button, CustomInput } from 'reactstrap';
+import { Row, Col, Card, CardBody, Form, FormGroup, Button } from 'reactstrap';
 import FormInput from '../form/FormInput';
 
 import { loadOptionalDropdownGeneric } from '../../helpers/form';
