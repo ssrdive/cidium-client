@@ -40,6 +40,7 @@ const FinancialsDeposit = React.lazy(() => import('../pages/financials/Deposit')
 const FinancialsTransaction = React.lazy(() => import('../pages/financials/Transaction'));
 
 const Reporting = React.lazy(() => import('../pages/reporting'));
+const ReportingReceiptSearch = React.lazy(() => import('../pages/reporting/receiptsearch'));
 
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
@@ -279,6 +280,17 @@ const reportingRoute = {
     roles: ['Admin', 'Manager', 'Level 3']
 };
 
+const reportingSubRoutes = [
+    {
+        path: '/reporting/receiptsearch',
+        name: 'Receipt Search',
+        exact: true,
+        component: ReportingReceiptSearch,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager', 'Level 3']
+    },
+]
+
 // auth
 const authRoutes = {
     path: '/account',
@@ -345,6 +357,7 @@ const allRoutes = [
     financialsRoute,
     ...financialsSubRoutes,
     reportingRoute,
+    ...reportingSubRoutes,
     authRoutes,
 ];
 

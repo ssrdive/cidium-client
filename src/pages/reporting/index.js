@@ -3,8 +3,9 @@ import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
 import AchievementSummary from '../../components/reporting/AchievementSummary';
+import ReceiptSearch from '../../components/reporting/ReceiptSearch';
 
-export default () => {
+export default ({ history }) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -17,16 +18,13 @@ export default () => {
             </Row>
 
             <Row>
-                {/* <Col md={4}>
+                <Col md={4}>
                     <Row>
                         <Col md={12}>
-                            // Reporting module
-                        </Col>
-                        <Col md={12}>
-                            // Reporting module
+                            <ReceiptSearch history={history} />
                         </Col>
                     </Row>
-                </Col> */}
+                </Col>
 
                 <Col md={8}>
                     <AchievementSummary />
