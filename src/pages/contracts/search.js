@@ -16,11 +16,13 @@ export default ({ location }) => {
     const officer = params.get('officer');
     const batch = params.get('batch');
     const npl = params.get('npl');
+    const startod = params.get('startod');
+    const endod = params.get('endod');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}`)
+            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&startod=${startod}&endod=${endod}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);

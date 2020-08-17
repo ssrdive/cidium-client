@@ -4,7 +4,7 @@ import FormInput from '../form/FormInput';
 
 import { loadOptionalDropdownGeneric } from '../../helpers/form';
 
-import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT } from '../../constants/formValues';
+import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
 export default ({ history }) => {
     const [form, setForm] = useState({
@@ -13,6 +13,8 @@ export default ({ history }) => {
         recovery_officer: DROPDOWN_DEFAULT,
         batch_id: DROPDOWN_DEFAULT,
         npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
+        start_od: NUMBER_INPUT_OPTIONAL,
+        end_od: NUMBER_INPUT_OPTIONAL,
     });
 
     const handleOnChange = e => {
@@ -33,7 +35,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}`)
+        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&startod=${form.start_od.value}&endod=${form.end_od.value}`)
     }
 
     return (
@@ -64,6 +66,28 @@ export default ({ history }) => {
                             <FormGroup>
                                 <FormInput {...form['npl']} name="npl" handleOnChange={handleOnChange} />
                             </FormGroup>
+                            <Row>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['start_od']}
+                                            name="start_od"
+                                            placeholder="Start Od Index"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormInput
+                                            {...form['end_od']}
+                                            name="end_od"
+                                            placeholder="End Od Index"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                            </Row>
                             {/* <FormGroup>
                                 <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide non-performing loans" onChange={e => {
                                     setForm(prevForm => {
