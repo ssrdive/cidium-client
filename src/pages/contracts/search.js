@@ -18,11 +18,12 @@ export default ({ location }) => {
     const npl = params.get('npl');
     const startod = params.get('startod');
     const endod = params.get('endod');
+    const removedeleted = params.get('removedeleted');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&startod=${startod}&endod=${endod}`)
+            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);

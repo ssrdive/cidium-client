@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Card, CardBody, Form, FormGroup, Button } from 'reactstrap';
+import { Row, Col, Card, CardBody, Form, FormGroup, Button, CustomInput } from 'reactstrap';
 import FormInput from '../form/FormInput';
 
 import { loadOptionalDropdownGeneric } from '../../helpers/form';
@@ -15,6 +15,7 @@ export default ({ history }) => {
         npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
         start_od: NUMBER_INPUT_OPTIONAL,
         end_od: NUMBER_INPUT_OPTIONAL,
+        removedeleted: 1,
     });
 
     const handleOnChange = e => {
@@ -35,7 +36,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&startod=${form.start_od.value}&endod=${form.end_od.value}`)
+        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&startod=${form.start_od.value}&endod=${form.end_od.value}&removedeleted=${form.removedeleted}`)
     }
 
     return (
@@ -88,15 +89,15 @@ export default ({ history }) => {
                                     </FormGroup>
                                 </Col>
                             </Row>
-                            {/* <FormGroup>
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide non-performing loans" onChange={e => {
+                            <FormGroup>
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remove Deleted Contracts" defaultChecked="true" onChange={e => {
                                     setForm(prevForm => {
                                         const updatedForm = { ...prevForm };
-                                        updatedForm.hidenpl = prevForm.hidenpl === 0 ? 1 : 0;
+                                        updatedForm.removedeleted = prevForm.removedeleted === 0 ? 1 : 0;
                                         return updatedForm;
                                     })
                                 }} />
-                            </FormGroup> */}
+                            </FormGroup>
                             <Button color="primary" type="submit">
                                 Search
                             </Button>
