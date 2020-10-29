@@ -90,7 +90,7 @@ export default ({ history }) => {
                                 </Col>
                             </Row>
                             <FormGroup>
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remove Deleted Contracts" defaultChecked="true" onChange={e => {
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remove Settled / Deleted Contracts" defaultChecked="true" onChange={e => {
                                     setForm(prevForm => {
                                         const updatedForm = { ...prevForm };
                                         updatedForm.removedeleted = prevForm.removedeleted === 0 ? 1 : 0;
