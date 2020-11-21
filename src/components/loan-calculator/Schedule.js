@@ -20,9 +20,9 @@ export default ({ schedule }) => {
                         {schedule.map((installment, index) => {
                             return <tr key={index}>
                                 <td>{index + 1}</td>
-                                <td>{installment.capital}</td>
-                                <td>{installment.interest}</td>
-                                <td>{parseFloat(installment.capital) + parseFloat(installment.interest)}</td>
+                                <td>{installment.capital.toFixed(2)}</td>
+                                <td>{installment.interest.toFixed(2)}</td>
+                                <td>{(parseFloat(installment.capital) + parseFloat(installment.interest)).toFixed(2)}</td>
                                 <td>{installment.due_date}</td>
                             </tr>;
                         })}
