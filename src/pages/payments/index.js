@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import ContractDetails from '../../components/payments/ContractDetails';
-import DebitNote from '../../components/payments/DebitNote';
+import ChargesDebitNote from '../../components/payments/ChargesDebitNote';
 import ReceiptForm from '../../components/payments/ReceiptForm';
 import SelectContractForm from '../../components/payments/SelectContractForm';
 
@@ -56,7 +56,7 @@ export default ({ location }) => {
                     <ReceiptForm id={id} valid={valid} />
                 </Col>
                 <Col md={4}>
-                <DebitNote id={id} valid={valid} />
+                <ChargesDebitNote id={id} valid={valid} />
                 </Col>
             </Row>
         </React.Fragment>

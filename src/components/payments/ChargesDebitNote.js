@@ -70,7 +70,7 @@ export default ({ valid, id }) => {
                     <Spinner className="m-2" type="grow" color="success" />
                 ) : (
                     <Button color="success" type="submit">
-                        Issue Receipt
+                        Issue
                     </Button>
                 )}
             </>
@@ -80,7 +80,7 @@ export default ({ valid, id }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">Debit Note</h4>
+                <h4 className="header-title mt-0">Charges / Debit Note</h4>
                 <Row>
                     <Col>
                         {valid ? (
@@ -89,7 +89,7 @@ export default ({ valid, id }) => {
                                     <Col md={12}>
                                         <Form onSubmit={handleFormSubmit}>
                                             <FormGroup>
-                                                <Label for="text">Debit Type</Label>
+                                                <Label for="text">Type</Label>
                                                 <FormInput
                                                     {...form['debit_type']}
                                                     name="debit_type"
