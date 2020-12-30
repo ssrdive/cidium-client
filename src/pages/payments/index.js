@@ -3,7 +3,7 @@ import { Row, Col } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
-import ContractDetails from '../../components/payments/ContractDetails';
+import ContractDetails from '../../components/contracts/ContractDetails';
 import ChargesDebitNote from '../../components/payments/ChargesDebitNote';
 import ReceiptForm from '../../components/payments/ReceiptForm';
 import SelectContractForm from '../../components/payments/SelectContractForm';
@@ -44,7 +44,7 @@ export default ({ location }) => {
 
             <Row>
                 <Col md={12}>
-                    <ContractDetails valid={valid} details={details} />
+                    <ContractDetails id={id} />
                 </Col>
             </Row>
 

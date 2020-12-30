@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Badge, Col, Card, CardBody, Spinner } from 'reactstrap';
+import { Row, Badge, Col, Card, CardBody, Spinner, CustomInput } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
 export default ({ id }) => {
     const [details, setDetails] = useState(null);
+    const [financials, setFinancials] = useState(null);
+    const [displayFinancials, setDisplayFinancials] = useState("none");
 
     useEffect(() => {
         const fetchDetails = () => {
@@ -16,19 +18,106 @@ export default ({ id }) => {
                     setDetails(prevDetails => res.data);
                 })
                 .catch(err => {
+                    setDetails(prevDetails => false);
+                    console.log(err);
+                });
+        };
+        const fetchFinancials = () => {
+            if (id === 0) return;
+            apiAuth
+                .get(`/contract/detailfinancial/${id}`)
+                .then(res => {
+                    setFinancials(prevDetails => res.data);
+                })
+                .catch(err => {
+                    setFinancials(prevDetails => false);
                     console.log(err);
                 });
         };
         fetchDetails();
+        fetchFinancials();
     }, [id]);
 
     return (
         <Card>
             <CardBody>
+                <h4 className="header-title mt-0">Financials</h4>
+                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide" defaultChecked="true" onChange={e => {
+                    setDisplayFinancials(prevVal => prevVal === "none" ? "block" : "none")
+                }} />
+                <br></br>
+                <div style={{ display: displayFinancials }}>
+                    {financials !== null ? (
+                        financials !== false ? (<>
+                            <>
+                            {financials.lkas_17 ? (
+                                <>
+                                    <Row>
+                                        <Col>
+                                            Active{' '}
+                                            <h4>
+                                                {financials.active == 1 ? (<Badge color="success">Yes</Badge>) : (<><Badge color="warning">No</Badge></>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            Recovery Status{' '}
+                                            <h4>
+                                                {financials.recovery_status == "Active" ? (<Badge color="success">{financials.recovery_status}</Badge>) : (<><Badge color="danger">{financials.recovery_status}</Badge></>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            Doubtful{' '}
+                                            <h4>
+                                                {financials.doubtful == 1 ? (<Badge color="danger">Yes</Badge>) : (<><Badge color="success">No</Badge></>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            IRR Payment{' '}
+                                            <h4>
+                                                {financials.payment.toLocaleString()}
+                                            </h4>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col>
+                                            Contract Arrears{' '}
+                                            <h4>
+                                                {financials.contract_arrears > 0 ? (<Badge color="danger">{financials.contract_arrears.toLocaleString()}</Badge>) : (<Badge color="success">{financials.contract_arrears.toLocaleString()}</Badge>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            Charges / Debits Arrears{' '}
+                                            <h4>
+                                                {financials.charges_debits_arrears > 0 ? (<Badge color="danger">{financials.charges_debits_arrears.toLocaleString()}</Badge>) : (<Badge color="success">{financials.charges_debits_arrears.toLocaleString()}</Badge>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            Overdue Index{' '}
+                                            <h4>
+                                                {financials.overdue_index > 0 ? (<Badge color="danger">{financials.overdue_index}</Badge>) : (<Badge color="success">{financials.overdue_index}</Badge>)}
+                                            </h4>
+                                        </Col>
+                                        <Col>
+                                            Capital Provisioned{' '}
+                                            <h4>
+                                                {financials.capital_provisioned > 0 ? (<Badge color="danger">{financials.capital_provisioned.toLocaleString()}</Badge>) : (<Badge color="success">{financials.capital_provisioned.toLocaleString()}</Badge>)}
+                                            </h4>
+                                        </Col>
+                                    </Row>
+                                </>
+                            ) : (<p>This contract is not LKAS 17 compliant</p>)}
+                        </>
+                        </>) : (<><p>Contract not found</p></>)
+                    ) : (
+                            <Spinner type="grow" color="primary" />
+                        )}
+                    <hr color="#a3b8cf" />
+                </div>
                 <h4 className="header-title mt-0">Contract Details</h4>
 
                 {details !== null ? (
-                    <>
+                    details !== false ? (<>
+                        <>
                         <Row>
                             <Col md={12}>
                                 <Row>
@@ -130,8 +219,20 @@ export default ({ id }) => {
                             <Col>
                                 <Badge color="primary">Price</Badge> {details.price}
                             </Col>
+                            <Col>
+                                <Badge color="primary">Liaison Name</Badge> {details.liaison_name.String}
+                            </Col>
+                            <Col>
+                                <Badge color="primary">Liaison Contact</Badge> {details.liaison_contact.String}
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Badge color="primary">Downpayment</Badge> {details.downpayment.Int32}
+                            </Col>
                         </Row>
                     </>
+                    </>) : (<p>Contract not found</p>)
                 ) : (
                         <Spinner type="grow" color="primary" />
                     )}
