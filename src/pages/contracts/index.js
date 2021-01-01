@@ -3,6 +3,7 @@ import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
 import Commitments from '../../components/contracts/Commitments';
+import GoToContract from '../../components/contracts/GoToContract';
 import ContractSearch from '../../components/contracts/ContractSearch';
 import NewContract from '../../components/contracts/NewContract';
 import ContractAnswerSearch from '../../components/contracts/ContractAnswerSearch';
@@ -22,6 +23,7 @@ export default (props) => {
 
             <Row>
                 <Col md={4}>
+                    <GoToContract {...props} />
                     <ContractSearch {...props} />
                     <ContractPerformanceReview {...props} />
                     <ContractAnswerSearch {...props} />

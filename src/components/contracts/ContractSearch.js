@@ -13,6 +13,7 @@ export default ({ history }) => {
         recovery_officer: DROPDOWN_DEFAULT,
         batch_id: DROPDOWN_DEFAULT,
         npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
+        lkas17: { value: '', type: 'select', options: [{ id: '', name: 'Select LKAS 17 Status' }, { id: 0, name: 'LKAS 17 Compliant' }, { id: 1, name: 'LKAS 17 Non-compliant' }] },
         start_od: NUMBER_INPUT_OPTIONAL,
         end_od: NUMBER_INPUT_OPTIONAL,
         removedeleted: 1,
@@ -36,7 +37,7 @@ export default ({ history }) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&startod=${form.start_od.value}&endod=${form.end_od.value}&removedeleted=${form.removedeleted}`)
+        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&lkas17=${form.lkas17.value}&startod=${form.start_od.value}&endod=${form.end_od.value}&removedeleted=${form.removedeleted}`)
     }
 
     return (
@@ -66,6 +67,9 @@ export default ({ history }) => {
                             </FormGroup>
                             <FormGroup>
                                 <FormInput {...form['npl']} name="npl" handleOnChange={handleOnChange} />
+                            </FormGroup>
+                            <FormGroup>
+                                <FormInput {...form['lkas17']} name="lkas17" handleOnChange={handleOnChange} />
                             </FormGroup>
                             <Row>
                                 <Col md={6}>
