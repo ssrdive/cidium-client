@@ -5,6 +5,7 @@ import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import SearchResults from '../../components/contracts/SearchResults';
 import SearchSummary from '../../components/contracts/SearchSummary';
+import ArrearsSummary from '../../components/contracts/ArrearsSummary';
 
 export default ({ location }) => {
     const [results, setResults] = useState([]);
@@ -52,6 +53,9 @@ export default ({ location }) => {
             <Row>
                 <Col>
                     <SearchSummary results={results} loading={loading} />
+                </Col>
+                <Col>
+                    <ArrearsSummary results={results} loading={loading} />
                 </Col>
             </Row>
             <Row>
