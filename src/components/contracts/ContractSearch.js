@@ -13,7 +13,7 @@ export default ({ history }) => {
         recovery_officer: DROPDOWN_DEFAULT,
         batch_id: DROPDOWN_DEFAULT,
         npl: { value: '', type: 'select', options: [{ id: '', name: 'Select Performing Status' }, { id: 0, name: 'Performing' }, { id: 1, name: 'Non-Performing' }] },
-        lkas17: { value: '', type: 'select', options: [{ id: '', name: 'Select LKAS 17 Status' }, { id: 0, name: 'LKAS 17 Compliant' }, { id: 1, name: 'LKAS 17 Non-compliant' }] },
+        lkas17: { value: '', type: 'select', options: [{ id: '', name: 'Select LKAS 17 Status' }, { id: 1, name: 'LKAS 17 Compliant' }, { id: 0, name: 'LKAS 17 Non-compliant' }] },
         start_od: NUMBER_INPUT_OPTIONAL,
         end_od: NUMBER_INPUT_OPTIONAL,
         removedeleted: 1,
