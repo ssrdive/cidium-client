@@ -39,7 +39,7 @@ export default ({ id }) => {
     }, [id]);
 
     return (
-        <Card>
+        <Card style={{backgroundColor: (details !== null && details !== false && details.amount_pending == details.total_payable && details.amount_pending !== 0) ? '#f7aba6' : ''}}>
             <CardBody>
                 <h4 className="header-title mt-0">Financials</h4>
                 <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide" defaultChecked="true" onChange={e => {

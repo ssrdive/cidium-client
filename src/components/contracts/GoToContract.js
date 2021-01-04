@@ -18,10 +18,8 @@ export default ({ history }) => {
         });
     };
 
-    const handleFormSubmit = e => {
-        e.persist();
-        e.preventDefault();
-        history.push(`/contracts/details/${form.contract.value}`)
+    const goToContract = (type) => {
+        history.push(`/contracts/${type}/${form.contract.value}`)
     }
 
     return (
@@ -31,7 +29,7 @@ export default ({ history }) => {
 
                 <Row>
                     <Col md={12}>
-                        <Form onSubmit={handleFormSubmit}>
+                        <Form>
                             <FormGroup>
                                 <FormInput
                                     {...form['contract']}
@@ -40,8 +38,11 @@ export default ({ history }) => {
                                     handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
-                            <Button color="primary" type="submit">
-                                Go
+                            <Button color="success" type="submit" onClick={() => {goToContract("work")}}>
+                                Work
+                            </Button>&nbsp;&nbsp;
+                            <Button color="info" type="submit" onClick={() => {goToContract("details")}}>
+                                Details
                             </Button>
                         </Form>
                     </Col>

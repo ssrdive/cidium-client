@@ -38,7 +38,7 @@ export default ({ results, loading }) => {
                     <tbody>
                         {results.map((result, index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={index} style={{backgroundColor: result.amount_pending == result.total_payable && result.amount_pending != 0 ? '#f7aba6' : ''}}>
                                     <td>
                                         <Link to={`/contracts/work/${result.id}`}>{result.id}</Link>
                                     </td>

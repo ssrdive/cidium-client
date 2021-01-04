@@ -48,7 +48,7 @@ export default ({ id }) => {
                                         <td>{installment.installment_type}</td>
                                         <td>
                                             {installment.installment > installment.installment_paid &&
-                                            installment.due_in < 0 ? (
+                                            installment.due_in <= 0 ? (
                                                 <Badge color="danger">{installment.installment.toLocaleString()}</Badge>
                                             ) : (
                                                 <Badge color="success">
