@@ -9,6 +9,7 @@ import ContractCommitments from './ContractCommitments';
 import ContractQuestions from './ContractQuestions';
 import ContractDocuments from './ContractDocuments';
 import ContractHistory from './ContractHistory';
+import Dev from './Dev';
 
 class DetailsTabs extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ class DetailsTabs extends Component {
             {
                 id: '4',
                 title: 'Commitments',
-                icon: 'uil-receipt',
+                icon: 'uil-comment-message',
                 component: () => {
                     return <ContractCommitments id={this.props.id} />;
                 },
@@ -81,6 +82,14 @@ class DetailsTabs extends Component {
                 icon: 'uil-history',
                 component: () => {
                     return <ContractHistory id={this.props.id} />;
+                },
+            },
+            {
+                id: '8',
+                title: 'Dev',
+                icon: 'uil-trowel',
+                component: () => {
+                    return <Dev id={this.props.id} />;
                 },
             },
         ];
