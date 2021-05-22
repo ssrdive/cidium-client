@@ -63,6 +63,7 @@ const NewContract = ({ history }) => {
         customer_contact: NUMBER_INPUT_REQUIRED,
         contract_type_id: DROPDOWN_DEFAULT,
         contract_batch_id: DROPDOWN_DEFAULT,
+        credit_officer_id: DROPDOWN_DEFAULT,
         recovery_officer_id: DROPDOWN_DEFAULT,
         institute_id: DROPDOWN_DEFAULT,
         institute_dealer_id: DROPDOWN_DEFAULT,
@@ -86,7 +87,8 @@ const NewContract = ({ history }) => {
         loadDropdownGeneric('contract_batch', 'contract_batch_id', setForm);
         loadDropdownGeneric('institute', 'institute_id', setForm);
         loadDropdownGeneric('institute_dealer', 'institute_dealer_id', setForm);
-        loadDropdownGeneric('user', 'recovery_officer_id', setForm)
+        loadDropdownGeneric('user', 'recovery_officer_id', setForm);
+        loadDropdownGeneric('user', 'credit_officer_id', setForm);
     }, []);
 
     const handleFormSubmit = e => {
@@ -213,6 +215,14 @@ const NewContract = ({ history }) => {
                                         <FormInput
                                             {...form['contract_batch_id']}
                                             name="contract_batch_id"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Credit Officer</Label>
+                                        <FormInput
+                                            {...form['credit_officer_id']}
+                                            name="credit_officer_id"
                                             handleOnChange={handleOnChange}
                                         />
                                     </FormGroup>

@@ -214,6 +214,9 @@ export default ({ id }) => {
                         </Row>
                         <Row>
                             <Col>
+                                <Badge color="primary">Credit Officer</Badge> {details.credit_officer}
+                            </Col>
+                            <Col>
                                 <Badge color="primary">Recovery Officer</Badge> {details.recovery_officer}
                             </Col>
                             <Col>
@@ -222,11 +225,11 @@ export default ({ id }) => {
                             <Col>
                                 <Badge color="primary">Liaison Name</Badge> {details.liaison_name.String}
                             </Col>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Badge color="primary">Liaison Contact</Badge> {details.liaison_contact.String}
                             </Col>
-                        </Row>
-                        <Row>
                             <Col>
                                 <Badge color="primary">Downpayment</Badge> {details.downpayment.Int32}
                             </Col>
