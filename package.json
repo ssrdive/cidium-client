@@ -29,7 +29,7 @@
     "react-cookie": "^4.0.1",
     "react-device-detect": "^1.9.9",
     "react-dom": "^16.9.0",
-    "react-draft-wysiwyg": "^1.13.2",
+    "react-draft-wysiwyg": "^1.14.6",
     "react-dropzone": "^10.1.9",
     "react-feather": "^2.0.3",
     "react-flatpickr": "^3.9.1",
