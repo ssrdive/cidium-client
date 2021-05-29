@@ -5,7 +5,6 @@ import Flatpickr from 'react-flatpickr';
 import FormInput from '../form/FormInput';
 import SubmitComponent from '../form/SubmitComponent';
 import {
-    TEXT_INPUT_REQUIRED,
     NUMBER_INPUT_REQUIRED,
 } from '../../constants/formValues';
 import { getDate } from '../../helpers/date';
@@ -20,6 +19,7 @@ export default ({ setSchedule }) => {
         installment_interval: { value: '6', type: 'select', options: [{ id: '6', name: '6 - Biannual' }, { id: '1', name: '1 - Monthly' }] },
         method: { value: 'R2', type: 'select', options: [{ id: 'R2', name: 'R2 - IRR Reducing' }, { id: 'IRR', name: 'IRR - IRR Straight Line' }, { id: 'R', name: 'R - Reducing [LEGACY - DO NOT USE]' }, { id: 'S', name: 'S - Straight Line [LEGACY - DO NOT USE]' }] },
         initiation_date: { value: getDate('-') },
+        structured_monthly_rental: { value: 0, type: 'number', required: true },
     });
 
     const handleFormSubmit = e => {
@@ -28,7 +28,7 @@ export default ({ setSchedule }) => {
         setLoading(prevLoading => true);
         apiAuth
             .get(
-                `/contract/calculation/${form.capital.value}/${form.rate.value}/${form.installments.value}/${form.installment_interval.value}/${form.initiation_date.value}/${form.method.value}`
+                `/contract/calculation/${form.capital.value}/${form.rate.value}/${form.installments.value}/${form.installment_interval.value}/${form.initiation_date.value}/${form.method.value}/${form.structured_monthly_rental.value}`
             )
             .then(res => {
                 setLoading(prevLoading => false);
@@ -121,11 +121,23 @@ export default ({ setSchedule }) => {
                                             handleOnChange={handleOnChange}
                                         />
                                     </FormGroup>
+
+                                </Col>
+                                <Col lg={4}>
+                                    <FormGroup>
+                                        <Label for="text">Structured Monthly Rental</Label>
+                                        <FormInput
+                                            {...form['structured_monthly_rental']}
+                                            name="structured_monthly_rental"
+                                            placeholder="Structured Monthly Rental"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
                                     <SubmitComponent
                                         loading={loading}
                                         name="Calculate"
                                         color="success"
-                                        onChange={() => {}}
+                                        onChange={() => { }}
                                     />
                                 </Col>
                             </Row>
