@@ -4,6 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import AchievementSummary from '../../components/reporting/AchievementSummary';
 import ReceiptSearch from '../../components/reporting/ReceiptSearch';
+import ArrearsAnalysis from '../../components/reporting/ArrearsAnalysis';
 
 export default ({ history }) => {
     return (
@@ -14,6 +15,13 @@ export default ({ history }) => {
                         breadCrumbItems={[{ label: 'Reporting', path: '/reporting', active: true }]}
                         title={'Reporting'}
                     />
+                </Col>
+            </Row>
+
+            <Row>
+                {/* <Col md={4}></Col> */}
+                <Col md={12}>
+                    <ArrearsAnalysis />
                 </Col>
             </Row>
 
