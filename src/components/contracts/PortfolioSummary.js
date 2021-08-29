@@ -29,7 +29,8 @@ export default ({ results, loading }) => {
                 endOdIndex += parseFloat(results[i].end_overdue_index);
             }
             totalAgreement += parseFloat(results[i].total_agreement);
-            totalPaid += parseFloat(results[i].total_paid);
+            if(parseFloat(results[i].total_payable) > 0)
+                totalPaid += parseFloat(results[i].total_paid);
             totalPayable += parseFloat(results[i].total_payable);
             totalDIPaid += parseFloat(results[i].total_di_paid);
         }
