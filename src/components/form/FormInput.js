@@ -11,7 +11,7 @@ export default props => {
                             <>
                                 {option.account_id !== undefined ? (
                                     <option key={option.id} value={option.id}>
-                                        {option.account_id} &emsp; {option.name}
+                                        {option.name} ({option.account_id})
                                     </option>
                                 ) : (
                                     <option key={option.id} value={option.id}>
