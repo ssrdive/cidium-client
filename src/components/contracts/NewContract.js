@@ -61,6 +61,7 @@ const NewContract = ({ history }) => {
         customer_nic: TEXT_INPUT_REQUIRED,
         customer_address: TEXT_INPUT_REQUIRED,
         customer_contact: NUMBER_INPUT_REQUIRED,
+        external: { value: '0', type: 'select', options: [{ id: '0', name: 'Internal' }, { id: '1', name: 'External' }] },
         contract_type_id: DROPDOWN_DEFAULT,
         contract_batch_id: DROPDOWN_DEFAULT,
         credit_officer_id: DROPDOWN_DEFAULT,
@@ -93,7 +94,7 @@ const NewContract = ({ history }) => {
 
     const handleFormSubmit = e => {
         setLoading(prevLoading => true);
-        setSubmitStatus({status: null, message: ''});
+        setSubmitStatus({ status: null, message: '' });
         e.persist();
         e.preventDefault();
         const formValues = {};
@@ -207,6 +208,14 @@ const NewContract = ({ history }) => {
                                         <FormInput
                                             {...form['contract_type_id']}
                                             name="contract_type_id"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Contract Lead Type</Label>
+                                        <FormInput
+                                            {...form['external']}
+                                            name="external"
                                             handleOnChange={handleOnChange}
                                         />
                                     </FormGroup>
