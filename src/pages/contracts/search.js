@@ -18,6 +18,7 @@ export default ({ location }) => {
     const batch = params.get('batch');
     const npl = params.get('npl');
     const lkas17 = params.get('lkas17');
+    const external = params.get('external');
     const startod = params.get('startod');
     const endod = params.get('endod');
     const removedeleted = params.get('removedeleted');
@@ -25,7 +26,7 @@ export default ({ location }) => {
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&lkas17=${lkas17}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}`)
+            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&lkas17=${lkas17}&external=${external}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
