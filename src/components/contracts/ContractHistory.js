@@ -32,6 +32,7 @@ export default ({ id }) => {
                             <tr>
                                 <th>From State</th>
                                 <th>To State</th>
+                                <th>Approver</th>
                                 <th>Transition Date</th>
                             </tr>
                         </thead>
@@ -40,6 +41,7 @@ export default ({ id }) => {
                                 return <tr key={index}>
                                     <td>{h.from_state.String}</td>
                                     <td>{h.to_state}</td>
+                                    <td>{h.approver.String}</td>
                                     <td>{h.transition_date}</td>
                                 </tr>
                             })}
