@@ -12,7 +12,7 @@ export default () => {
             let date = new Date();
             let today = `${String(date.getFullYear())}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
             apiAuth
-                .get(`/reporting/arrearsanalysis?startdate=2021-06-30&enddate=${today}`)
+                .get(`/reporting/arrearsanalysis?startdate=2022-01-01&enddate=${today}`)
                 .then(res => {
                     if (res.data === null) setArrearsAnlysis(prevAnalysis => []);
                     else setArrearsAnlysis(prevAnalysis => res.data);
