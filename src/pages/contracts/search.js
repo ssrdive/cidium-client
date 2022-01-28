@@ -7,7 +7,7 @@ import SearchResults from '../../components/contracts/SearchResults';
 import SearchSummary from '../../components/contracts/SearchSummary';
 import ArrearsSummary from '../../components/contracts/ArrearsSummary';
 
-export default ({ location }) => {
+const ContractSearch = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -36,7 +36,7 @@ export default ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [search, state, officer, batch, npl]);
+    }, [search, state, officer, batch, npl, endod, external, lkas17, removedeleted, startod]);
 
     return (
         <React.Fragment>
@@ -67,3 +67,5 @@ export default ({ location }) => {
         </React.Fragment>
     );
 };
+
+export default ContractSearch;

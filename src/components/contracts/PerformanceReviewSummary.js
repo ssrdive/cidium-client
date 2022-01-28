@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading, startdate, enddate }) => {
+const PerformanceReviewSummary = ({ results, loading, startdate, enddate }) => {
     const [summary, setSummary] = useState(null);
 
     useEffect(() => {
@@ -115,6 +115,7 @@ export default ({ results, loading, startdate, enddate }) => {
                             </tr>
                             <tr>
                                 <td>Overdue Variation</td>
+                                {/* eslint-disable-next-line */}
                                 <td>{summary.overdueVariation == 0 ? <><font color="blue">{summary.overdueVariation.toLocaleString()}</font></> : <>{summary.overdueVariation > 0 ? <><font color="red">{'+'}{summary.overdueVariation.toLocaleString()}</font></> : <>{summary.overdueVariation === "N/A" ? <><font color="green">{summary.overdueVariation.toLocaleString()}</font></> : <><font color="green">{summary.overdueVariation.toLocaleString()}</font></>}</>}</>}</td>
                             </tr>
                             <tr>
@@ -127,6 +128,7 @@ export default ({ results, loading, startdate, enddate }) => {
                             </tr>
                             <tr>
                                 <td>Between Overdue Variation</td>
+                                {/* eslint-disable-next-line */}
                                 <td>{summary.betweenOverdueVariation == 0 ? <><font color="red">{summary.betweenOverdueVariation.toLocaleString()}</font></> : <>{summary.betweenOverdueVariation > 0 ? <><font color="red">{'+'}{summary.betweenOverdueVariation.toLocaleString()}</font></> : <>{summary.overdueVariation === "N/A" ? <><font color="green">{summary.betweenOverdueVariation.toLocaleString()}</font></> : <><font color="green">{summary.betweenOverdueVariation.toLocaleString()}</font></>}</>}</>}</td>
                             </tr>
                             <tr>
@@ -143,6 +145,7 @@ export default ({ results, loading, startdate, enddate }) => {
                             </tr>
                             <tr>
                                 <td>Od Index Variation</td>
+                                {/* eslint-disable-next-line */}
                                 <td>{summary.odIndexVariation == 0 ? <><font color="blue">{summary.odIndexVariation}</font></> : <>{summary.odIndexVariation > 0 ? <><font color="red">{'+'}{summary.odIndexVariation}</font></> : <>{summary.odIndexVariation === "N/A" ? <><font color="green">{summary.odIndexVariation}</font></> : <><font color="green">{summary.odIndexVariation}</font></>}</>}</>}</td>
                             </tr>
                         </>) : null}
@@ -153,3 +156,5 @@ export default ({ results, loading, startdate, enddate }) => {
         </Card>
     );
 };
+
+export default PerformanceReviewSummary;

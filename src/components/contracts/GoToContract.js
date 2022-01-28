@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Button } from 'reactstrap';
 import FormInput from '../form/FormInput';
 
 import { NUMBER_INPUT_REQUIRED } from '../../constants/formValues';
 
-export default ({ history }) => {
+const GoToContract = ({ history }) => {
     const [form, setForm] = useState({
         contract: NUMBER_INPUT_REQUIRED,
     });
@@ -51,3 +51,5 @@ export default ({ history }) => {
         </Card>
     );
 }
+
+export default GoToContract;

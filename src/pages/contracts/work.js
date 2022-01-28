@@ -9,7 +9,7 @@ import ContractStateDocuments from '../../components/contracts/ContractStateDocu
 import ContractStateQuestions from '../../components/contracts/ContractStateQuestions';
 import ContractRequestability from '../../components/contracts/ContractRequestability';
 
-export default ({ match }) => {
+const WorkPage = ({ match }) => {
     const id = match.params.id;
     const [documents, setDocuments] = useState([]);
     const [questions, setQuestions] = useState([]);
@@ -71,7 +71,7 @@ export default ({ match }) => {
 
             <Row>
                 <Col md={8}>
-                    <ContractDetails id={id} />
+                    <ContractDetails id={id} setValid={ (dummyValue) => {} } />
                 </Col>
                 <Col md={4}>
                     <ContractRequestability requestability={requestability} id={id} loadRequestability={loadRequestability} />
@@ -89,3 +89,5 @@ export default ({ match }) => {
         </>
     );
 };
+
+export default WorkPage;

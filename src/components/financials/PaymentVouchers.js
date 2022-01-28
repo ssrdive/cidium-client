@@ -4,7 +4,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default () => {
+const PaymentVouchers = () => {
     const [receipts, setReceipts] = useState(null);
 
     useEffect(() => {
@@ -59,3 +59,5 @@ export default () => {
         </Card>
     );
 };
+
+export default PaymentVouchers;

@@ -4,7 +4,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 import { apiAuth } from '../../cidium-api';
 import SubmitComponent from '../form/SubmitComponent';
 
-export default ({ id }) => {
+const ContractDocuments = ({ id }) => {
     const [documents, setDocuments] = useState(null);
 
     useEffect(() => {
@@ -87,3 +87,5 @@ const DownloadDocumet = ({ source, s3region, s3bucket }) => {
 
     return <SubmitComponent loading={loading} onClick={handleDownload} name="Download" color="primary" />;
 };
+
+export default ContractDocuments;

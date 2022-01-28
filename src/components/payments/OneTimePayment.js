@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 
-export default ({ id, valid }) => {
+const OneTimePayment = ({ id, valid }) => {
     return (
         <Card>
             <CardBody>
@@ -10,3 +10,5 @@ export default ({ id, valid }) => {
         </Card>
     );
 };
+
+export default OneTimePayment;

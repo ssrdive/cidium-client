@@ -7,7 +7,7 @@ import { getLoggedInUser } from '../../helpers/authUtils';
 import FormInput from '../form/FormInput';
 import { NUMBER_INPUT_REQUIRED, TEXTAREA_INPUT_OPTIONAL } from '../../constants/formValues';
 
-export default ({ valid, id }) => {
+const LegacyReceiptForm = ({ valid, id }) => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
@@ -112,3 +112,5 @@ export default ({ valid, id }) => {
         </Card>
     );
 };
+
+export default LegacyReceiptForm;

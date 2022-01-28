@@ -4,7 +4,7 @@ import { apiAuth } from '../../cidium-api';
 
 import FormInput from '../form/FormInput';
 
-export default ({ idx, entriesState, handleItemChange, handleItemDelete, setAccount }) => {
+const JournalEntryItem = ({ idx, entriesState, handleItemChange, handleItemDelete, setAccount }) => {
     const [models, setModels] = useState([]);
 
     useEffect(() => {
@@ -52,3 +52,5 @@ export default ({ idx, entriesState, handleItemChange, handleItemDelete, setAcco
         </Form>
     );
 };
+
+export default JournalEntryItem;

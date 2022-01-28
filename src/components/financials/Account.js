@@ -5,7 +5,7 @@ import FormInput from '../form/FormInput';
 import { DROPDOWN_DEFAULT } from '../../constants/formValues';
 import { loadDropdownAccountGeneric } from '../../helpers/form';
 
-export default ({ history }) => {
+const Account = ({ history }) => {
     const [form, setForm] = useState({
         account: DROPDOWN_DEFAULT,
     });
@@ -58,3 +58,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default Account;

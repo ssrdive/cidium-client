@@ -19,7 +19,7 @@ import {
 import { apiAuth } from '../../cidium-api';
 import { loadDropdownAccountGeneric } from '../../helpers/form';
 
-export default props => {
+const PaymentVoucherPage = props => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
@@ -261,3 +261,5 @@ export default props => {
         </React.Fragment>
     );
 };
+
+export default PaymentVoucherPage;

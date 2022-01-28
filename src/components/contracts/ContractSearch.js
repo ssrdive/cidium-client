@@ -6,7 +6,7 @@ import { loadOptionalDropdownGeneric } from '../../helpers/form';
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
-export default ({ history }) => {
+const ContractSearch = ({ history }) => {
     const [form, setForm] = useState({
         search: TEXT_INPUT_OPTIONAL,
         state_id: DROPDOWN_DEFAULT,
@@ -116,3 +116,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default ContractSearch;

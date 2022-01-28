@@ -9,7 +9,7 @@ import { getLoggedInUser } from '../../helpers/authUtils';
 
 import SubmitComponent from '../form/SubmitComponent';
 
-export default ({ id, requestability, loadRequestability }) => {
+const ContractRequestability = ({ id, requestability, loadRequestability }) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         state_id: DROPDOWN_DEFAULT,
@@ -118,3 +118,5 @@ export default ({ id, requestability, loadRequestability }) => {
         </Card>
     );
 };
+
+export default ContractRequestability;

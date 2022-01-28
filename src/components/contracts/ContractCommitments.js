@@ -6,7 +6,7 @@ import { apiAuth } from '../../cidium-api';
 import AddCommitment from './AddCommitment';
 import Commitment from './Commitment';
 
-export default ({ id }) => {
+const ContractCommitments = ({ id }) => {
     const [commitments, setCommitments] = useState(null);
 
     useEffect(() => {
@@ -49,3 +49,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractCommitments;

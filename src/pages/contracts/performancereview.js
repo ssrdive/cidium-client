@@ -7,7 +7,7 @@ import PerformanceReviewResults from '../../components/contracts/PerformanceRevi
 import PerformanceReviewSummary from '../../components/contracts/PerformanceReviewSummary';
 import PortfolioSummary from '../../components/contracts/PortfolioSummary';
 
-export default ({ location }) => {
+const PerformanceReviewPage = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -63,3 +63,5 @@ export default ({ location }) => {
         </React.Fragment>
     );
 };
+
+export default PerformanceReviewPage;

@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const ContractHistory = ({ id }) => {
     const [history, setHistory] = useState(null);
 
     useEffect(() => {
@@ -54,3 +54,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractHistory;

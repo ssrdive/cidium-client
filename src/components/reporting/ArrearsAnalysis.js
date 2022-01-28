@@ -4,7 +4,7 @@ import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default () => {
+const ArrearsAnalysis = () => {
     const [arrearsAnlysis, setArrearsAnlysis] = useState(null);
 
     useEffect(() => {
@@ -74,3 +74,5 @@ export default () => {
         </Card>
     );
 };
+
+export default ArrearsAnalysis;

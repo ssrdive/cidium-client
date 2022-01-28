@@ -33,7 +33,7 @@ class DetailsTabs extends Component {
                 title: 'Summary',
                 icon: ' uil-database-alt',
                 component: () => {
-                    return <ContractDetails id={this.props.id} />;
+                    return <ContractDetails id={this.props.id} setValid={ (dummyValue) => {} } />;
                 },
             },
             {

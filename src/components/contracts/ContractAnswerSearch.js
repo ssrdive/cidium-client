@@ -8,7 +8,7 @@ import {
 } from '../../constants/formValues';
 import { loadDropdownGeneric } from '../../helpers/form';
 
-export default ({ history }) => {
+const ContractAnswerSearch = ({ history }) => {
     const [form, setForm] = useState({
         question_id: DROPDOWN_DEFAULT,
         empty_only: { value: 0, type: 'select', options: [{ id: 0, name: 'No' }, { id: 1, name: 'Yes' }] },
@@ -75,3 +75,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default ContractAnswerSearch;

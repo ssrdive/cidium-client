@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading }) => {
+const PerformanceReviewResults = ({ results, loading }) => {
     const daysElapsed = (date) => {
         if (date !== "N/A") {
             var msDiff = new Date().getTime() - new Date(date).getTime();
@@ -45,6 +45,7 @@ export default ({ results, loading }) => {
                                 od_index_variance = parseFloat(result.end_overdue_index) - parseFloat(result.start_overdue_index);
                                 od_index_variance = od_index_variance.toFixed(2);
                             }
+                            // eslint-disable-next-line
                             if (od_index_variance !== "N/A" && od_index_variance != 0) {
                                 return (
                                     <tr key={index}>
@@ -67,6 +68,7 @@ export default ({ results, loading }) => {
                                         <td>{result.end_overdue_index === 0 ? <><Badge color="success">{result.end_overdue_index}</Badge></> : <>
                                             {result.end_overdue_index <= 1 ? <><Badge color="info">{result.end_overdue_index}</Badge></> : <>{result.end_overdue_index <= 3.0 ? <><Badge color="warning">{result.end_overdue_index}</Badge></> : <>{result.end_overdue_index === "N/A" ? <><Badge color="success">{result.end_overdue_index}</Badge></> : <><Badge color="danger">{result.end_overdue_index}</Badge></>}</>}</>}
                                         </>}</td>
+                                        {/* eslint-disable-next-line */}
                                         <td>{od_index_variance == 0 ? <><font color="blue">{od_index_variance}</font></> : <>{od_index_variance > 0 ? <><font color="red">{'+'}{od_index_variance}</font></> : <>{od_index_variance === "N/A" ? <><font color="green">{od_index_variance}</font></> : <><font color="green">{od_index_variance}</font></>}</>}</>}</td>
                                         <td>
                                             <Link to={`/payments?id=${result.id}`}>
@@ -103,3 +105,5 @@ export default ({ results, loading }) => {
         </Card>
     );
 };
+
+export default PerformanceReviewResults;

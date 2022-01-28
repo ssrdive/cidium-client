@@ -4,7 +4,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const Transaction = ({ id }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -56,3 +56,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default Transaction;

@@ -3,7 +3,7 @@ import { Card, CardBody, Table } from 'reactstrap';
 
 import Request from './Request';
 
-export default ({ requests, changeRequest }) => {
+const Requests = ({ requests, changeRequest }) => {
     return (
         <Card>
             <CardBody>
@@ -31,3 +31,5 @@ export default ({ requests, changeRequest }) => {
         </Card>
     );
 };
+
+export default Requests;

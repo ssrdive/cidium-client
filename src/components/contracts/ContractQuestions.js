@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const ContractQuestions = ({ id }) => {
     const [questions, setQuestions] = useState(null);
 
     useEffect(() => {
@@ -50,3 +50,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractQuestions;

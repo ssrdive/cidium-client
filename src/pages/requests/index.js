@@ -8,7 +8,7 @@ import PageTitle from '../../components/PageTitle';
 import Requests from '../../components/requests/Requests';
 import ApprovalAction from '../../components/requests/ApprovalAction';
 
-export default () => {
+const RequestsPage = () => {
     const [requests, setRequests] = useState([]);
     const [request, setRequest] = useState(null);
 
@@ -55,3 +55,5 @@ export default () => {
         </React.Fragment>
     );
 };
+
+export default RequestsPage;

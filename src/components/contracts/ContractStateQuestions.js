@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody } from 'reactstrap';
 
 import ContractStateQuestion from './ContractStateQuestion';
 
-export default ({ questions, loadQuestions }) => {
+const ContractStateQuestions = ({ questions, loadQuestions }) => {
     return (
         <Card>
             <CardBody>
@@ -24,3 +24,5 @@ export default ({ questions, loadQuestions }) => {
         </Card>
     );
 };
+
+export default ContractStateQuestions;

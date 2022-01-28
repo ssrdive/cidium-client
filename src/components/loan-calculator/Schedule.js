@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Table, Card, CardBody } from 'reactstrap';
 
-export default ({ schedule }) => {
+const Schedule = ({ schedule }) => {
 
     let capitalTotal = 0;
     let interestTotal = 0;
@@ -47,3 +47,5 @@ export default ({ schedule }) => {
         </Card>
     );
 };
+
+export default Schedule;

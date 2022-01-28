@@ -10,7 +10,7 @@ import { TEXTAREA_INPUT_REQUIRED, TEXT_INPUT_OPTIONAL } from '../../constants/fo
 import SubmitComponent from '../form/SubmitComponent';
 import { getLoggedInUser } from '../../helpers/authUtils';
 
-export default ({ id, fetchCommitments }) => {
+const AddCommitment = ({ id, fetchCommitments }) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         text: TEXTAREA_INPUT_REQUIRED,
@@ -91,3 +91,5 @@ export default ({ id, fetchCommitments }) => {
         </>
     );
 };
+
+export default AddCommitment;

@@ -5,7 +5,7 @@ import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import CSQASearchResults from '../../components/contracts/CSQASearchResults';
 
-export default ({ location }) => {
+const CSQASearchPage = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -50,3 +50,5 @@ export default ({ location }) => {
         </React.Fragment>
     );
 };
+
+export default CSQASearchPage;

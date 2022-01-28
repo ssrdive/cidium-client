@@ -4,7 +4,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default () => {
+const TrialBalance = () => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -82,3 +82,5 @@ export default () => {
         </Card>
     );
 };
+
+export default TrialBalance;

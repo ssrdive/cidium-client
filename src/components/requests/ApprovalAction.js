@@ -9,7 +9,7 @@ import { TEXTAREA_INPUT_OPTIONAL } from '../../constants/formValues';
 
 import SubmitComponent from '../form/SubmitComponent';
 
-export default ({ request, loadRequests, changeRequest }) => {
+const ApprovalAction = ({ request, loadRequests, changeRequest }) => {
     const [approveLoading, setApproveLoading] = useState(false);
     const [rejectLoading, setRejectLoading] = useState(false);
     const [form, setForm] = useState({
@@ -89,3 +89,5 @@ export default ({ request, loadRequests, changeRequest }) => {
         </Card>
     );
 };
+
+export default ApprovalAction;

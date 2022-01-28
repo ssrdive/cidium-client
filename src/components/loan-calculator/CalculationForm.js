@@ -10,7 +10,7 @@ import {
 import { getDate } from '../../helpers/date';
 import { apiAuth } from '../../cidium-api';
 
-export default ({ setSchedule }) => {
+const CalculationForm = ({ setSchedule }) => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         capital: NUMBER_INPUT_REQUIRED,
@@ -148,3 +148,5 @@ export default ({ setSchedule }) => {
         </Card>
     );
 };
+
+export default CalculationForm;

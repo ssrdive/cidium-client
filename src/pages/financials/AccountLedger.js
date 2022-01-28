@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import AccountLedger from '../../components/financials/AccountLedger';
 
-export default ({ history, match }) => {
+const AccountLedgerPage = ({ history, match }) => {
     const id = match.params.id;
 
     return (
@@ -29,3 +29,5 @@ export default ({ history, match }) => {
         </React.Fragment>
     );
 };
+
+export default AccountLedgerPage;

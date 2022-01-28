@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading }) => {
+const PortfolioSummary = ({ results, loading }) => {
     const [summary, setSummary] = useState(null);
 
     useEffect(() => {
@@ -121,3 +121,5 @@ export default ({ results, loading }) => {
         </Card>
     );
 };
+
+export default PortfolioSummary;

@@ -9,7 +9,7 @@ import { getLoggedInUser } from '../../helpers/authUtils';
 
 import SubmitComponent from '../form/SubmitComponent';
 
-export default ({ id, question_id, contract_state_id, answer, question, compulsory, reloadQuestions }) => {
+const ContractStateQuestion = ({ id, question_id, contract_state_id, answer, question, compulsory, reloadQuestions }) => {
     const [addLoading, setAddLoading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState(false);
     const [form, setForm] = useState({
@@ -122,3 +122,5 @@ export default ({ id, question_id, contract_state_id, answer, question, compulso
         </>
     );
 };
+
+export default ContractStateQuestion;

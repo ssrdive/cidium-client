@@ -6,7 +6,7 @@ import { apiAuth } from '../../cidium-api';
 
 import { getLoggedInUser } from '../../helpers/authUtils';
 
-export default ({ commitment, fetchCommitments }) => {
+const Commitment = ({ commitment, fetchCommitments }) => {
     // eslint-disable-next-line
     const hrefLink = 'javascript:void(0);';
 
@@ -93,3 +93,5 @@ export default ({ commitment, fetchCommitments }) => {
         </>
     );
 };
+
+export default Commitment;

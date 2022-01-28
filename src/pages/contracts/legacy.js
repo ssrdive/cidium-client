@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import NewContractLegacy from '../../components/contracts/NewContractLegacy';
 
-export default ({ history }) => {
+const LegacyPage = ({ history }) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -27,3 +27,5 @@ export default ({ history }) => {
         </React.Fragment>
     );
 };
+
+export default LegacyPage;

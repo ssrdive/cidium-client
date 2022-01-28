@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody } from 'reactstrap';
 
 import ContractStateDocument from './ContractStateDocument';
 
-export default ({ documents, loadDocuments }) => {
+const ContractStateDocuments = ({ documents, loadDocuments }) => {
     return (
         <Card>
             <CardBody>
@@ -24,3 +24,5 @@ export default ({ documents, loadDocuments }) => {
         </Card>
     );
 };
+
+export default ContractStateDocuments;

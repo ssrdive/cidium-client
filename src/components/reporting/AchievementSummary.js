@@ -4,7 +4,7 @@ import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default () => {
+const AchievementSummary = () => {
     const [achievements, setAchievements] = useState(null);
 
     useEffect(() => {
@@ -64,3 +64,5 @@ export default () => {
         </Card>
     );
 };
+
+export default AchievementSummary;

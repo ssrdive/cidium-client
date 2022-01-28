@@ -9,7 +9,7 @@ import { getLoggedInUser } from '../../helpers/authUtils';
 
 import SubmitComponent from '../form/SubmitComponent';
 
-export default ({
+const ContractStateDocument = ({
     id,
     document_id,
     contract_state_id,
@@ -161,3 +161,5 @@ export default ({
         </>
     );
 };
+
+export default ContractStateDocument;

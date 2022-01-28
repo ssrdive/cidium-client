@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import DetailsTabs from '../../components/contracts/DetailsTabs';
 
-export default ({ match }) => {
+const DetailsPage = ({ match }) => {
     const id = match.params.id;
 
     return (
@@ -29,3 +29,5 @@ export default ({ match }) => {
         </>
     );
 };
+
+export default DetailsPage;

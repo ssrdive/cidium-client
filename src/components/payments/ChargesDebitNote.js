@@ -8,7 +8,7 @@ import FormInput from '../form/FormInput';
 import { NUMBER_INPUT_REQUIRED, TEXTAREA_INPUT_OPTIONAL, DROPDOWN_DEFAULT } from '../../constants/formValues';
 import { loadDropdownConditionalGeneric } from '../../helpers/form';
 
-export default ({ valid, id }) => {
+const ChargesDebitNote = ({ valid, id }) => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
@@ -124,3 +124,5 @@ export default ({ valid, id }) => {
         </Card>
     );
 };
+
+export default ChargesDebitNote;

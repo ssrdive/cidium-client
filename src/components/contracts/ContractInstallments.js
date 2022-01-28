@@ -3,7 +3,7 @@ import { Card, Badge, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const ContractInstallments = ({ id }) => {
     const [installments, setInstallments] = useState(null);
 
     useEffect(() => {
@@ -81,3 +81,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractInstallments;

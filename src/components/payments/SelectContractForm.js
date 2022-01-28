@@ -4,7 +4,7 @@ import { Card, Row, Col, Form, Button, FormGroup, CardBody } from 'reactstrap';
 import FormInput from '../form/FormInput';
 import { NUMBER_INPUT_REQUIRED } from '../../constants/formValues';
 
-export default ({ setID }) => {
+const SelectContractForm = ({ setID }) => {
     const [form, setForm] = useState({
         id: NUMBER_INPUT_REQUIRED,
     });
@@ -44,3 +44,5 @@ export default ({ setID }) => {
         </Card>
     );
 };
+
+export default SelectContractForm;

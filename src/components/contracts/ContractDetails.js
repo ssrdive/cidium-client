@@ -4,7 +4,7 @@ import { Row, Badge, Col, Card, CardBody, Spinner, CustomInput } from 'reactstra
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const ContractDetails = ({ id, setValid }) => {
     const [details, setDetails] = useState(null);
     const [financials, setFinancials] = useState(null);
     const [displayFinancials, setDisplayFinancials] = useState("none");
@@ -15,9 +15,11 @@ export default ({ id }) => {
             apiAuth
                 .get(`/contract/details/${id}`)
                 .then(res => {
+                    setValid(true);
                     setDetails(prevDetails => res.data);
                 })
                 .catch(err => {
+                    setValid(false);
                     setDetails(prevDetails => false);
                     console.log(err);
                 });
@@ -36,9 +38,10 @@ export default ({ id }) => {
         };
         fetchDetails();
         fetchFinancials();
-    }, [id]);
+    }, [id, setValid]);
 
     return (
+        // eslint-disable-next-line
         <Card style={{backgroundColor: (details !== null && details !== false && details.amount_pending == details.total_payable && details.amount_pending !== 0 && parseFloat(details.overdue_index) !== 0) ? '#f7aba6' : ''}}>
             <CardBody>
                 <h4 className="header-title mt-0">Financials</h4>
@@ -56,18 +59,21 @@ export default ({ id }) => {
                                         <Col>
                                             Active{' '}
                                             <h4>
+                                                {/* eslint-disable-next-line */}
                                                 {financials.active == 1 ? (<Badge color="success">Yes</Badge>) : (<><Badge color="warning">No</Badge></>)}
                                             </h4>
                                         </Col>
                                         <Col>
                                             Recovery Status{' '}
                                             <h4>
+                                                {/* eslint-disable-next-line */}
                                                 {financials.recovery_status == "Active" ? (<Badge color="success">{financials.recovery_status}</Badge>) : (<><Badge color="danger">{financials.recovery_status}</Badge></>)}
                                             </h4>
                                         </Col>
                                         <Col>
                                             Doubtful{' '}
                                             <h4>
+                                                {/* eslint-disable-next-line */}
                                                 {financials.doubtful == 1 ? (<Badge color="danger">Yes</Badge>) : (<><Badge color="success">No</Badge></>)}
                                             </h4>
                                         </Col>
@@ -243,3 +249,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractDetails;

@@ -3,7 +3,7 @@ import { Card, CardBody } from 'reactstrap';
 
 import DashboardCommitments from './DashboardCommitments';
 
-export default () => {
+const Commitments = () => {
     return (
         <Card>
             <CardBody>
@@ -13,3 +13,5 @@ export default () => {
         </Card>
     );
 };
+
+export default Commitments;

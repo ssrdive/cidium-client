@@ -8,7 +8,7 @@ import AccountTransaction from '../../components/financials/AccountTransaction';
 import Account from '../../components/financials/Account';
 import AccountReports from '../../components/financials/AccountReports';
 
-export default ({ history }) => {
+const FinancialsPage = ({ history }) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -45,3 +45,5 @@ export default ({ history }) => {
         </React.Fragment>
     );
 };
+
+export default FinancialsPage;

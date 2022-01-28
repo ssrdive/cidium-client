@@ -6,7 +6,7 @@ import AchievementSummary from '../../components/reporting/AchievementSummary';
 import ReceiptSearch from '../../components/reporting/ReceiptSearch';
 import ArrearsAnalysis from '../../components/reporting/ArrearsAnalysis';
 
-export default ({ history }) => {
+const ReportingPage = ({ history }) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -42,3 +42,5 @@ export default ({ history }) => {
         </React.Fragment>
     );
 };
+
+export default ReportingPage;

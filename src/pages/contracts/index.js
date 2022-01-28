@@ -9,7 +9,7 @@ import NewContract from '../../components/contracts/NewContract';
 import ContractAnswerSearch from '../../components/contracts/ContractAnswerSearch';
 import ContractPerformanceReview from '../../components/contracts/ContractPerformanceReview';
 
-export default (props) => {
+const ContractsPage = (props) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -41,3 +41,5 @@ export default (props) => {
         </React.Fragment>
     );
 };
+
+export default ContractsPage;

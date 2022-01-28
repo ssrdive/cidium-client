@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import PaymentVouchers from '../../components/financials/PaymentVouchers';
 
-export default props => {
+const PaymentVouchersPage = props => {
 
     return (
         <React.Fragment>
@@ -28,3 +28,5 @@ export default props => {
         </React.Fragment>
     );
 };
+
+export default PaymentVouchersPage;

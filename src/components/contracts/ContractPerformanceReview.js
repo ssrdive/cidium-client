@@ -8,7 +8,7 @@ import { getDate } from '../../helpers/date';
 
 import { DROPDOWN_DEFAULT } from '../../constants/formValues';
 
-export default ({ history }) => {
+const ContractPerformanceReview = ({ history }) => {
     const [form, setForm] = useState({
         start_date: { value: getDate('-') },
         end_date: { value: getDate('-') },
@@ -97,3 +97,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default ContractPerformanceReview;

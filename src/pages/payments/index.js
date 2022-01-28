@@ -1,35 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'reactstrap';
 
-import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import ContractDetails from '../../components/contracts/ContractDetails';
 import ChargesDebitNote from '../../components/payments/ChargesDebitNote';
 import ReceiptForm from '../../components/payments/ReceiptForm';
 import SelectContractForm from '../../components/payments/SelectContractForm';
 
-export default ({ location }) => {
+const PaymentsPage = ({ location }) => {
     const params = new URLSearchParams(location.search);
     const urlID = params.get('id');
     const [id, setID] = useState(urlID);
     const [valid, setValid] = useState(false);
-    const [details, setDetails] = useState(null);
-
-    useEffect(() => {
-        if (id === 0) return;
-        const fetchDetails = () => {
-            apiAuth
-                .get(`/contract/details/${id}`)
-                .then(res => {
-                    setDetails(prevDetails => res.data);
-                    setValid(true);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        };
-        fetchDetails();
-    }, [id]);
 
     return (
         <React.Fragment>
@@ -44,7 +26,7 @@ export default ({ location }) => {
 
             <Row>
                 <Col md={12}>
-                    <ContractDetails id={id} />
+                    <ContractDetails id={id} setValid={setValid} />
                 </Col>
             </Row>
 
@@ -62,3 +44,5 @@ export default ({ location }) => {
         </React.Fragment>
     );
 };
+
+export default PaymentsPage;

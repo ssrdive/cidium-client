@@ -12,7 +12,7 @@ import { getDate } from '../../helpers/date';
 import { TEXTAREA_INPUT_REQUIRED } from '../../constants/formValues';
 import { apiAuth } from '../../cidium-api';
 
-export default props => {
+const JournalEntryPage = props => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
@@ -186,3 +186,5 @@ export default props => {
         </React.Fragment>
     );
 };
+
+export default JournalEntryPage;

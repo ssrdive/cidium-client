@@ -5,7 +5,7 @@ import PageTitle from '../../components/PageTitle';
 import CalculationForm from '../../components/loan-calculator/CalculationForm';
 import Schedule from '../../components/loan-calculator/Schedule';
 
-export default () => {
+const LoanCalculatorPage = () => {
     const [schedule, setSchedule] = useState([]);
     return (
         <React.Fragment>
@@ -32,3 +32,5 @@ export default () => {
         </React.Fragment>
     );
 };
+
+export default LoanCalculatorPage;

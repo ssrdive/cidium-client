@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading }) => {
+const ReceiptSearchResults = ({ results, loading }) => {
     console.log(results)
     return (
         <Card>
@@ -42,3 +42,5 @@ export default ({ results, loading }) => {
         </Card>
     );
 };
+
+export default ReceiptSearchResults;

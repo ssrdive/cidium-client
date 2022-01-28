@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, CardBody } from 'reactstrap';
 
-export default ({ history }) => {
+const AccountTransaction = ({ history }) => {
     return (
         <Card>
             <CardBody>
@@ -35,3 +35,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default AccountTransaction;

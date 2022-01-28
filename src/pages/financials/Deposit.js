@@ -13,7 +13,7 @@ import { TEXTAREA_INPUT_REQUIRED, DROPDOWN_DEFAULT, NUMBER_INPUT_REQUIRED } from
 import { apiAuth } from '../../cidium-api';
 import { loadDropdownAccountGeneric } from '../../helpers/form';
 
-export default props => {
+const DepositPage = props => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
     const [form, setForm] = useState({
@@ -208,3 +208,5 @@ export default props => {
         </React.Fragment>
     );
 };
+
+export default DepositPage;

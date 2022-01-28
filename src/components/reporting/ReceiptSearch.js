@@ -8,7 +8,7 @@ import { getDate } from '../../helpers/date';
 
 import { DROPDOWN_DEFAULT } from '../../constants/formValues';
 
-export default ({ history }) => {
+const ReceiptSearch = ({ history }) => {
     const [form, setForm] = useState({
         recovery_officer: DROPDOWN_DEFAULT,
         start_date: { value: getDate('-') },
@@ -83,3 +83,5 @@ export default ({ history }) => {
         </Card>
     );
 };
+
+export default ReceiptSearch;

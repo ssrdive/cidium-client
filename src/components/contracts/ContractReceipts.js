@@ -3,7 +3,7 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default ({ id }) => {
+const ContractReceipts = ({ id }) => {
     const [receipts, setReceipts] = useState(null);
     const [floatReceipts, setFloatReceipts] = useState(null);
 
@@ -99,3 +99,5 @@ export default ({ id }) => {
         </Card>
     );
 };
+
+export default ContractReceipts;

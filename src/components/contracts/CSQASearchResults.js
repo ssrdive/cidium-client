@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading }) => {
+const CSQASearchResults = ({ results, loading }) => {
     return (
         <Card>
             <CardBody>
@@ -62,3 +62,5 @@ export default ({ results, loading }) => {
         </Card>
     );
 };
+
+export default CSQASearchResults;

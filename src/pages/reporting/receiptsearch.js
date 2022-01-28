@@ -5,7 +5,7 @@ import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
 import ReceiptSearchResults from '../../components/reporting/ReceiptSearchResults';
 
-export default ({ location }) => {
+const ReceiptSearchPage = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -51,3 +51,5 @@ export default ({ location }) => {
         </React.Fragment>
     );
 };
+
+export default ReceiptSearchPage;

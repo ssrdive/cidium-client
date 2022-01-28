@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
 
-export default ({ results, loading }) => {
+const SearchResults = ({ results, loading }) => {
     const daysElapsed = (date) => {
         if(date !== "N/A") {
             var msDiff = new Date().getTime() - new Date(date).getTime();
@@ -38,6 +38,7 @@ export default ({ results, loading }) => {
                     <tbody>
                         {results.map((result, index) => {
                             return (
+                                // eslint-disable-next-line
                                 <tr key={index} style={{backgroundColor: result.amount_pending == result.total_payable && result.amount_pending != 0 ? '#f7aba6' : ''}}>
                                     <td>
                                         <Link to={`/contracts/work/${result.id}`}>{result.id}</Link>
@@ -89,3 +90,5 @@ export default ({ results, loading }) => {
         </Card>
     );
 };
+
+export default SearchResults;

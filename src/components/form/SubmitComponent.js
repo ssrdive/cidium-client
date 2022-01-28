@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner, Button } from 'reactstrap';
 
-export default ({ loading, color, name, onClick }) => {
+const SubmitComponent = ({ loading, color, name, onClick }) => {
     return (
         <>
             {loading ? (
@@ -14,3 +14,5 @@ export default ({ loading, color, name, onClick }) => {
         </>
     );
 };
+
+export default SubmitComponent;

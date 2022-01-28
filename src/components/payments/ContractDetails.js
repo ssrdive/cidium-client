@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Badge, Col, Card, CardBody } from 'reactstrap';
 
-export default ({ valid, details }) => {
+const ContractDetails = ({ valid, details }) => {
     return (
         <Card>
             <CardBody>
@@ -100,3 +100,5 @@ export default ({ valid, details }) => {
         </Card>
     );
 };
+
+export default ContractDetails;

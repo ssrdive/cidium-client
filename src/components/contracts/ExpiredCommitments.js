@@ -4,7 +4,7 @@ import { Badge, Table, } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-export default () => {
+const ExpiredCommitments = () => {
     const [commitments, setCommitments] = useState(null);
 
     useEffect(() => {
@@ -48,3 +48,5 @@ export default () => {
         </Table>
     );
 };
+
+export default ExpiredCommitments;

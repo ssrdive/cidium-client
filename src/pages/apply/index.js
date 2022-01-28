@@ -4,7 +4,7 @@ import { Row, Col } from 'reactstrap';
 import PageTitle from '../../components/PageTitle';
 import NewContract from '../../components/contracts/NewContract';
 
-export default (props) => {
+const ApplyPage = (props) => {
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -24,3 +24,5 @@ export default (props) => {
         </React.Fragment>
     );
 };
+
+export default ApplyPage;
