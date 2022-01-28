@@ -1,68 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge, Card, CardBody, Table, Spinner } from 'reactstrap';
+import React, { Component } from 'react';
+import classnames from 'classnames';
+import { Row, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 
-import { apiAuth } from '../../cidium-api';
+import CollectionAchievement from './CollectionAchievement';
+import CreditAchievement from './CreditAchievement';
 
-const AchievementSummary = () => {
-    const [achievements, setAchievements] = useState(null);
+class AchievementSummary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { activeTab: '1' };
+        this.toggle = this.toggle.bind(this);
+    }
 
-    useEffect(() => {
-        const fetchAchievements = () => {
-            apiAuth
-                .get(`/reporting/achievementsummary`)
-                .then(res => {
-                    if (res.data === null) setAchievements(prevReceipts => []);
-                    else setAchievements(prevReceipts => res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        };
-        fetchAchievements();
-    }, []);
+    toggle = tab => {
+        if (this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab,
+            });
+        }
+    };
 
-    return (
-        <Card>
-            <CardBody>
-                <h4 className="header-title mt-0">Achievement Summary</h4>
+    render() {
+        const tabContents = [
+            {
+                id: '1',
+                title: 'Collection',
+                icon: 'uil-angle-double-left',
+                component: CollectionAchievement,
+            },
+            {
+                id: '2',
+                title: 'Credit',
+                icon: 'uil-angle-double-right',
+                component: CreditAchievement,
+            },
+        ];
 
-                {achievements !== null ? (
-                    <Table className="mb-0" responsive={true} striped>
-                        <thead>
-                            <tr>
-                                <th>Officer</th>
-                                <th>Month</th>
-                                <th>Target</th>
-                                <th>Collection</th>
-                                <th>Percentage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {achievements.map((achievement, index) => {
+        return (
+            <React.Fragment>
+                <Row>
+                    <Col lg={12}>
+                        <Nav tabs>
+                            {tabContents.map((tab, index) => {
                                 return (
-                                    <tr key={index}>
-                                        <td><Link to={'/contracts/search?search=&state=&officer=' + achievement.user_id + '&batch=&npl='}>{achievement.officer}</Link></td>
-                                        <td>{achievement.month}</td>
-                                        <td><Badge color="info">{achievement.target.toLocaleString()}</Badge></td>
-                                        <td>{achievement.target >= achievement.collection ? <>
-                                            <Badge color="danger">{achievement.collection.toLocaleString()}</Badge>
-                                        </> : <>
-                                                <Badge color="success">{achievement.collection.toLocaleString()}</Badge>
-                                            </>}
-                                        </td>
-                                        <td>{achievement.collection_percentage} %</td>
-                                    </tr>
+                                    <NavItem key={index}>
+                                        <NavLink
+                                            href="#"
+                                            className={classnames({ active: this.state.activeTab === tab.id })}
+                                            onClick={() => {
+                                                this.toggle(tab.id);
+                                            }}>
+                                            <i className={classnames(tab.icon, 'd-sm-none', 'd-block', 'mr-1')}></i>
+                                            <span className="d-none d-sm-block">{tab.title}</span>
+                                        </NavLink>
+                                    </NavItem>
                                 );
                             })}
-                        </tbody>
-                    </Table>
-                ) : (
-                        <Spinner type="grow" color="primary" />
-                    )}
-            </CardBody>
-        </Card>
-    );
-};
+                        </Nav>
+
+                        <TabContent activeTab={this.state.activeTab}>
+                            {tabContents.map((tab, index) => {
+                                return (
+                                    <TabPane tabId={tab.id} key={index}>
+                                        <Row>
+                                            <Col sm="12">
+                                                <tab.component />
+                                            </Col>
+                                        </Row>
+                                    </TabPane>
+                                );
+                            })}
+                        </TabContent>
+                    </Col>
+                </Row>
+            </React.Fragment>
+        );
+    }
+}
 
 export default AchievementSummary;
