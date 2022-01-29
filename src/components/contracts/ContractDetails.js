@@ -220,6 +220,9 @@ const ContractDetails = ({ id, setValid }) => {
                         </Row>
                         <Row>
                             <Col>
+                                <Badge color="primary">Introducing Officer</Badge> {details.introducing_officer}
+                            </Col>
+                            <Col>
                                 <Badge color="primary">Credit Officer</Badge> {details.credit_officer}
                             </Col>
                             <Col>
@@ -228,16 +231,19 @@ const ContractDetails = ({ id, setValid }) => {
                             <Col>
                                 <Badge color="primary">Price</Badge> {details.price}
                             </Col>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Badge color="primary">Liaison Name</Badge> {details.liaison_name.String}
                             </Col>
-                        </Row>
-                        <Row>
                             <Col>
                                 <Badge color="primary">Liaison Contact</Badge> {details.liaison_contact.String}
                             </Col>
                             <Col>
                                 <Badge color="primary">Downpayment</Badge> {details.downpayment.Int32}
+                            </Col>
+                            <Col>
+                            
                             </Col>
                         </Row>
                     </>
