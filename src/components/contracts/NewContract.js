@@ -230,18 +230,18 @@ const NewContract = ({ history }) => {
                                         />
                                     </FormGroup>
                                     <FormGroup>
-                                        <Label for="text">Credit Officer</Label>
-                                        <FormInput
-                                            {...form['credit_officer_id']}
-                                            name="credit_officer_id"
-                                            handleOnChange={handleOnChange}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
                                         <Label for="text">Introducing Officer</Label>
                                         <FormInput
                                             {...form['introducing_officer_id']}
                                             name="introducing_officer_id"
+                                            handleOnChange={handleOnChange}
+                                        />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="text">Credit Officer</Label>
+                                        <FormInput
+                                            {...form['credit_officer_id']}
+                                            name="credit_officer_id"
                                             handleOnChange={handleOnChange}
                                         />
                                     </FormGroup>
