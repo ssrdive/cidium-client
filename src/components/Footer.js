@@ -11,7 +11,7 @@ class Footer extends Component {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12">
-                            2020 &copy; Agrivest (Private) Limited.
+                            2022 &copy; Agrivest (Private) Limited.
                         </div>
                     </div>
                 </div>
