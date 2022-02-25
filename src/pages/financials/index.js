@@ -7,6 +7,7 @@ import NewAccount from '../../components/financials/NewAccount';
 import AccountTransaction from '../../components/financials/AccountTransaction';
 import Account from '../../components/financials/Account';
 import AccountReports from '../../components/financials/AccountReports';
+import JournalEntryAudit from '../../components/financials/JournalEntryAudit';
 
 const FinancialsPage = ({ history }) => {
     return (
@@ -31,6 +32,9 @@ const FinancialsPage = ({ history }) => {
                         </Col>
                         <Col md={12}>
                             <Account history={history} />
+                        </Col>
+                        <Col md={12}>
+                            <JournalEntryAudit history={history} />
                         </Col>
                     </Row>
                 </Col>
