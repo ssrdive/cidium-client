@@ -39,6 +39,7 @@ const FinancialsPaymentVoucherDetails = React.lazy(() => import('../pages/financ
 const FinancialsDeposit = React.lazy(() => import('../pages/financials/Deposit'));
 const FinancialsTransaction = React.lazy(() => import('../pages/financials/Transaction'));
 const FinancialsEntryAudit = React.lazy(() => import('../pages/financials/JournalEntryAudit'));
+const FinancialsBalanceSheet = React.lazy(() => import('../pages/financials/BalanceSheet'));
 
 const Reporting = React.lazy(() => import('../pages/reporting'));
 const ReportingReceiptSearch = React.lazy(() => import('../pages/reporting/receiptsearch'));
@@ -274,6 +275,14 @@ const financialsSubRoutes = [
         name: 'Journal Entry Audit',
         exact: true,
         component: FinancialsEntryAudit,
+        route: PrivateRoute,
+        roles: ['Admin', 'Manager']
+    },
+    {
+        path: '/financials/balancesheet',
+        name: 'Balance Sheet',
+        exact: true,
+        component: FinancialsBalanceSheet,
         route: PrivateRoute,
         roles: ['Admin', 'Manager']
     },

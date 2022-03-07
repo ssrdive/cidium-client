@@ -8,6 +8,7 @@ import AccountTransaction from '../../components/financials/AccountTransaction';
 import Account from '../../components/financials/Account';
 import AccountReports from '../../components/financials/AccountReports';
 import JournalEntryAudit from '../../components/financials/JournalEntryAudit';
+import BalanceSheet from '../../components/financials/BalanceSheet';
 
 const FinancialsPage = ({ history }) => {
     return (
@@ -39,7 +40,12 @@ const FinancialsPage = ({ history }) => {
                     </Row>
                 </Col>
                 <Col md={4}>
-                    <NewCategory />
+                    <Col md={12}>
+                        <NewCategory />
+                    </Col>
+                    <Col md={12}>
+                        <BalanceSheet history={history} />
+                    </Col>
                 </Col>
                 <Col md={4}>
                     <NewAccount />
