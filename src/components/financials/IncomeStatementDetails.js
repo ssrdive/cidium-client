@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
-const BalanceSheetDetails = ({ postingdate }) => {
+const IncomeStatementDetails = ({ startdate, enddate }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/account/balancesheetsummary?postingdate=${postingdate}`)
+            .get(`/account/pnlsummary?startdate=${startdate}&enddate=${enddate}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -20,7 +21,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [postingdate]);
+    }, [startdate, enddate]);
 
     let expenses = 0;
     let revenue = 0;
@@ -33,13 +34,14 @@ const BalanceSheetDetails = ({ postingdate }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Balance Sheet</h4>
+                <h4 className="header-title mt-0 mb-1">Income Statement</h4>
                 <Table className="mb-0" responsive={true} striped>
                     <thead>
                         <tr>
                             <th>Main Account</th>
                             <th>Sub Account</th>
                             <th>Category</th>
+                            <th>Account</th>
                             <th>Balance</th>
                         </tr>
                     </thead>
@@ -51,7 +53,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                 revenue = revenue + parseFloat(result.amount);
                             }
 
-                            if (result.main_account === 'Revenue' || result.main_account === 'Other Revenue' || result.main_account === 'Expenses') {
+                            if (result.main_account === 'Assets' || result.main_account === 'Liabilities' || result.main_account === 'Equity') {
                                 return null;
                             } else {
                                 if (mainAccount === result.main_account) {
@@ -62,6 +64,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                 <td></td>
                                                 <td></td>
                                                 <td>{result.account_category}</td>
+                                                <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                 <td>{result.amount.toLocaleString()}</td>
                                             </tr>
                                         );
@@ -72,6 +75,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                 <td></td>
                                                 <td><b>{result.sub_account}</b></td>
                                                 <td>{result.account_category}</td>
+                                                <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                 <td>{result.amount.toLocaleString()}</td>
                                             </tr>
                                         );
@@ -91,6 +95,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                         <td><b>{result.main_account}</b></td>
                                                         <td></td>
                                                         <td>{result.account_category}</td>
+                                                        <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                         <td>{result.amount.toLocaleString()}</td>
                                                     </tr>
                                                 </>
@@ -103,6 +108,7 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                         <td><b>{result.main_account}</b></td>
                                                         <td><b>{result.sub_account}</b></td>
                                                         <td>{result.account_category}</td>
+                                                        <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                         <td>{result.amount.toLocaleString()}</td>
                                                     </tr>
                                                 </>
@@ -116,12 +122,14 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
+                                                        <td></td>
                                                         <td><b>{printValue.toLocaleString()}</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td><b>{result.main_account}</b></td>
                                                         <td></td>
                                                         <td>{result.account_category}</td>
+                                                        <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                         <td>{result.amount.toLocaleString()}</td>
                                                     </tr>
                                                 </>
@@ -134,12 +142,14 @@ const BalanceSheetDetails = ({ postingdate }) => {
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
+                                                        <td></td>
                                                         <td><b>{printValue.toLocaleString()}</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td><b>{result.main_account}</b></td>
                                                         <td><b>{result.sub_account}</b></td>
                                                         <td>{result.account_category}</td>
+                                                        <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
                                                         <td>{result.amount.toLocaleString()}</td>
                                                     </tr>
                                                 </>
@@ -150,7 +160,8 @@ const BalanceSheetDetails = ({ postingdate }) => {
                             }
                         })}
                         <tr>
-                            <td><b>Retained Profit</b></td>
+                            <td><b>Net Income</b></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td><b>{(Math.abs(revenue)-Math.abs(expenses)).toLocaleString()}</b></td>
@@ -163,4 +174,4 @@ const BalanceSheetDetails = ({ postingdate }) => {
     );
 };
 
-export default BalanceSheetDetails;
+export default IncomeStatementDetails;

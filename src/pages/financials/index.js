@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 
+import { getLoggedInUser } from '../../helpers/authUtils';
+
 import PageTitle from '../../components/PageTitle';
 import NewCategory from '../../components/financials/NewCategory';
 import NewAccount from '../../components/financials/NewAccount';
@@ -9,6 +11,7 @@ import Account from '../../components/financials/Account';
 import AccountReports from '../../components/financials/AccountReports';
 import JournalEntryAudit from '../../components/financials/JournalEntryAudit';
 import BalanceSheet from '../../components/financials/BalanceSheet';
+import IncomeStatement from '../../components/financials/IncomeStatement';
 
 const FinancialsPage = ({ history }) => {
     return (
@@ -44,11 +47,16 @@ const FinancialsPage = ({ history }) => {
                         <NewCategory />
                     </Col>
                     <Col md={12}>
-                        <BalanceSheet history={history} />
+                        {getLoggedInUser().role === 'Admin' ? <BalanceSheet history={history} /> : null}
                     </Col>
                 </Col>
                 <Col md={4}>
-                    <NewAccount />
+                    <Col md={12}>
+                        <NewAccount />
+                    </Col>
+                    <Col md={12}>
+                        {getLoggedInUser().role === 'Admin' ? <IncomeStatement history={history} /> : null}
+                    </Col>
                 </Col>
                 <Col></Col>
             </Row>
