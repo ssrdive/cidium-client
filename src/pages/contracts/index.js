@@ -24,7 +24,7 @@ const ContractsPage = (props) => {
             <Row>
                 <Col md={4}>
                     <GoToContract {...props} />
-                    <ContractSearch {...props} />
+                    <ContractSearch {...props} selectSD={true} />
                     <ContractPerformanceReview {...props} />
                     <ContractAnswerSearch {...props} />
                 </Col>

@@ -6,7 +6,7 @@ import { loadOptionalDropdownGeneric } from '../../helpers/form';
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
-const ContractSearch = ({ history }) => {
+const ContractSearch = ({ history , selectSD} ) => {
     const [form, setForm] = useState({
         search: TEXT_INPUT_OPTIONAL,
         state_id: DROPDOWN_DEFAULT,
@@ -98,7 +98,7 @@ const ContractSearch = ({ history }) => {
                                 </Col>
                             </Row>
                             <FormGroup>
-                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remove Settled / Deleted Contracts" defaultChecked="true" onChange={e => {
+                                <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remove Settled / Deleted Contracts" defaultChecked={selectSD ? true : false} onChange={e => {
                                     setForm(prevForm => {
                                         const updatedForm = { ...prevForm };
                                         updatedForm.removedeleted = prevForm.removedeleted === 0 ? 1 : 0;

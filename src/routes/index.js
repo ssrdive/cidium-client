@@ -24,6 +24,8 @@ const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const ContractCSQASearch = React.lazy(() => import('../pages/contracts/csqasearch'));
 const ContractPerformanceReview = React.lazy(() => import('../pages/contracts/performancereview'));
 
+const Archived = React.lazy(() => import('../pages/archived'));
+
 const Requests = React.lazy(() => import('../pages/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/loan-calculator'));
 const Payments = React.lazy(() => import('../pages/payments'));
@@ -102,6 +104,16 @@ const contractsRoute = {
     name: 'Contracts',
     icon: FeatherIcon.FileMinus,
     component: Contracts,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+};
+
+const archivedRoute = {
+    path: '/archived',
+    name: 'Archived',
+    icon: FeatherIcon.Archive,
+    component: Archived,
     exact: true,
     route: PrivateRoute,
     roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
@@ -377,6 +389,7 @@ const allRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
+    archivedRoute,
     ...contractsSubRoutes,
     requestsRoute,
     paymentsRoute,
@@ -392,6 +405,7 @@ const authProtectedRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
+    archivedRoute,
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,
