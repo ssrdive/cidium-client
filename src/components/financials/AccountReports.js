@@ -23,12 +23,6 @@ const AccountReports = ({ history }) => {
                         </DropdownItem>
                         <DropdownItem
                             onClick={() => {
-                                history.push(`/financials/trial-balance`);
-                            }}>
-                            Trial Balance
-                        </DropdownItem>
-                        <DropdownItem
-                            onClick={() => {
                                 history.push(`/financials/payment-vouchers`);
                             }}>
                             Payment Vouchers

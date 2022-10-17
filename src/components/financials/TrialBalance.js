@@ -1,83 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardBody, Table, Spinner } from 'reactstrap';
+import React, { useState } from 'react';
+import Flatpickr from 'react-flatpickr';
+import { Card, Label, Row, Col, Form, Button, FormGroup, CardBody } from 'reactstrap';
 
-import { apiAuth } from '../../cidium-api';
+import { getDate } from '../../helpers/date';
 
-const TrialBalance = () => {
-    const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(true);
+const TrialBalance = ({ history }) => {
+    const [form, setForm] = useState({
+        posting_date: { value: getDate('-') },
+    });
 
-    useEffect(() => {
-        setLoading(prevLoading => true);
-        apiAuth
-            .get(`/account/trialbalance`)
-            .then(res => {
-                setLoading(prevLoading => false);
-                if (res.data === null) setResults(prevResults => []);
-                else setResults(prevResults => res.data);
-            })
-            .catch(err => {
-                setLoading(prevLoading => false);
-                console.log(err);
-            });
-    }, []);
-
-    let debits = 0;
-    let credits = 0;
-    let balance = 0;
+    const setDate = (value, field) => {
+        setForm(prevForm => {
+            const updatedForm = { ...prevForm, [field]: { ...prevForm[field] } };
+            updatedForm[field].value = value;
+            return updatedForm;
+        });
+    };
 
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0 mb-1">Trial Balance</h4>
-                <Table className="mb-0" responsive={true} striped>
-                    <thead>
-                        <tr>
-                            <th>Account ID</th>
-                            <th>Name</th>
-                            {/* <th>Debit</th>
-                            <th>Credit</th> */}
-                            <th>Balance</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((result, index) => {
-                            balance = balance + result.balance;
-                            debits = debits + result.debit;
-                            credits = credits + result.credit;
-                            if (result.balance !== 0) {
-                                return (
-                                    <tr key={index}>
-                                        <td>{result.account_id}</td>
-                                        <td>
-                                            <Link to={`/financials/account/${result.id}`}>{result.account_name}</Link>
-                                        </td>
-                                        {/* <td>LKR {result.debit.toLocaleString()}</td> */}
-                                        {/* <td>LKR {result.credit.toLocaleString()}</td> */}
-                                        <td>
-                                            <b>LKR {result.balance.toLocaleString()}</b>
-                                        </td>
-                                    </tr>
-                                );
-                            } else {
-                                return null;
-                            }
-                        })}
-                        <tr>
-                            <td>
-                                <b>Balance</b>
-                            </td>
-                            <td></td>
-                            {/* <td><b>LKR {debits.toLocaleString()}</b></td> */}
-                            {/* <td><b>LKR {credits.toLocaleString()}</b></td> */}
-                            <td>
-                                <b>LKR {balance.toLocaleString()}</b>
-                            </td>
-                        </tr>
-                    </tbody>
-                </Table>
-                {loading ? <Spinner color="primary" type="grow" /> : null}
+                <h4 className="header-title mt-0">Trial Balance</h4>
+                <Row>
+                    <Col>
+                        <>
+                            <Row>
+                                <Col md={12}>
+                                    <Form>
+                                        <FormGroup>
+                                            <Label for="text">As at</Label>
+                                            <Flatpickr
+                                                value={form.posting_date.value}
+                                                onChange={(e, date) => {
+                                                    setDate(date, 'posting_date');
+                                                }}
+                                                className="form-control"
+                                            />
+                                        </FormGroup>
+                                        <Button
+                                            color="info"
+                                            onClick={() => {
+                                                history.push(`/financials/trial-balance?postingdate=${form.posting_date.value}`);
+                                            }}>
+                                            View
+                                        </Button>
+                                    </Form>
+                                </Col>
+                            </Row>
+                        </>
+                    </Col>
+                </Row>
             </CardBody>
         </Card>
     );

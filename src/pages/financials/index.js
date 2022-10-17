@@ -11,6 +11,7 @@ import Account from '../../components/financials/Account';
 import AccountReports from '../../components/financials/AccountReports';
 import JournalEntryAudit from '../../components/financials/JournalEntryAudit';
 import BalanceSheet from '../../components/financials/BalanceSheet';
+import TrialBalance from '../../components/financials/TrialBalance';
 import IncomeStatement from '../../components/financials/IncomeStatement';
 
 const FinancialsPage = ({ history }) => {
@@ -33,6 +34,9 @@ const FinancialsPage = ({ history }) => {
                         </Col>
                         <Col md={12}>
                             <AccountReports history={history} />
+                        </Col>
+                        <Col md={12}>
+                            <TrialBalance history={history} />
                         </Col>
                         <Col md={12}>
                             <Account history={history} />

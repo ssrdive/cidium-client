@@ -2,9 +2,12 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
-import TrialBalance from '../../components/financials/TrialBalance';
+import TrialBalanceDetails from '../../components/financials/TrialBalanceDetails';
 
-const TrialBalancePage = () => {
+const TrialBalancePage = ({ location }) => {
+    const params = new URLSearchParams(location.search);
+    const postingdate = params.get('postingdate');
+
     return (
         <React.Fragment>
             <Row className="page-title">
@@ -21,7 +24,7 @@ const TrialBalancePage = () => {
 
             <Row>
                 <Col md={12}>
-                    <TrialBalance />
+                    <TrialBalanceDetails postingdate={postingdate} />
                 </Col>
             </Row>
         </React.Fragment>
