@@ -38,9 +38,10 @@ const TrialBalanceDetails = ({ postingdate }) => {
                             <th>Main Account</th>
                             <th>Sub Account</th>
                             <th>Account Category</th>
+                            <th>Account ID</th>
                             <th>Name</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
+                            <th style={{textAlign: "right"}}>Debit</th>
+                            <th style={{textAlign: "right"}}>Credit</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,18 +54,19 @@ const TrialBalanceDetails = ({ postingdate }) => {
                                         <td>{result.main_account}</td>
                                         <td>{result.sub_account}</td>
                                         <td>{result.account_category}</td>
+                                        <td>{result.account_id}</td>
                                         <td>
                                             <Link to={`/financials/account/${result.id}`}>{result.account_name}</Link>
                                         </td>
                                         {
                                             debitAccounts.includes(result.main_account) ?
                                                 <>
-                                                    <td style={{textAlign: "right"}}>{result.debit.toLocaleString()}</td>
+                                                    <td style={{textAlign: "right"}}>{parseFloat(result.debit.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                                                     <td></td>
                                                 </> :
                                                 <>
                                                     <td></td>
-                                                    <td style={{textAlign: "right"}}>{result.credit.toLocaleString()}</td>
+                                                    <td style={{textAlign: "right"}}>{parseFloat(result.credit.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
                                                 </>
                                         }
                                     </tr>
@@ -78,8 +80,9 @@ const TrialBalanceDetails = ({ postingdate }) => {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td style={{textAlign: "right"}}><b>{parseFloat(debits.toFixed(2)).toLocaleString()}</b></td>
-                            <td style={{textAlign: "right"}}><b>{parseFloat(credits.toFixed(2)).toLocaleString()}</b></td>
+                            <td></td>
+                            <td style={{textAlign: "right"}}><b>{parseFloat(debits.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2})}</b></td>
+                            <td style={{textAlign: "right"}}><b>{parseFloat(credits.toFixed(2)).toLocaleString(undefined, {minimumFractionDigits: 2})}</b></td>
                         </tr>
                     </tbody>
                 </Table>

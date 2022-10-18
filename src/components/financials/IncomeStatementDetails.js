@@ -4,6 +4,8 @@ import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 
+import StatementRow from "./StatementRow";
+
 const IncomeStatementDetails = ({ startdate, enddate }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,6 +29,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
     let revenue = 0;
 
     let mainAccount = "";
+    let prevMainAccount = "";
     let subAccount = "";
     let tempSum = 0;
     let isFirst = true;
@@ -42,7 +45,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                             <th>Sub Account</th>
                             <th>Category</th>
                             <th>Account</th>
-                            <th>Balance</th>
+                            <th style={{textAlign: "right"}}>Balance</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,7 +68,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                 <td></td>
                                                 <td>{result.account_category}</td>
                                                 <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                <td>{result.amount.toLocaleString()}</td>
+                                                <StatementRow accountCategory={mainAccount} value={result.amount} />
                                             </tr>
                                         );
                                     } else {
@@ -76,13 +79,14 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                 <td><b>{result.sub_account}</b></td>
                                                 <td>{result.account_category}</td>
                                                 <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                <td>{result.amount.toLocaleString()}</td>
+                                                <StatementRow accountCategory={mainAccount} value={result.amount} />
                                             </tr>
                                         );
                                     }
                                 } else {
                                     let printValue = tempSum;
                                     tempSum = 0;
+                                    prevMainAccount = mainAccount;
                                     mainAccount = result.main_account;
                                     tempSum = tempSum + parseFloat(result.amount);
 
@@ -96,7 +100,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                         <td></td>
                                                         <td>{result.account_category}</td>
                                                         <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                        <td>{result.amount.toLocaleString()}</td>
+                                                        <StatementRow accountCategory={mainAccount} value={result.amount} />
                                                     </tr>
                                                 </>
                                             );
@@ -109,7 +113,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                         <td><b>{result.sub_account}</b></td>
                                                         <td>{result.account_category}</td>
                                                         <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                        <td>{result.amount.toLocaleString()}</td>
+                                                        <StatementRow accountCategory={mainAccount} value={result.amount} />
                                                     </tr>
                                                 </>
                                             );
@@ -123,14 +127,14 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td><b>{printValue.toLocaleString()}</b></td>
+                                                        <StatementRow accountCategory={prevMainAccount} value={printValue} bold={true} />
                                                     </tr>
                                                     <tr>
                                                         <td><b>{result.main_account}</b></td>
                                                         <td></td>
                                                         <td>{result.account_category}</td>
                                                         <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                        <td>{result.amount.toLocaleString()}</td>
+                                                        <StatementRow accountCategory={mainAccount} value={result.amount} />
                                                     </tr>
                                                 </>
                                             );
@@ -143,14 +147,14 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td><b>{printValue.toLocaleString()}</b></td>
+                                                        <StatementRow accountCategory={prevMainAccount} value={printValue} bold={true} />
                                                     </tr>
                                                     <tr>
                                                         <td><b>{result.main_account}</b></td>
                                                         <td><b>{result.sub_account}</b></td>
                                                         <td>{result.account_category}</td>
                                                         <td><Link to={`/financials/account/${result.id}`}>{result.account_name}</Link></td>
-                                                        <td>{result.amount.toLocaleString()}</td>
+                                                        <StatementRow accountCategory={mainAccount} value={result.amount} />
                                                     </tr>
                                                 </>
                                             );
@@ -164,7 +168,7 @@ const IncomeStatementDetails = ({ startdate, enddate }) => {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><b>{(Math.abs(revenue)-Math.abs(expenses)).toLocaleString()}</b></td>
+                            <td style={{textAlign: "right"}}><b>{(Math.abs(revenue)-Math.abs(expenses)).toLocaleString()}</b></td>
                         </tr>
                     </tbody>
                 </Table>
