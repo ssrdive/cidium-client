@@ -22,6 +22,7 @@ const SearchResults = ({ results, loading }) => {
                             <th>Work</th>
                             <th>Details</th>
                             <th>Amount Pending</th>
+                            <th>Default Charges</th>
                             <th>Od Index</th>
                             <th>Total Payable</th>
                             <th>Total Paid</th>
@@ -53,15 +54,22 @@ const SearchResults = ({ results, loading }) => {
                                             <Badge color="success">{result.amount_pending.toLocaleString()}</Badge>
                                         )}
                                     </td>
+                                    <td>
+                                        {result.default_charges > 0 ? (
+                                            <Badge color="danger">{result.default_charges.toLocaleString()}</Badge>
+                                        ) : (
+                                            <Badge color="success">{result.default_charges.toLocaleString()}</Badge>
+                                        )}
+                                    </td>
                                     <td>{result.overdue_index === 0 ? <><Badge color="success">{result.overdue_index}</Badge></> : <>
                                         {result.overdue_index <= 1 ? <><Badge color="info">{result.overdue_index}</Badge></> : <>{result.overdue_index <= 3.0 ? <><Badge color="warning">{result.overdue_index}</Badge></> : <>{result.overdue_index === "N/A" ? <><Badge color="success">{result.overdue_index}</Badge></> : <><Badge color="danger">{result.overdue_index}</Badge></>}</>}</>}
                                     </>}</td>
                                     <td>
                                         <Link to={`/payments?id=${result.id}`}>
                                             {result.total_payable > 0 ? (
-                                                <Badge color="warning">{result.total_payable.toLocaleString()}</Badge>
+                                                <Badge color="warning">{(parseFloat(result.total_payable) + parseFloat(result.default_charges)).toLocaleString()}</Badge>
                                             ) : (
-                                                <Badge color="success">{result.total_payable.toLocaleString()}</Badge>
+                                                <Badge color="success">{(parseFloat(result.total_payable) + parseFloat(result.default_charges)).toLocaleString()}</Badge>
                                             )}
                                         </Link>
                                     </td>

@@ -137,12 +137,12 @@ const ContractDetails = ({ id, setValid }) => {
                                     <Col md={5}>
                                         <h4>{details.customer_name}</h4>
                                     </Col>
-                                    <Col md={3}>
-                                        <h4>{details.model_name}</h4>
+                                    <Col md={6}>
+                                        <h4>{details.model_name} (<b>{details.contract_batch}</b>)</h4>
                                     </Col>
-                                    <Col md={3}>
-                                        <h4>{details.contract_batch}</h4>
-                                    </Col>
+                                    {/*<Col md={3}>*/}
+                                    {/*    <h4>}</h4>*/}
+                                    {/*</Col>*/}
                                 </Row>
                             </Col>
                             <Col md={12}>
@@ -155,6 +155,26 @@ const ContractDetails = ({ id, setValid }) => {
                                             ) : (
                                                     <Badge color="success">{details.amount_pending.toLocaleString()}</Badge>
                                                 )}
+                                        </h4>
+                                    </Col>
+                                    <Col>
+                                        Hold Default
+                                        <h4>
+                                            {details.hold_default == 1 ? (
+                                                <Badge color="danger">YES</Badge>
+                                            ) : (
+                                                <>{'NO'}</>
+                                            )}
+                                        </h4>
+                                    </Col>
+                                    <Col>
+                                        Default Charges
+                                        <h4>
+                                            {details.default_charges > 0 ? (
+                                                <Badge color="danger">{details.default_charges.toLocaleString()}</Badge>
+                                            ) : (
+                                                <Badge color="success">{details.default_charges.toLocaleString()}</Badge>
+                                            )}
                                         </h4>
                                     </Col>
                                     <Col>
