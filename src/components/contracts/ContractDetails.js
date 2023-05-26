@@ -42,7 +42,7 @@ const ContractDetails = ({ id, setValid }) => {
 
     return (
         // eslint-disable-next-line
-        <Card style={{backgroundColor: (details !== null && details !== false && details.amount_pending == details.total_payable && details.amount_pending !== 0 && parseFloat(details.overdue_index) !== 0) ? '#f7aba6' : ''}}>
+        <Card style={{backgroundColor: (details !== null && details !== false && (parseFloat(details.amount_pending)+parseFloat(details.default_charges)) == details.total_payable && details.amount_pending !== 0 && parseFloat(details.overdue_index) !== 0) ? '#f7aba6' : ''}}>
             <CardBody>
                 <h4 className="header-title mt-0">Financials</h4>
                 <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Hide" defaultChecked="true" onChange={e => {
