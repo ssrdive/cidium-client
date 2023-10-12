@@ -10,6 +10,7 @@ import ContractQuestions from './ContractQuestions';
 import ContractDocuments from './ContractDocuments';
 import ContractHistory from './ContractHistory';
 import Dev from './Dev';
+import ContractTimeline from "./ContractTimeline";
 
 class DetailsTabs extends Component {
     constructor(props) {
@@ -38,6 +39,14 @@ class DetailsTabs extends Component {
             },
             {
                 id: '2',
+                title: 'Timeline',
+                icon: 'uil-money-stack',
+                component: () => {
+                    return <ContractTimeline id={this.props.id} />;
+                },
+            },
+            {
+                id: '3',
                 title: 'Installments',
                 icon: 'uil-money-stack',
                 component: () => {
@@ -45,7 +54,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '3',
+                id: '4',
                 title: 'Receipts',
                 icon: 'uil-receipt',
                 component: () => {
@@ -53,7 +62,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '4',
+                id: '5',
                 title: 'Commitments',
                 icon: 'uil-comment-message',
                 component: () => {
@@ -61,7 +70,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '5',
+                id: '6',
                 title: 'Questions',
                 icon: 'uil-comment-question',
                 component: () => {
@@ -69,7 +78,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '6',
+                id: '7',
                 title: 'Documents',
                 icon: ' uil-document-layout-left',
                 component: () => {
@@ -77,7 +86,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '7',
+                id: '8',
                 title: 'History',
                 icon: 'uil-history',
                 component: () => {
@@ -85,7 +94,7 @@ class DetailsTabs extends Component {
                 },
             },
             {
-                id: '8',
+                id: '9',
                 title: 'Dev',
                 icon: 'uil-trowel',
                 component: () => {
