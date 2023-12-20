@@ -16,8 +16,8 @@ const CalculationForm = ({ setSchedule }) => {
         capital: NUMBER_INPUT_REQUIRED,
         rate: NUMBER_INPUT_REQUIRED,
         installments: NUMBER_INPUT_REQUIRED,
-        installment_interval: { value: '6', type: 'select', options: [{ id: '6', name: '6 - Biannual' }, { id: '1', name: '1 - Monthly' }] },
-        method: { value: 'R2', type: 'select', options: [{ id: 'R2', name: 'R2 - IRR Reducing' }, { id: 'IRR', name: 'IRR - IRR Straight Line' }, { id: 'R', name: 'R - Reducing [LEGACY - DO NOT USE]' }, { id: 'S', name: 'S - Straight Line [LEGACY - DO NOT USE]' }] },
+        installment_interval: { value: '6', type: 'select', options: [{ id: '6', name: '6 - Biannual' }, { id: '1', name: '1 - Monthly' }, { id: '1', name: '1 - Weekly' }] },
+        method: { value: 'R2', type: 'select', options: [{ id: 'R2', name: 'R2 - IRR Reducing' }, { id: 'IRR', name: 'IRR - IRR Straight Line' }, { id: 'SM', name: 'SM - Micro' }, { id: 'R', name: 'R - Reducing [LEGACY - DO NOT USE]' }, { id: 'S', name: 'S - Straight Line [LEGACY - DO NOT USE]' }] },
         initiation_date: { value: getDate('-') },
         structured_monthly_rental: { value: 0, type: 'number', required: true },
     });
