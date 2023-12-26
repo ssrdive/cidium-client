@@ -24,6 +24,8 @@ const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const ContractCSQASearch = React.lazy(() => import('../pages/contracts/csqasearch'));
 const ContractPerformanceReview = React.lazy(() => import('../pages/contracts/performancereview'));
 
+const MicroLoanAgreement = React.lazy(() => import('../pages/docgen/MicroLoanAgreement'));
+
 const Archived = React.lazy(() => import('../pages/archived'));
 
 const Requests = React.lazy(() => import('../pages/requests'));
@@ -169,6 +171,17 @@ const contractsSubRoutes = [
         roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
 ];
+
+const docGenSubRoutes = [
+    {
+        path: '/docgen/microloanagreement/:id',
+        name: 'Micro Loan Agreement',
+        exact: true,
+        component: MicroLoanAgreement,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+    },
+]
 
 // requests
 const requestsRoute = {
@@ -391,6 +404,7 @@ const allRoutes = [
     contractsRoute,
     archivedRoute,
     ...contractsSubRoutes,
+    ...docGenSubRoutes,
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,

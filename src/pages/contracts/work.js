@@ -8,6 +8,7 @@ import ContractDetails from '../../components/contracts/ContractDetails';
 import ContractStateDocuments from '../../components/contracts/ContractStateDocuments';
 import ContractStateQuestions from '../../components/contracts/ContractStateQuestions';
 import ContractRequestability from '../../components/contracts/ContractRequestability';
+import ContractDocumentGeneration from "../../components/contracts/ContractDocumentGeneration";
 
 const WorkPage = ({ match }) => {
     const id = match.params.id;
@@ -74,7 +75,16 @@ const WorkPage = ({ match }) => {
                     <ContractDetails id={id} setValid={ (dummyValue) => {} } />
                 </Col>
                 <Col md={4}>
-                    <ContractRequestability requestability={requestability} id={id} loadRequestability={loadRequestability} />
+                    <Row>
+                        <Col md={12}>
+                            <ContractRequestability requestability={requestability} id={id} loadRequestability={loadRequestability} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={12}>
+                            <ContractDocumentGeneration id={id} />
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
 
