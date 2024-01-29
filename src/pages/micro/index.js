@@ -11,14 +11,14 @@ const ContractsPage = (props) => {
                 <Col md={12}>
                     <PageTitle
                         breadCrumbItems={[{ label: 'Archived', path: '/archived', active: true }]}
-                        title={'Archived'}
+                        title={'Micro Finance'}
                     />
                 </Col>
             </Row>
 
             <Row>
                 <Col md={4}>
-                    <ContractSearch {...props} selectSD={false} searchType={'archived'} />
+                    <ContractSearch {...props} selectSD={false} searchType={'micro'} />
                 </Col>
                 <Col md={8}>
                 </Col>

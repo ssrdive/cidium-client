@@ -26,6 +26,8 @@ const ContractPerformanceReview = React.lazy(() => import('../pages/contracts/pe
 
 const MicroLoanAgreement = React.lazy(() => import('../pages/docgen/MicroLoanAgreement'));
 
+const Micro = React.lazy(() => import('../pages/micro'));
+
 const Archived = React.lazy(() => import('../pages/archived'));
 
 const Requests = React.lazy(() => import('../pages/requests'));
@@ -103,9 +105,19 @@ const loanApply = {
 // contracts
 const contractsRoute = {
     path: '/contracts',
-    name: 'Contracts',
+    name: 'Hire Purchase',
     icon: FeatherIcon.FileMinus,
     component: Contracts,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+};
+
+const microRoute = {
+    path: '/micro',
+    name: 'Micro Finance',
+    icon: FeatherIcon.Minimize,
+    component: Micro,
     exact: true,
     route: PrivateRoute,
     roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
@@ -402,6 +414,7 @@ const allRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
+    microRoute,
     archivedRoute,
     ...contractsSubRoutes,
     ...docGenSubRoutes,
@@ -419,6 +432,7 @@ const authProtectedRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
+    microRoute,
     archivedRoute,
     requestsRoute,
     paymentsRoute,

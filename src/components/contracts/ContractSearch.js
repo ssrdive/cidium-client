@@ -6,7 +6,7 @@ import { loadOptionalDropdownGeneric } from '../../helpers/form';
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
-const ContractSearch = ({ history , selectSD} ) => {
+const ContractSearch = ({ history , selectSD, searchType} ) => {
     const [form, setForm] = useState({
         search: TEXT_INPUT_OPTIONAL,
         state_id: DROPDOWN_DEFAULT,
@@ -38,7 +38,7 @@ const ContractSearch = ({ history , selectSD} ) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&lkas17=${form.lkas17.value}&external=${form.external.value}&startod=${form.start_od.value}&endod=${form.end_od.value}&removedeleted=${form.removedeleted}`)
+        history.push(`/contracts/search?searchtype=${searchType}&search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&lkas17=${form.lkas17.value}&external=${form.external.value}&startod=${form.start_od.value}&endod=${form.end_od.value}&removedeleted=${form.removedeleted}`)
     }
 
     return (

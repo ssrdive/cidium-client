@@ -22,11 +22,12 @@ const ContractSearch = ({ location }) => {
     const startod = params.get('startod');
     const endod = params.get('endod');
     const removedeleted = params.get('removedeleted');
+    const searchType = params.get('searchtype');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&lkas17=${lkas17}&external=${external}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}`)
+            .get(`/contract/searchv2?searchtype=${searchType}&?search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&lkas17=${lkas17}&external=${external}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
