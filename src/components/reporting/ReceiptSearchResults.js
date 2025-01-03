@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, Table, Spinner } from 'reactstrap';
 
 const ReceiptSearchResults = ({ results, loading }) => {
-    console.log(results)
+
+    let total = 0;
+
     return (
         <Card>
             <CardBody>
@@ -23,6 +25,7 @@ const ReceiptSearchResults = ({ results, loading }) => {
 
                     <tbody>
                         {results.map((result, index) => {
+                            total = total + parseFloat(result.amount);
                             return (
                                 <tr key={index}>
                                     <td>{result.id}</td>
@@ -35,6 +38,16 @@ const ReceiptSearchResults = ({ results, loading }) => {
                                 </tr>
                             );
                         })}
+
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><b>{total.toLocaleString()}</b></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </Table>
                 {loading ? <Spinner color="primary" type="grow" /> : null}
