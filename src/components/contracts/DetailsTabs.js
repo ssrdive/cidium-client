@@ -95,7 +95,7 @@ class DetailsTabs extends Component {
             },
             {
                 id: '9',
-                title: 'Dev',
+                title: 'Manage',
                 icon: 'uil-trowel',
                 component: () => {
                     return <Dev id={this.props.id} />;
