@@ -97,9 +97,9 @@ const Dev = ({ id }) => {
         fetchTemporaryAssignment();
     }, [id]);
 
-    const hasAssignTemporaryOfficer = getLoggedInUser().access_keys.some(
-        (item) => item.level === "assign_temporary_officer"
-    );
+    const hasAssignTemporaryOfficer =
+        getLoggedInUser() && Array.isArray(getLoggedInUser().access_keys) &&
+        getLoggedInUser().access_keys.some((item) => item.level === "assign_temporary_officer");
 
 
     return (
