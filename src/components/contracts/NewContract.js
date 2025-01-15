@@ -15,7 +15,7 @@ import {
 import FormInput from '../form/FormInput';
 import qs from 'qs';
 import { apiAuth } from '../../cidium-api';
-import { loadDropdownGeneric } from '../../helpers/form';
+import {loadDropdownConditionalGeneric, loadDropdownGeneric} from '../../helpers/form';
 
 import { getLoggedInUser } from '../../helpers/authUtils';
 
@@ -89,9 +89,9 @@ const NewContract = ({ history }) => {
         loadDropdownGeneric('contract_batch', 'contract_batch_id', setForm);
         loadDropdownGeneric('institute', 'institute_id', setForm);
         loadDropdownGeneric('institute_dealer', 'institute_dealer_id', setForm);
-        loadDropdownGeneric('user', 'recovery_officer_id', setForm);
-        loadDropdownGeneric('user', 'credit_officer_id', setForm);
-        loadDropdownGeneric('user', 'introducing_officer_id', setForm);
+        loadDropdownConditionalGeneric('user', 'recovery_officer_id', 'filter_enabled', 1, setForm);
+        loadDropdownConditionalGeneric('user', 'credit_officer_id', 'filter_enabled', 1, setForm);
+        loadDropdownConditionalGeneric('user', 'introducing_officer_id', 'filter_enabled', 1, setForm);
     }, []);
 
     const handleFormSubmit = e => {

@@ -3,7 +3,7 @@ import { Row, Col, Card, CardBody, Form, FormGroup, Button, Label } from 'reacts
 import FormInput from '../form/FormInput';
 import Flatpickr from 'react-flatpickr';
 
-import { loadOptionalDropdownGeneric } from '../../helpers/form';
+import {loadOptionalDropdownConditionalGeneric, loadOptionalDropdownGeneric} from '../../helpers/form';
 import { getDate } from '../../helpers/date';
 
 import { DROPDOWN_DEFAULT } from '../../constants/formValues';
@@ -29,7 +29,7 @@ const ContractPerformanceReview = ({ history }) => {
 
     useEffect(() => {
         loadOptionalDropdownGeneric('state', 'state_id', 'State', setForm);
-        loadOptionalDropdownGeneric('user', 'recovery_officer', 'Recovery Officer', setForm);
+        loadOptionalDropdownConditionalGeneric('user', 'recovery_officer', 'Recovery Officer', 'filter_enabled', 1, setForm);
         loadOptionalDropdownGeneric('contract_batch', 'batch_id', 'Batch', setForm);
     }, []);
 

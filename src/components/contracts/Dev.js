@@ -10,7 +10,11 @@ import {
     TEXT_INPUT_REQUIRED
 } from "../../constants/formValues";
 import FormInput from "../form/FormInput";
-import {loadDropdownGeneric} from "../../helpers/form";
+import {
+    loadDropdownConditionalGeneric,
+    loadDropdownGeneric,
+    loadOptionalDropdownConditionalGeneric
+} from "../../helpers/form";
 import qs from "qs";
 
 import {getLoggedInUser} from "../../helpers/authUtils";
@@ -125,7 +129,7 @@ const Dev = ({ id }) => {
     }
 
     useEffect(() => {
-        loadDropdownGeneric('user', 'temporary_officer', setForm);
+        loadDropdownConditionalGeneric('user', 'temporary_officer', 'filter_enabled', 1, setForm);
 
         const fetchReceiptDetails = () => {
             apiAuth

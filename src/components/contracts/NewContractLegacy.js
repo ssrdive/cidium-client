@@ -16,7 +16,7 @@ import Flatpickr from 'react-flatpickr';
 import FormInput from '../form/FormInput';
 import qs from 'qs';
 import { apiAuth } from '../../cidium-api';
-import { loadDropdownGeneric } from '../../helpers/form';
+import {loadDropdownConditionalGeneric, loadDropdownGeneric} from '../../helpers/form';
 
 import { getLoggedInUser } from '../../helpers/authUtils';
 import { getDate } from '../../helpers/date';

@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Button, CustomInput } from 'reactstrap';
 import FormInput from '../form/FormInput';
 
-import { loadOptionalDropdownGeneric } from '../../helpers/form';
+import {
+    loadDropdownConditionalGeneric,
+    loadOptionalDropdownConditionalGeneric,
+    loadOptionalDropdownGeneric
+} from '../../helpers/form';
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
@@ -31,7 +35,7 @@ const ContractSearch = ({ history , selectSD, searchType} ) => {
 
     useEffect(() => {
         loadOptionalDropdownGeneric('state', 'state_id', 'State', setForm);
-        loadOptionalDropdownGeneric('user', 'recovery_officer', 'Recovery Officer', setForm);
+        loadOptionalDropdownConditionalGeneric('user', 'recovery_officer', 'Recovery Officer', 'filter_enabled', 1, setForm);
         loadOptionalDropdownGeneric('contract_batch', 'batch_id', 'Batch', setForm);
     }, []);
 

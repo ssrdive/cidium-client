@@ -75,3 +75,19 @@ export const loadOptionalDropdownGeneric = async (type, name, label, setForm) =>
         console.log(err);
     }
 };
+
+export const loadOptionalDropdownConditionalGeneric = async (type, name, label, where, value, setForm) => {
+    try {
+        const response = await apiAuth.get(`/dropdown/condition/${type}/${where}/${value}`);
+        console.log(response);
+        setForm(prevForm => {
+            const updatedForm = {
+                ...prevForm,
+                [name]: { ...prevForm[name], options: [{ id: "", name: `Select ${label}`},...response.data], value: "" },
+            };
+            return updatedForm;
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
