@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
-import ContractSearch from '../../components/contracts/ContractSearch';
+import MicroSearch from "../../components/micro/MicroSearch";
 
 const ContractsPage = (props) => {
     return (
@@ -10,7 +10,7 @@ const ContractsPage = (props) => {
             <Row className="page-title">
                 <Col md={12}>
                     <PageTitle
-                        breadCrumbItems={[{ label: 'Archived', path: '/archived', active: true }]}
+                        breadCrumbItems={[{ label: 'Micro Finance', path: '/micro', active: true }]}
                         title={'Micro Finance'}
                     />
                 </Col>
@@ -18,7 +18,7 @@ const ContractsPage = (props) => {
 
             <Row>
                 <Col md={4}>
-                    <ContractSearch {...props} selectSD={false} searchType={'micro'} />
+                    <MicroSearch {...props} selectSD={false} searchType={'micro'} />
                 </Col>
                 <Col md={8}>
                 </Col>

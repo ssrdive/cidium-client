@@ -10,7 +10,7 @@ import {
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
-const ContractSearch = ({ history, searchType} ) => {
+const RefaSearch = ({ history, searchType} ) => {
     const [form, setForm] = useState({
         search: TEXT_INPUT_OPTIONAL,
         state_id: DROPDOWN_DEFAULT,
@@ -48,7 +48,7 @@ const ContractSearch = ({ history, searchType} ) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">Search</h4>
+                <h4 className="header-title mt-0">Refa Search</h4>
 
                 <Row>
                     <Col md={12}>
@@ -61,9 +61,9 @@ const ContractSearch = ({ history, searchType} ) => {
                                     handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
-                            {/*<FormGroup>*/}
-                            {/*    <FormInput {...form['state_id']} name="state_id" handleOnChange={handleOnChange} />*/}
-                            {/*</FormGroup>*/}
+                            <FormGroup>
+                                <FormInput {...form['state_id']} name="state_id" handleOnChange={handleOnChange} />
+                            </FormGroup>
                             <FormGroup>
                                 <FormInput {...form['recovery_officer']} name="recovery_officer" handleOnChange={handleOnChange} />
                             </FormGroup>
@@ -115,4 +115,4 @@ const ContractSearch = ({ history, searchType} ) => {
     );
 };
 
-export default ContractSearch;
+export default RefaSearch;

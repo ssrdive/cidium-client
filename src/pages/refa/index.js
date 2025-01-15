@@ -2,23 +2,23 @@ import React from 'react';
 import { Row, Col } from 'reactstrap';
 
 import PageTitle from '../../components/PageTitle';
-import ArchivedSearch from "../../components/archived/ArchivedSearch";
+import RefaSearch from "../../components/refa/RefaSearch";
 
-const ContractsPage = (props) => {
+const RefaPage = (props) => {
     return (
         <React.Fragment>
             <Row className="page-title">
                 <Col md={12}>
                     <PageTitle
-                        breadCrumbItems={[{ label: 'Archived', path: '/archived', active: true }]}
-                        title={'Archived'}
+                        breadCrumbItems={[{ label: 'Refa', path: '/refa', active: true }]}
+                        title={'Refa'}
                     />
                 </Col>
             </Row>
 
             <Row>
                 <Col md={4}>
-                    <ArchivedSearch {...props} selectSD={false} searchType={'archived'} />
+                    {/*<RefaSearch {...props} selectSD={false} searchType={'archived'} />*/}
                 </Col>
                 <Col md={8}>
                 </Col>
@@ -27,4 +27,4 @@ const ContractsPage = (props) => {
     );
 };
 
-export default ContractsPage;
+export default RefaPage;

@@ -7,7 +7,7 @@ import SearchResults from '../../components/contracts/SearchResults';
 import SearchSummary from '../../components/contracts/SearchSummary';
 import ArrearsSummary from '../../components/contracts/ArrearsSummary';
 
-const ContractSearch = ({ location }) => {
+const HPSearchPage = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -46,8 +46,8 @@ const ContractSearch = ({ location }) => {
                 <Col md={12}>
                     <PageTitle
                         breadCrumbItems={[
-                            { label: 'Contracts', path: '/contracts' },
-                            { label: 'Search', path: '/contracts/search', active: true },
+                            { label: 'Hire Purchase', path: '/hire-purchase' },
+                            { label: 'Search', path: '/hire-purchase/search', active: true },
                         ]}
                         title={'Contract Search'}
                     />
@@ -70,4 +70,4 @@ const ContractSearch = ({ location }) => {
     );
 };
 
-export default ContractSearch;
+export default HPSearchPage;

@@ -4,6 +4,9 @@ import { Route } from 'react-router-dom';
 import * as FeatherIcon from 'react-feather';
 
 import { isUserAuthenticated, getLoggedInUser } from '../helpers/authUtils';
+import ArchivedSearchPage from "../pages/archived/search";
+import LegalSearchPage from "../pages/legal/search";
+import HirePurchaseSearch from "../components/hire-purchase/HirePurchaseSearch";
 
 // auth
 const Login = React.lazy(() => import('../pages/auth/Login'));
@@ -24,11 +27,21 @@ const ContractDetails = React.lazy(() => import('../pages/contracts/details'));
 const ContractCSQASearch = React.lazy(() => import('../pages/contracts/csqasearch'));
 const ContractPerformanceReview = React.lazy(() => import('../pages/contracts/performancereview'));
 
+const HirePurchase = React.lazy(() => import('../pages/hire-purchase'));
+const HPSearch = React.lazy(() => import('../pages/hire-purchase/search'));
+
+const Refa = React.lazy(() => import('../pages/refa'));
+
 const MicroLoanAgreement = React.lazy(() => import('../pages/docgen/MicroLoanAgreement'));
 
 const Micro = React.lazy(() => import('../pages/micro'));
+const MicroSearch = React.lazy(() => import('../pages/micro/search'));
 
 const Archived = React.lazy(() => import('../pages/archived'));
+const ArchivedSearch = React.lazy(() => import('../pages/archived/search'));
+
+const Legal = React.lazy(() => import('../pages/legal'));
+const LegalSearch = React.lazy(() => import('../pages/legal/search'));
 
 const Requests = React.lazy(() => import('../pages/requests'));
 const LoanCalculator = React.lazy(() => import('../pages/loan-calculator'));
@@ -105,9 +118,40 @@ const loanApply = {
 // contracts
 const contractsRoute = {
     path: '/contracts',
-    name: 'Hire Purchase',
+    name: 'Contracts',
     icon: FeatherIcon.FileMinus,
     component: Contracts,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+};
+
+const hirePurchaseRoute = {
+    path: '/hire-purchase',
+    name: 'Hire Purchase',
+    icon: FeatherIcon.FileText,
+    component: HirePurchase,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+};
+
+const hirePurchaseSubRoutes = [
+    {
+        path: '/hire-purchase/search',
+        name: 'Hire Purchase Search',
+        exact: true,
+        component: HPSearch,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+    },
+]
+
+const refaRoute = {
+    path: '/refa',
+    name: 'R E F A',
+    icon: FeatherIcon.Briefcase,
+    component: Refa,
     exact: true,
     route: PrivateRoute,
     roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
@@ -123,6 +167,17 @@ const microRoute = {
     roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
 };
 
+const microSubRoutes = [
+    {
+        path: '/micro/search',
+        name: 'Micro Search',
+        exact: true,
+        component: MicroSearch,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+    },
+]
+
 const archivedRoute = {
     path: '/archived',
     name: 'Archived',
@@ -132,6 +187,38 @@ const archivedRoute = {
     route: PrivateRoute,
     roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
 };
+
+const archivedSubRoutes = [
+    {
+        path: '/archived/search',
+        name: 'Archived Search',
+        exact: true,
+        component: ArchivedSearchPage,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+    },
+]
+
+const legalRoute = {
+    path: '/legal',
+    name: 'Legal',
+    icon: FeatherIcon.X,
+    component: Legal,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+};
+
+const legalSubRoutes = [
+    {
+        path: '/legal/search',
+        name: 'Legal Search',
+        exact: true,
+        component: LegalSearchPage,
+        route: PrivateRoute,
+        roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
+    },
+]
 
 const contractsSubRoutes = [
     {
@@ -183,6 +270,8 @@ const contractsSubRoutes = [
         roles: ['Admin', 'Office Executive', 'Manager', 'Level 3']
     },
 ];
+
+
 
 const docGenSubRoutes = [
     {
@@ -414,10 +503,17 @@ const allRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
-    microRoute,
-    archivedRoute,
     ...contractsSubRoutes,
+    hirePurchaseRoute,
+    ...hirePurchaseSubRoutes,
+    refaRoute,
+    microRoute,
+    legalRoute,
+    ...legalSubRoutes,
+    archivedRoute,
+    ...archivedSubRoutes,
     ...docGenSubRoutes,
+        ...microSubRoutes,
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,
@@ -432,8 +528,11 @@ const authProtectedRoutes = [
     dashboardRoute,
     loanApply,
     contractsRoute,
+    hirePurchaseRoute,
+    refaRoute,
     microRoute,
     archivedRoute,
+    legalRoute,
     requestsRoute,
     paymentsRoute,
     loanCalculatorRoute,

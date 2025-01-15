@@ -3,32 +3,27 @@ import { Row, Col } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
 import PageTitle from '../../components/PageTitle';
-import SearchResults from '../../components/contracts/SearchResults';
+import SearchResults from '../../components/micro/SearchResults';
 import SearchSummary from '../../components/contracts/SearchSummary';
 import ArrearsSummary from '../../components/contracts/ArrearsSummary';
 
-const ContractSearch = ({ location }) => {
+const MicroSearchPage = ({ location }) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const params = new URLSearchParams(location.search);
+    const searchType = params.get('searchtype');
     const search = params.get('search');
     const state = params.get('state');
     const officer = params.get('officer');
     const batch = params.get('batch');
-    const npl = params.get('npl');
-    const lkas17 = params.get('lkas17');
-    const external = params.get('external');
-    const startod = params.get('startod');
-    const endod = params.get('endod');
-    const removedeleted = params.get('removedeleted');
-    const searchType = params.get('searchtype');
+    const recoverystatus = params.get('recoverystatus');
     const legalcasestatus = params.get('legalcasestatus');
 
     useEffect(() => {
         setLoading(prevLoading => true);
         apiAuth
-            .get(`/contract/searchv2?searchtype=${searchType}&search=${search}&state=${state}&officer=${officer}&batch=${batch}&npl=${npl}&lkas17=${lkas17}&external=${external}&startod=${startod}&endod=${endod}&removedeleted=${removedeleted}&legalcasestatus=${legalcasestatus}`)
+            .get(`/contract/lkas17searchv2?searchtype=${searchType}&search=${search}&state=${state}&officer=${officer}&batch=${batch}&recoverystatus=${recoverystatus}&legalcasestatus=${legalcasestatus}`)
             .then(res => {
                 setLoading(prevLoading => false);
                 if (res.data === null) setResults(prevResults => []);
@@ -38,7 +33,7 @@ const ContractSearch = ({ location }) => {
                 setLoading(prevLoading => false);
                 console.log(err);
             });
-    }, [search, state, officer, batch, npl, endod, external, lkas17, removedeleted, startod]);
+    }, [searchType, search, state, officer, batch, recoverystatus]);
 
     return (
         <React.Fragment>
@@ -49,7 +44,7 @@ const ContractSearch = ({ location }) => {
                             { label: 'Contracts', path: '/contracts' },
                             { label: 'Search', path: '/contracts/search', active: true },
                         ]}
-                        title={'Contract Search'}
+                        title={'Refa Search'}
                     />
                 </Col>
             </Row>
@@ -70,4 +65,4 @@ const ContractSearch = ({ location }) => {
     );
 };
 
-export default ContractSearch;
+export default MicroSearchPage;

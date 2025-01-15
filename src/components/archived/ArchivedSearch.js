@@ -10,7 +10,7 @@ import {
 
 import { TEXT_INPUT_OPTIONAL, DROPDOWN_DEFAULT, NUMBER_INPUT_OPTIONAL } from '../../constants/formValues';
 
-const ContractSearch = ({ history, searchType} ) => {
+const ArchivedSearch = ({ history, searchType} ) => {
     const [form, setForm] = useState({
         search: TEXT_INPUT_OPTIONAL,
         state_id: DROPDOWN_DEFAULT,
@@ -42,13 +42,13 @@ const ContractSearch = ({ history, searchType} ) => {
     const handleFormSubmit = e => {
         e.persist();
         e.preventDefault();
-        history.push(`/contracts/search?searchtype=${searchType}&search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&lkas17=${form.lkas17.value}&external=${form.external.value}&legalcasestatus=${form.legal_case_status.value}&startod=${form.start_od.value}&endod=${form.end_od.value}`)
+        history.push(`/archived/search?searchtype=${searchType}&search=${form.search.value}&state=${form.state_id.value}&officer=${form.recovery_officer.value}&batch=${form.batch_id.value}&npl=${form.npl.value}&lkas17=${form.lkas17.value}&external=${form.external.value}&legalcasestatus=${form.legal_case_status.value}&startod=${form.start_od.value}&endod=${form.end_od.value}`)
     }
 
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">Search</h4>
+                <h4 className="header-title mt-0">Archived Search</h4>
 
                 <Row>
                     <Col md={12}>
@@ -61,9 +61,9 @@ const ContractSearch = ({ history, searchType} ) => {
                                     handleOnChange={handleOnChange}
                                 />
                             </FormGroup>
-                            {/*<FormGroup>*/}
-                            {/*    <FormInput {...form['state_id']} name="state_id" handleOnChange={handleOnChange} />*/}
-                            {/*</FormGroup>*/}
+                            <FormGroup>
+                                <FormInput {...form['state_id']} name="state_id" handleOnChange={handleOnChange} />
+                            </FormGroup>
                             <FormGroup>
                                 <FormInput {...form['recovery_officer']} name="recovery_officer" handleOnChange={handleOnChange} />
                             </FormGroup>
@@ -115,4 +115,4 @@ const ContractSearch = ({ history, searchType} ) => {
     );
 };
 
-export default ContractSearch;
+export default ArchivedSearch;
