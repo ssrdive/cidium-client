@@ -19,9 +19,11 @@ const Dev = ({ id }) => {
     const [contractFinancialRaw, setContractFinancialRaw] = useState(null);
     const [contractFinancialRaw2, setContractFinancialRaw2] = useState(null);
     const [temporaryAssignment, setTemporaryAssignment] = useState(null);
+    const [legalCaseStatus, setLegalCaseStatus] = useState(null);
 
     const [form, setForm] = useState({
         temporary_officer: DROPDOWN_DEFAULT,
+        legal_case_status: DROPDOWN_DEFAULT,
     });
 
     const handleOnChange = e => {
@@ -33,7 +35,29 @@ const Dev = ({ id }) => {
         });
     };
 
-    const handleFormSubmit = e => {
+    const handleFormLegalCaseStatusChange = e => {
+        e.persist();
+        e.preventDefault();
+        setLegalCaseStatus(prevVal => {
+            return null;
+        })
+        apiAuth
+            .post(
+                `/contract/setlegalcasestatus`,
+                qs.stringify({
+                    contract_id: id,
+                    legal_case_status: form.legal_case_status.value,
+                })
+            )
+            .then(res => {
+                fetchLegalCaseStatus();
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const handleFormTemporaryAssignment = e => {
         e.persist();
         e.preventDefault();
         setTemporaryAssignment(prevVal => {
@@ -61,6 +85,39 @@ const Dev = ({ id }) => {
             .then(res => {
                 if (res.data === null) setTemporaryAssignment(prevReceipts => []);
                 else setTemporaryAssignment(prevReceipts => res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    const fetchLegalCaseStatus = () => {
+        apiAuth
+            .get(`/contract/legalcasestatus/${id}`)
+            .then(res => {
+                if (res.data === null) setLegalCaseStatus(prevReceipts => []);
+                else {
+                    setLegalCaseStatus(prevReceipts => res.data);
+                    if (res.data[0].legal_case_status == 0) {
+                        setForm(prevForm => {
+                            const updatedForm = {
+                                ...prevForm,
+                                ['legal_case_status']: { ...prevForm['legal_case_status'], options: [{ id: '0', name: 'No' }, { id: '1', name: 'Yes' }], value: 0 },
+                            };
+                            return updatedForm;
+                        });
+                    } else {
+                        setForm(prevForm => {
+                            const updatedForm = {
+                                ...prevForm,
+                                ['legal_case_status']: { ...prevForm['legal_case_status'], options: [{ id: '1', name: 'Yes' }, { id: '0', name: 'No' }], value: 1 },
+                            };
+                            return updatedForm;
+                        });
+                    }
+
+                }
+                console.log(res)
             })
             .catch(err => {
                 console.log(err);
@@ -95,6 +152,7 @@ const Dev = ({ id }) => {
         fetchReceiptDetails();
         fetchReceiptDetails2();
         fetchTemporaryAssignment();
+        fetchLegalCaseStatus();
     }, [id]);
 
     const hasAssignTemporaryOfficer =
@@ -122,7 +180,7 @@ const Dev = ({ id }) => {
                             <tr>
                                 <td>Change Assignment</td>
                                 <td>
-                                    <Form onSubmit={handleFormSubmit}>
+                                    <Form onSubmit={handleFormTemporaryAssignment}>
                                         <FormInput
                                             {...form['temporary_officer']}
                                             name="temporary_officer"
@@ -141,6 +199,35 @@ const Dev = ({ id }) => {
                     <></>
                 )}
 
+                <h4 className="header-title mt-0">Legal Case Status</h4>
+
+                <Table className="mb-0" responsive={true} striped>
+                    <tr>
+                        <th>Current Legal Case Status</th>
+                        {legalCaseStatus == null ? (
+                            <td>Loading</td>
+                        ) : (
+                            <th>{legalCaseStatus[0].legal_case_status == 0 ? <>No</> : <>Yes</>}</th>
+                        )}
+                    </tr>
+                    <tr>
+                        <td>Change Legal Case Status</td>
+                        <td>{legalCaseStatus == null ? <>Loading</> : <>
+                            <Form onSubmit={handleFormLegalCaseStatusChange}>
+                                <FormInput
+                                    {...form['legal_case_status']}
+                                    name="legal_case_status"
+                                    handleOnChange={handleOnChange}
+                                />
+                                <br></br>
+                                <Button color="primary" type="submit">
+                                    Change
+                                </Button>
+                            </Form>
+                        </>}</td>
+                    </tr>
+                </Table>
+
                 <h4 className="header-title mt-0">LKAS 17 Compliant</h4>
 
                 {/* eslint-disable-next-line */}
@@ -156,7 +243,7 @@ const Dev = ({ id }) => {
                 {/* eslint-disable-next-line */}
                 {contractFinancialRaw2 !== null ? (
                     <Table className="mb-0" responsive={true} striped>
-                        <thead>
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Type</th>
