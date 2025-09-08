@@ -78,6 +78,10 @@ const PrivateRoute = ({ component: Component, roles, ...rest }) => (
             }
 
             const loggedInUser = getLoggedInUser();
+            // SuperAdmin can access any route
+            if (loggedInUser && loggedInUser.role === 'SuperAdmin') {
+                return <Component {...props} />;
+            }
             // check if route is restricted by role
             if (roles && roles.indexOf(loggedInUser.role) === -1) {
                 // role not authorised so redirect to home page
@@ -455,7 +459,7 @@ const adminRoute = {
     component: Admin,
     exact: true,
     route: PrivateRoute,
-    roles: ['Admin']
+    roles: ['SuperAdmin']
 };
 
 // auth
