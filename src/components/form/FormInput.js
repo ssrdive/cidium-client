@@ -30,6 +30,7 @@ const FormInput = props => {
                     name={props.name}
                     placeholder={props.placeholder}
                     required={props.required}
+                    min={props.min}
                 />
             )}
         </>

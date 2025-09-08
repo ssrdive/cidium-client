@@ -64,6 +64,9 @@ const FinancialsIncomeStatement = React.lazy(() => import('../pages/financials/I
 const Reporting = React.lazy(() => import('../pages/reporting'));
 const ReportingReceiptSearch = React.lazy(() => import('../pages/reporting/receiptsearch'));
 
+// admin
+const Admin = React.lazy(() => import('../pages/admin'));
+
 // handle auth and authorization
 const PrivateRoute = ({ component: Component, roles, ...rest }) => (
     <Route
@@ -444,6 +447,17 @@ const reportingSubRoutes = [
     },
 ]
 
+// admin
+const adminRoute = {
+    path: '/admin',
+    name: 'Admin',
+    icon: FeatherIcon.Settings,
+    component: Admin,
+    exact: true,
+    route: PrivateRoute,
+    roles: ['Admin']
+};
+
 // auth
 const authRoutes = {
     path: '/account',
@@ -521,6 +535,7 @@ const allRoutes = [
     ...financialsSubRoutes,
     reportingRoute,
     ...reportingSubRoutes,
+    adminRoute,
     authRoutes,
 ];
 
@@ -538,6 +553,7 @@ const authProtectedRoutes = [
     loanCalculatorRoute,
     financialsRoute,
     reportingRoute,
+    adminRoute,
 ];
 
 const allFlattenRoutes = flattenRoutes(allRoutes);
