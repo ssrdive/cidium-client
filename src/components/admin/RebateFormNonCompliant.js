@@ -66,7 +66,7 @@ const RebateFormNonCompliant = ({ valid, id, onAfterSubmit }) => {
                 {loading ? (
                     <Spinner className="m-2" type="grow" color="success" />
                 ) : (
-                    <Button color="success" type="submit">
+                    <Button color="warning" type="submit">
                         Issue Rebate (Non-Compliant)
                     </Button>
                 )}

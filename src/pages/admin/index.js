@@ -7,6 +7,7 @@ import RebateFormNonCompliant from '../../components/admin/RebateFormNonComplian
 import RebateFormLKAS17 from '../../components/admin/RebateFormLKAS17';
 import { apiAuth } from '../../cidium-api';
 import SetDefaultAmountForm from '../../components/admin/SetDefaultAmountForm';
+import HoldDefaultForm from '../../components/admin/HoldDefaultForm';
 
 const Admin = ({ location }) => {
     const params = new URLSearchParams(location.search);
@@ -42,18 +43,21 @@ const Admin = ({ location }) => {
             </Row>
 
             <Row>
-                <Col md={4}>
+                <Col md={3}>
                     <SelectContractForm setID={setID} />
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     {isLKAS17 ? (
                         <RebateFormLKAS17 id={id} valid={valid} onAfterSubmit={refreshDetails} />
                     ) : (
                         <RebateFormNonCompliant id={id} valid={valid} onAfterSubmit={refreshDetails} />
                     )}
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <SetDefaultAmountForm id={id} valid={valid} onAfterSubmit={refreshDetails} />
+                </Col>
+                <Col md={3}>
+                    <HoldDefaultForm id={id} valid={valid} onAfterSubmit={refreshDetails} />
                 </Col>
             </Row>
         </React.Fragment>

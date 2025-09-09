@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
 import qs from 'qs';
-import { Card, Spinner, Row, Col, Form, Button, FormGroup, CardBody, UncontrolledAlert } from 'reactstrap';
+import { Card, Spinner, Row, Col, Form, Button, FormGroup, CardBody, UncontrolledAlert, Input } from 'reactstrap';
 
 import { apiAuth } from '../../cidium-api';
-import FormInput from '../form/FormInput';
-import { NUMBER_INPUT_REQUIRED } from '../../constants/formValues';
 
-const SetDefaultAmountForm = ({ valid, id, onAfterSubmit }) => {
+const HoldDefaultForm = ({ valid, id, onAfterSubmit }) => {
     const [loading, setLoading] = useState(false);
     const [submitStatus, setSubmitStatus] = useState({ status: null, message: '' });
-    const [form, setForm] = useState({
-        amount: NUMBER_INPUT_REQUIRED,
-    });
-
-    const handleOnChange = e => {
-        e.persist();
-        setForm(prevForm => {
-            const updatedForm = { ...prevForm, [e.target.name]: { ...prevForm[e.target.name] } };
-            updatedForm[e.target.name].value = e.target.value;
-            return updatedForm;
-        });
-    };
+    const [holdDefault, setHoldDefault] = useState('0');
 
     const handleFormSubmit = e => {
         setLoading(true);
@@ -29,15 +16,18 @@ const SetDefaultAmountForm = ({ valid, id, onAfterSubmit }) => {
         if (!valid) return;
         apiAuth
             .post(
-                '/contract/setdefault',
+                '/contract/holddefault',
                 qs.stringify({
                     contract_id: id,
-                    amount: form.amount.value,
+                    hold_default: holdDefault,
                 })
             )
             .then(() => {
                 setLoading(false);
-                setSubmitStatus({ status: 'success', message: 'Default amount updated' });
+                setSubmitStatus({ 
+                    status: 'success', 
+                    message: `Hold default ${holdDefault === '1' ? 'enabled' : 'disabled'} successfully` 
+                });
             })
             .catch(() => {
                 setLoading(false);
@@ -51,19 +41,21 @@ const SetDefaultAmountForm = ({ valid, id, onAfterSubmit }) => {
     return (
         <Card>
             <CardBody>
-                <h4 className="header-title mt-0">Set Default Amount</h4>
+                <h4 className="header-title mt-0">Hold Default</h4>
                 <Row>
                     <Col>
                         {valid ? (
                             <Form onSubmit={handleFormSubmit}>
                                 <FormGroup>
-                                    <FormInput
-                                        {...form['amount']}
-                                        name="amount"
-                                        placeholder="Amount"
-                                        handleOnChange={handleOnChange}
-                                        min={0}
-                                    />
+                                    <Input
+                                        type="select"
+                                        name="hold_default"
+                                        value={holdDefault}
+                                        onChange={(e) => setHoldDefault(e.target.value)}
+                                    >
+                                        <option value="0">Disabled (0)</option>
+                                        <option value="1">Enabled (1)</option>
+                                    </Input>
                                 </FormGroup>
                                 {submitStatus.status !== null ? (
                                     submitStatus.status === 'success' ? (
@@ -73,10 +65,10 @@ const SetDefaultAmountForm = ({ valid, id, onAfterSubmit }) => {
                                     )
                                 ) : null}
                                 {loading ? (
-                                    <Spinner className="m-2" type="grow" color="success" />
+                                    <Spinner className="m-2" type="grow" color="warning" />
                                 ) : (
                                     <Button color="warning" type="submit">
-                                        Update Default
+                                        Update Hold Default
                                     </Button>
                                 )}
                             </Form>
@@ -88,6 +80,4 @@ const SetDefaultAmountForm = ({ valid, id, onAfterSubmit }) => {
     );
 };
 
-export default SetDefaultAmountForm;
-
-
+export default HoldDefaultForm;
