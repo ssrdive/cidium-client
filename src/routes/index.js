@@ -437,7 +437,7 @@ const reportingRoute = {
     component: Reporting,
     exact: true,
     route: PrivateRoute,
-    roles: ['Admin', 'Manager', 'Level 3']
+    roles: ['Admin', 'Manager', 'Level 3', 'Office Executive']
 };
 
 const reportingSubRoutes = [
@@ -447,7 +447,7 @@ const reportingSubRoutes = [
         exact: true,
         component: ReportingReceiptSearch,
         route: PrivateRoute,
-        roles: ['Admin', 'Manager', 'Level 3']
+        roles: ['Admin', 'Manager', 'Level 3', 'Office Executive']
     },
 ]
 
